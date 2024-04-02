@@ -7,6 +7,9 @@ on:
   push:
     branches:
       - develop
+    paths:
+      - "frontend-nocountry-s14-17-t-java/**"
+
 jobs:
   Explore-GitHub-Actions:
     runs-on: ubuntu-latest
