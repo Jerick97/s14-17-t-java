@@ -4,7 +4,7 @@ import logo from "@assets/Logo.svg";
 
 const Logo = () => {
   return (
-    <div >
+    <div className="w-[160px]" >
       <img src={logo} alt="logo" />
     </div>
   );
