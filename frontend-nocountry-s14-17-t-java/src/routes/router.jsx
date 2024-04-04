@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import Login from "../pages/auth/login/Login";
 import { PrivateRoute } from "./PrivateRoute";
 import Vote from "../pages/vote/Vote";
+import AdminLayout from "../layouts/AdminLayout";
+import Dashboard from "../pages/auth/dashboard/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -19,6 +21,16 @@ export const router = createBrowserRouter([
   {
     path: "/vote",
     element: <Vote />,
+  },
+  {
+    path: "/dashboard",
+    element: <AdminLayout />,
+    children: [
+      {
+        index: true,
+        element: <Dashboard />,
+      },
+    ],
   },
 ]);
 
