@@ -32,7 +32,7 @@ function Login() {
             <h4 className="text-white text-2xl text-center font-extrabold uppercase mb-5">
               User Login
             </h4>
-            <div className="my-2">
+            <div className="my-2 w-full">
               <div className="mb-4">
                 <UserInput />
               </div>
