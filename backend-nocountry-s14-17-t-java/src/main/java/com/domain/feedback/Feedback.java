@@ -1,4 +1,4 @@
-package com.domain.fields;
+package com.domain.feedback;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -14,13 +14,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "fields")
-public class Fields {
+@Table(name = "feedback")
+public class Feedback {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    // Eliminar comentario
 }
