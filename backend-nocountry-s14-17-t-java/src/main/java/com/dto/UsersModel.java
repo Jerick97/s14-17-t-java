@@ -9,10 +9,14 @@ import lombok.NoArgsConstructor;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GroupsModel {
+public class UsersModel {
     
     private Long id;
+    private String username;
+    private String password;
+    private String temp_hash;
+    private String status;
     private String name;
-    private String description;
-    private Long status;
+    private String surname;
+    private String operator;
 }
