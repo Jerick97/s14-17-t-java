@@ -1,0 +1,37 @@
+import { createBrowserRouter } from "react-router-dom";
+import Login from "../pages/auth/login/Login";
+import { PrivateRoute } from "./PrivateRoute";
+import Vote from "../pages/vote/Vote";
+import AdminLayout from "../layouts/AdminLayout";
+import Dashboard from "../pages/auth/dashboard/Dashboard";
+
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <PrivateRoute>
+        <div>Home</div>
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/vote",
+    element: <Vote />,
+  },
+  {
+    path: "/dashboard",
+    element: <AdminLayout />,
+    children: [
+      {
+        index: true,
+        element: <Dashboard />,
+      },
+    ],
+  },
+]);
+
+export default router;
