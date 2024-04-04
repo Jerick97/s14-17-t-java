@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Login from "../pages/auth/login/Login";
 import { PrivateRoute } from "./PrivateRoute";
+import UploadExcel from "../components/UploadExcel/UploadExcel";
 
 export const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ export const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/excel",
+    element: <UploadExcel />,
   },
 ]);
 
