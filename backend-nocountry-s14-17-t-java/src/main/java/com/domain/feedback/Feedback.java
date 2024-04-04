@@ -1,4 +1,4 @@
-package com.domain.groups;
+package com.domain.feedback;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -14,21 +14,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "`groups`")
-public class Groups {
+@Table(name = "feedback")
+public class Feedback {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-
-    @Column(name = "name", length = 45)
-    private String name;
-
-    @Column(name = "description")
-    private String description;
-
-    @Column(name = "status")
-    private Long status;
 
 }
