@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import LogoImg from "../../../assets/logo.svg";
+import LogoImg from "../../../assets/Logo.svg";
 import UserInput from "../../../components/UserInput/UserInput";
 import PasswordInput from "../../../components/PasswordInput/PasswordInput";
 import ButtonPrimary from "../../../components/ButtonPrimary/ButtonPrimary";
