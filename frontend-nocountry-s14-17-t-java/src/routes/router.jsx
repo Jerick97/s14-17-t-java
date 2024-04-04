@@ -18,7 +18,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/vote",
-    element: <Vote />,
+    element: (
+      <PrivateRoute>
+        <Vote />
+      </PrivateRoute>
+    ),
   },
 ]);
 
