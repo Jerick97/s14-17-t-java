@@ -96,11 +96,10 @@ Nuestra aplicación se compromete a proteger la privacidad de los datos de los u
 
 ### 🎨 Diseñador UX/UI
 
-| <img src="https://github.com/FrancoAmicone.png" width=50> |
-| :-------------------------------------------------------: |
-|                    **Franco Amicone**                     |
-
-| <a href="https://github.com/FrancoAmicone"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="https://www.linkedin.com/in/franco-amicone-b82a3b219/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a>
+|                                                                                                                                                 <img src="https://github.com/FrancoAmicone.png" width=50>                                                                                                                                                 |
+| :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|                                                                                                                                                                    **Franco Amicone**                                                                                                                                                                     |
+| <a href="https://github.com/FrancoAmicone"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="https://www.linkedin.com/in/franco-amicone-b82a3b219/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> |
 
 <hr/>
 </div>
