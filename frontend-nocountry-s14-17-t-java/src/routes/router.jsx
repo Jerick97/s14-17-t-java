@@ -8,7 +8,6 @@ import Vote from "../pages/vote/Vote";
 import AdminLayout from "../layouts/AdminLayout";
 import Dashboard from "../pages/auth/dashboard/Dashboard";
 
-
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -19,7 +18,7 @@ export const router = createBrowserRouter([
     ),
   },
   {
-        path: "/excel",
+    path: "/excel",
     element: <UploadExcel />,
   },
   {
@@ -28,11 +27,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "/vote",
-    element: (
-      <PrivateRoute>
-        <Vote />
-      </PrivateRoute>
-    ),
+    element: <Vote />,
   },
   {
     path: "/dashboard",
@@ -43,7 +38,6 @@ export const router = createBrowserRouter([
         element: <Dashboard />,
       },
     ],
-
   },
 ]);
 
