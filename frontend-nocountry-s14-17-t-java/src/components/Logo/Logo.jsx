@@ -1,10 +1,8 @@
-import logo from "@assets/Logo.svg";
-
-
+import logo from "@assets/LogoNoCountry.svg";
 
 const Logo = () => {
   return (
-    <div className="w-[160px]" >
+    <div className="w-[160px]">
       <img src={logo} alt="logo" />
     </div>
   );
