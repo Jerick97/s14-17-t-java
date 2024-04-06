@@ -1,4 +1,7 @@
-package com.domain.fields;
+package com.domain.groupUser;
+
+import com.domain.group.Group;
+import com.domain.user.User;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -14,13 +17,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "fields")
-public class Fields {
+@Table(name = "group-user")
+public class GroupUser {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    // Eliminar comentario
+    @Column(name = "role", length = 45)
+    private String role;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    private Group group;
 }

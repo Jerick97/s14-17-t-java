@@ -1,4 +1,6 @@
-package com.domain.groups;
+package com.domain.group;
+
+import com.domain.project.Project;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -14,8 +16,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "`groups`")
-public class Groups {
+@Table(name = "`group`")
+public class Group {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +33,7 @@ public class Groups {
     @Column(name = "status")
     private Long status;
 
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
 }

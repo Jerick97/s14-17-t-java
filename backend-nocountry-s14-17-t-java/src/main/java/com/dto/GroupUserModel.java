@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FieldsModel {
+public class GroupUserModel {
     
     private Long id;
 }
