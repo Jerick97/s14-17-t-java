@@ -1,4 +1,4 @@
-package com.domain.users;
+package com.domain.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -14,14 +14,15 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
-public class Users {
+@Table(name = "user")
+public class User {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
+    @NotBlank(message = "campo 'username' de la clase 'user' no puede quedar en blanco")
     @Column(name = "username", length = 100)
     private String username;
 

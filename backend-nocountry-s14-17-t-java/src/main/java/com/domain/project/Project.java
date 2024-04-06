@@ -1,4 +1,6 @@
-package com.domain.groupsUser;
+package com.domain.project;
+
+import java.util.Date;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -14,15 +16,26 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "groups-user")
-public class GroupsUser {
+@Table(name = "project")
+public class Project {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "role", length = 45)
-    private String role;
+    @Column(name = "name")
+    private String name;
 
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "publish_date")
+    private Date publish_date;
+
+    @Column(name = "starts_on")
+    private Date starts_on;
+
+    @Column(name = "ends_on")
+    private Date ends_on;
 }
