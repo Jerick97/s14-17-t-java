@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.dto.GroupUserModel;
+import com.dto.LoadBulkModel;
 import com.domain.groupUser.GroupUserService;
 
 @RestController
@@ -21,6 +22,11 @@ public class GroupUserController {
     @PostMapping
     public ResponseEntity<GroupUserModel> createGroupUser(@RequestBody GroupUserModel groupUserModel) {
         return ResponseEntity.ok( this.groupUserService.createGroupUser(groupUserModel) );
+    }
+
+    @PostMapping ("/LoadBulk")
+    public ResponseEntity<?> createLoadBulk(@RequestBody List<LoadBulkModel> groupUserModel) {
+        return ResponseEntity.ok( this.groupUserService.createLoadBulk(groupUserModel) );
     }
 
     @PutMapping("/{id}")

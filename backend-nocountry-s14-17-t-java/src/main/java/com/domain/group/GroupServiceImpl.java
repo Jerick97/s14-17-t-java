@@ -67,6 +67,11 @@ public class GroupServiceImpl implements GroupService{
     }
 
     @Override
+    public GroupModel getGroupByNameCreate(String name) {
+        return null;
+    }
+
+    @Override
     public List<GroupModel> getAllGroup() {
 
         List<Group> entity = groupRepository.findAll();
