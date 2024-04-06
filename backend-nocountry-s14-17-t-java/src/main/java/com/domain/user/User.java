@@ -42,6 +42,6 @@ public class User {
     private String surname;
 
     @Column(name = "operator", length = 2)
-    private String operator;
+    private Integer operator;
 
 }

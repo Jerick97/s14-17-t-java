@@ -9,10 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.domain.group.GroupService;
+import com.domain.user.UserService;
+import com.dto.GroupModel;
 import com.dto.GroupUserModel;
-import com.domain.groupUser.GroupUser;
-import com.domain.groupUser.GroupUserRepository;
-import com.domain.groupUser.GroupUserService;
+import com.dto.LoadBulkModel;
+import com.dto.UserModel;
 
 @Service
 public class GroupUserServiceImpl implements GroupUserService{
@@ -20,12 +22,19 @@ public class GroupUserServiceImpl implements GroupUserService{
     private final ModelMapper modelMapper;
     private final GroupUserRepository groupUserRepository;
 
+    private final GroupService groupService;
+    private final UserService userService;
+
     public GroupUserServiceImpl(
         ModelMapper modelMapper,
-        GroupUserRepository groupUserRepository
+        GroupUserRepository groupUserRepository,
+        GroupService groupService,
+        UserService userService
     ) {
         this.modelMapper = modelMapper;
         this.groupUserRepository = groupUserRepository;
+        this.groupService = groupService;
+        this.userService = userService;
     }
 
     @Transactional
@@ -37,6 +46,38 @@ public class GroupUserServiceImpl implements GroupUserService{
         groupUserModel.setId(groupUser.getId());
         return modelMapper.map(groupUser, GroupUserModel.class);
     }
+
+    
+	@Override
+	public List<LoadBulkModel> createLoadBulk(List<LoadBulkModel> groupUserModels) {
+
+        for (LoadBulkModel loadBulkModel : groupUserModels) {
+            
+            GroupModel group = groupService.getGroupByNameCreate( loadBulkModel.getNameGroup() );
+
+            for (UserModel user : loadBulkModel.getUsers()) {
+                
+                String role = user.getRole();
+                user = userService.getUserByUserNameCreate( user );
+
+                GroupUserModel groupUserModel = new GroupUserModel();
+                groupUserModel.setGroup(group);
+                groupUserModel.setUser(user);
+                groupUserModel.setRole(role);
+
+                createGroupUser(groupUserModel);
+            }
+        }
+
+        //envio de mensajes
+        for (LoadBulkModel loadBulkModel : groupUserModels) {
+            for (UserModel user : loadBulkModel.getUsers()) {
+                userService.sentMessageEmail( user );
+            }
+        }
+
+        return groupUserModels;
+	}
 
     @Transactional
     @Override

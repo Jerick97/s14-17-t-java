@@ -38,6 +38,12 @@ public class UserServiceImpl implements UserService{
         return modelMapper.map(user, UserModel.class);
     }
 
+    
+    @Override
+    public UserModel getUserByUserNameCreate(UserModel userModel) {
+        return null;
+    }
+
     @Transactional
     @Override
     public UserModel updateUser(Long id, UserModel userModel) {
@@ -85,5 +91,10 @@ public class UserServiceImpl implements UserService{
                 "User no encontrada para eliminar."
             );
         }
+    }
+
+    @Override
+    public void sentMessageEmail(UserModel userModel) {
+        System.out.println("Mi user: "+userModel.getId());
     }
 }

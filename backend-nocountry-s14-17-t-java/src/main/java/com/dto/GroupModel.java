@@ -12,4 +12,8 @@ import lombok.NoArgsConstructor;
 public class GroupModel {
     
     private Long id;
+    private String name;
+    private String description;
+    private Integer status;
+    private ProjectModel project;
 }

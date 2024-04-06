@@ -1,5 +1,7 @@
 package com.dto;
 
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
@@ -9,12 +11,8 @@ import lombok.NoArgsConstructor;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class GroupUserModel {
+public class LoadBulkModel {
     
-    private Long id;
-
-    private String role;
-
-    private UserModel user;
-    private GroupModel group;
+    private String nameGroup;
+    private List<UserModel> users;
 }

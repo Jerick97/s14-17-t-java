@@ -31,7 +31,7 @@ public class Group {
     private String description;
 
     @Column(name = "status")
-    private Long status;
+    private Integer status;
 
     @ManyToOne
     @JoinColumn(name = "project_id")
