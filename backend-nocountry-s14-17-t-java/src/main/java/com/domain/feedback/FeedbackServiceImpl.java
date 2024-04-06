@@ -10,9 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.dto.FeedbackModel;
-import com.domain.feedback.Feedback;
-import com.domain.feedback.FeedbackRepository;
-import com.domain.feedback.FeedbackService;
 
 @Service
 public class FeedbackServiceImpl implements FeedbackService{

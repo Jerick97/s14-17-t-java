@@ -9,6 +9,8 @@ public interface ProjectService {
     ProjectModel updateProject(Long projectId, ProjectModel projectModel);
 
     ProjectModel getProjectById(Long id);
+    ProjectModel getProjectByDatePublish();
+
     List<ProjectModel> getAllProject();
 
     void deleteProject(Long projectId);

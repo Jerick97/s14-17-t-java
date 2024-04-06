@@ -10,9 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.dto.FieldsProjectModel;
-import com.domain.fieldsProject.FieldsProject;
-import com.domain.fieldsProject.FieldsProjectRepository;
-import com.domain.fieldsProject.FieldsProjectService;
 
 @Service
 public class FieldsProjectServiceImpl implements FieldsProjectService{

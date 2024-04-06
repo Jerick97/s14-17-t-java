@@ -10,9 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.dto.ProjectModel;
-import com.domain.project.Project;
-import com.domain.project.ProjectRepository;
-import com.domain.project.ProjectService;
 
 @Service
 public class ProjectServiceImpl implements ProjectService{
@@ -64,6 +61,11 @@ public class ProjectServiceImpl implements ProjectService{
             );
         }
         return modelMapper.map(project, ProjectModel.class);
+    }
+
+    @Override
+    public ProjectModel getProjectByDatePublish() {
+        return null;
     }
 
     @Override

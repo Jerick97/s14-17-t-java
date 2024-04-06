@@ -3,8 +3,6 @@ package com.domain.group;
 import com.domain.project.Project;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 import lombok.Getter;
 import lombok.Setter;

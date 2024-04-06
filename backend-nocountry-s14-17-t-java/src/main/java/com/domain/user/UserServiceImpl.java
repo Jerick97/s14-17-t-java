@@ -10,9 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.dto.UserModel;
-import com.domain.user.User;
-import com.domain.user.UserRepository;
-import com.domain.user.UserService;
 
 @Service
 public class UserServiceImpl implements UserService{
