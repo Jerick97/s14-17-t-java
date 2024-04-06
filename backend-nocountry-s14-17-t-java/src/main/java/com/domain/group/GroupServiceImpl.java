@@ -10,9 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.dto.GroupModel;
-import com.domain.group.Group;
-import com.domain.group.GroupRepository;
-import com.domain.group.GroupService;
 
 @Service
 public class GroupServiceImpl implements GroupService{
