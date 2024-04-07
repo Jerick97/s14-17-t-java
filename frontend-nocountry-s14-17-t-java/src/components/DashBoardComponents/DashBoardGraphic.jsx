@@ -4,7 +4,7 @@ const DashBoardGraphic = () => {
       <h3 className="text-warning text-2xl font-bold">Votacion total</h3>
       <div
         className="daisy-radial-progress text-warning text-xl font-bold border-4 border-warning"
-        style={{ "--value": "70", "--size": "12rem", "--thickness": "10px" }}
+        style={{ "--value": "70", "--size": "8rem", "--thickness": "10px" }}
         role="progressbar"
       >
         70%
