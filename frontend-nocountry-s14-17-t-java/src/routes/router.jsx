@@ -7,24 +7,16 @@ import UploadExcel from "../components/UploadExcel/UploadExcel";
 import Vote from "../pages/vote/Vote";
 import AdminLayout from "../layouts/AdminLayout";
 import Dashboard from "../pages/auth/dashboard/Dashboard";
-import Home from "../pages/Home/Home";
+import Home from "../pages/home/Home";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <PrivateRoute>
-        <div>Home</div>
-      </PrivateRoute>
-    ),
+    element: <Home />,
   },
   {
     path: "/excel",
     element: <UploadExcel />,
-  },
-  {
-    path: "/home",
-    element: <Home />,
   },
   {
     path: "/login",
