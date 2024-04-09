@@ -6,6 +6,7 @@ import com.nocountry.TeamScore.groups.model.GroupByUser;
 import com.nocountry.TeamScore.groups.model.dto.GroupDTO;
 import com.nocountry.TeamScore.groups.repository.GroupByUserRepository;
 import com.nocountry.TeamScore.groups.repository.GroupRepository;
+import com.nocountry.TeamScore.security.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,7 @@ public class GroupServiceImpl implements GroupService{
     private GroupByUserRepository groupByUserRepository;
 
     @Autowired
-   // private UserRepository userRepository;  ---comente porque es de user----
+    private UserRepository userRepository;
 
     private void guardarGrupoUtilidad(GroupDTO groupDTO){
         Group group = mapper.convertValue(groupDTO, Group.class);
@@ -79,7 +80,7 @@ public class GroupServiceImpl implements GroupService{
     @Override
    public boolean asignarUsuarioAlGrupoConId(Long idGrupo, Long idUsuario, String rol) {
         boolean respuesta = false;
-        /*if (groupRepository.existsById(idGrupo) && userRepository.existsById(idUsuario)) {             ---comente porque es de user----
+        if (groupRepository.existsById(idGrupo) && userRepository.existsById(idUsuario)) {
             GroupByUser etiqueta = GroupByUser.builder()
                     .user_id(userRepository.findById(idUsuario).get())
                     .group_id(groupRepository.findById(idGrupo).get())
@@ -88,7 +89,7 @@ public class GroupServiceImpl implements GroupService{
 
             groupByUserRepository.save(etiqueta);
             respuesta = true;
-        }*/
+        }
         return respuesta;
     }
 }
