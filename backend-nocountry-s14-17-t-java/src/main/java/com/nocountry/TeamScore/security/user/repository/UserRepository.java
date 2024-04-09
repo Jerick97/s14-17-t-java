@@ -1,5 +1,6 @@
-package com.nocountry.TeamScore.security.user;
+package com.nocountry.TeamScore.security.user.repository;
 
+import com.nocountry.TeamScore.security.user.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

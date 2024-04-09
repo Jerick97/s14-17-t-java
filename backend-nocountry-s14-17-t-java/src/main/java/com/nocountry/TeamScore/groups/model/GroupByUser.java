@@ -1,6 +1,6 @@
 package com.nocountry.TeamScore.groups.model;
 
-import com.nocountry.TeamScore.security.user.User;
+import com.nocountry.TeamScore.security.user.model.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.nocountry.TeamScore.security.user.dto;
+package com.nocountry.TeamScore.security.user.model.dto;
 
 import lombok.Data;
 
