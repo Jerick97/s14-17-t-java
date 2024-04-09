@@ -79,7 +79,7 @@ public class GroupServiceImpl implements GroupService{
     @Override
    public boolean asignarUsuarioAlGrupoConId(Long idGrupo, Long idUsuario, String rol) {
         boolean respuesta = false;
-        if (groupRepository.existsById(idGrupo) && userRepository.existsById(idUsuario)) {             ---comente porque es de user----
+        if (groupRepository.existsById(idGrupo) && userRepository.existsById(idUsuario)) {
             GroupByUser etiqueta = GroupByUser.builder()
                     .user_id(userRepository.findById(idUsuario).get())
                     .group_id(groupRepository.findById(idGrupo).get())
