@@ -17,9 +17,10 @@ public class GroupByUser {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = true)
-    //private User user_id;  ----lo comente para no crear user----
-   // @ManyToOne
+    private User user_id;
+    @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
     private Group group_id;
     private String role;
 }
+
