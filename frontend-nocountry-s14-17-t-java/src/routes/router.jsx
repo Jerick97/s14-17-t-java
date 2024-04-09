@@ -7,7 +7,7 @@ import UploadExcel from "../components/UploadExcel/UploadExcel";
 import Vote from "../pages/vote/Vote";
 import AdminLayout from "../layouts/AdminLayout";
 import Dashboard from "../pages/auth/dashboard/Dashboard";
-import Home from "../pages/home/Home";
+import Home from "../pages/main/Home";
 
 export const router = createBrowserRouter([
   {
