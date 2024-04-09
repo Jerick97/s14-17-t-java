@@ -48,7 +48,7 @@ const DashboarTable = () => {
               <th>
                 <div className="flex items-center gap-3">
                   <progress
-                    className="md:block hidden daisy-progress daisy-progress-warning w-56"
+                    className="lg:block hidden daisy-progress daisy-progress-warning w-56"
                     value="80"
                     max="100"
                   ></progress>
@@ -84,7 +84,7 @@ const DashboarTable = () => {
               <th>
                 <div className="flex items-center gap-3">
                   <progress
-                    className="md:block hidden daisy-progress daisy-progress-warning w-56"
+                    className="lg:block hidden daisy-progress daisy-progress-warning w-56"
                     value="100"
                     max="100"
                   ></progress>

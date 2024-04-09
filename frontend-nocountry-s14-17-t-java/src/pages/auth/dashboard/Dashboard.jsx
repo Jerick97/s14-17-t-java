@@ -29,7 +29,7 @@ function Dashboard() {
             <div className="row-span-1 sm:col-span-2 sm:row-span-1 text-black  w-full  ">
               <DashBoardCard />
             </div>
-            <div className="sm:row-span-auto sm:col-span-3 text-black w-full ">
+            <div className="sm:row-span-auto sm:col-span-3 lg:w-full sm:w-auto justify-center text-black w-full ">
               <DashboarTable />
             </div>
           </div>
@@ -43,7 +43,7 @@ function Dashboard() {
           <ul className="daisy-menu p-4 w-80 min-h-full bg-black/30 backdrop-filter backdrop-blur-sm  text-lg text-white font-bold ">
             {/* Sidebar content here */}
             <li>
-              <a>Sidebar Item 1</a>
+              <a>Carga masiva de datos</a>
             </li>
             <li>
               <a>Sidebar Item 2</a>
