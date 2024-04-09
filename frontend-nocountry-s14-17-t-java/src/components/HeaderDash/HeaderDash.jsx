@@ -6,7 +6,9 @@ const HeaderHome = () => {
     <div className="w-screen">
       <div className=" w-full h-[58px] flex justify-around items-center bg-black">
         <Logo />
-        <ButtonNeon text="S14-17-t-Java" />
+        <div className="w-auto h-auto flex items-center gap-2">
+          <ButtonNeon text="Log Out" />
+        </div>
       </div>
     </div>
   );
