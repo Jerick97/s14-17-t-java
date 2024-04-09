@@ -1,6 +1,6 @@
 package com.nocountry.TeamScore.security.config;
 
-import com.nocountry.TeamScore.security.user.UserRepository;
+import com.nocountry.TeamScore.security.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

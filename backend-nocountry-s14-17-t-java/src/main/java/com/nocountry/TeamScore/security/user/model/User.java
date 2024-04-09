@@ -1,4 +1,4 @@
-package com.nocountry.TeamScore.security.user;
+package com.nocountry.TeamScore.security.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nocountry.TeamScore.groups.model.GroupByUser;
@@ -20,7 +20,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "_user") // para que no colisione con la por defecto de spring boot y manejar los atributos a mi gusto
+@Table(name = "_user", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})}) // agrego restriccion de email unicos
 public class User implements UserDetails {
     @Id
     @GeneratedValue
@@ -29,6 +29,7 @@ public class User implements UserDetails {
     private String surname;
     private String email;
     private String status; // considerar que el status sea un booleano, y ver si no es lo mismo que el enabled de spring-boot
+    private Boolean isEnabled;
     private Integer operador; // esto seria el rol del usuario que maneja springboot
     private String password;
     @OneToMany(mappedBy = "user_id")
@@ -71,6 +72,6 @@ public class User implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return isEnabled;
     }
 }

@@ -4,9 +4,9 @@ import com.nocountry.TeamScore.security.auth.dto.AuthenticationRequest;
 import com.nocountry.TeamScore.security.auth.dto.AuthenticationResponse;
 import com.nocountry.TeamScore.security.auth.dto.RegisterRequest;
 import com.nocountry.TeamScore.security.config.JwtService;
-import com.nocountry.TeamScore.security.user.Role;
-import com.nocountry.TeamScore.security.user.User;
-import com.nocountry.TeamScore.security.user.UserRepository;
+import com.nocountry.TeamScore.security.user.model.Role;
+import com.nocountry.TeamScore.security.user.model.User;
+import com.nocountry.TeamScore.security.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,10 +26,11 @@ public class AuthenticationService {
                 .name(request.getName()) // falta adaptar el usuario al mio
                 .surname(request.getSurname())
                 .email(request.getEmail())
+                .isEnabled(true) // por defecto todos los usuarios se crean habilitados, despues vamos a implementar lo de activacion por correo
                 .status(request.getStatus())
                 .operador(request.getOperador())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.ROLE_USER)
+                .role(Role.valueOf(request.getRole()))  // esto puede disparar una ilegal argument si se pasa un rol incorrecto
                 .build();
         userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -45,7 +46,7 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        var user = userRepository.findByEmail(request.getEmail())
+        var user = userRepository.findByEmail(request.getEmail()) // aqui podría usar el service ahora pero tendría que crearle tmb un create para el caso de registro
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
