@@ -228,7 +228,9 @@ http://localhost:8080/swagger-ui/index.html
 ##### 8.En caso de tener errores pruebe creando variables de entorno y luego reiniciar su pc:
 
 **DB_PORT**= "su puerto donde corre mysql, no es necesario crear esta variable si corre en el puerto 3306(valor por defecto)"
+
 **USER_DATABASE** = "el nombre de usuario que registro en mysql workbench, no es necesario modificar si mantiene el por defecto root"
+
 **PASS_DATABASE** = "el password de su usuario, no es necesario modificar si usa el por defecto admin"
 
 ##### 9.Para probar junto al frontend, tenga en cuenta que la direccion de su servidor backend corre en el puerto 8080
