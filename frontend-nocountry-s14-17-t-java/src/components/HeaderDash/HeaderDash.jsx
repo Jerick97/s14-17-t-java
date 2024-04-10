@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Logo from "../Logo/Logo";
 import ButtonNeon from "../ButtonNeon/ButtonNeon";
 import { useContext } from "react";
@@ -16,7 +16,9 @@ const HeaderHome = () => {
   return (
     <div className="w-screen">
       <div className=" w-full h-[58px] flex justify-around items-center bg-black">
-        <Logo />
+        <Link to="/">
+          <Logo />
+        </Link>
         <div className="w-auto h-auto flex items-center gap-2">
           <ButtonNeon text="Log Out" onClick={logout} />
         </div>
