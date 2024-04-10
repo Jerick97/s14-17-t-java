@@ -184,3 +184,51 @@ npm run dev
 _*La aplicación estará disponible en*_ http://localhost:5173/
 
 Siguiendo estos pasos, podrás ejecutar el proyecto de **frontend** en tu entorno local. Asegúrate de tener **Node.js** instalado en tu sistema antes de comenzar.
+
+## 🚀 Ejecutar el Proyecto de Backend Local, y Mysql para la base de datos
+
+#### Pasos:
+
+##### 1.Clonar el Repositorio:
+
+```bash
+git clone https://github.com/No-Country/s14-17-t-java.git
+```
+
+##### 2.Cambiar a la Rama backend:
+
+```bash
+git checkout backend
+```
+
+##### 3.Navegar a la Carpeta del Proyecto Backend:
+
+```bash
+cd backend-nocountry-s14-17-t-java
+```
+
+##### 4.Navegar a la carpeta target dentro del proyecto:
+
+```bash
+cd target
+```
+
+##### 5.Ejecutar la base de datos mysql y crear un esquema llamado: "team_score"(sin comillas):
+
+##### 6.Ejecutar el Servidor Web Tomcat que viene emebido en la aplicacion backend:( en caso de tener un error o estar desactualizado pedir a un backend que les empaquete el artefacto .jar)
+
+```bash
+java -jar .\TeamScore-0.0.1-SNAPSHOT.jar
+```
+
+##### 7.Abrir la Documentacion de la ApiRest en el Navegador:
+
+http://localhost:8080/swagger-ui/index.html
+
+##### 8.En caso de tener errores pruebe creando variables de entorno y luego reiniciar su pc:
+
+**DB_PORT**= "su puerto donde corre mysql, no es necesario crear esta variable si corre en el puerto 3306(valor por defecto)"
+**USER_DATABASE** = "el nombre de usuario que registro en mysql workbench, no es necesario modificar si mantiene el por defecto root"
+**PASS_DATABASE** = "el password de su usuario, no es necesario modificar si usa el por defecto admin"
+
+##### 9.Para probar junto al frontend, tenga en cuenta que la direccion de su servidor backend corre en el puerto 8080
