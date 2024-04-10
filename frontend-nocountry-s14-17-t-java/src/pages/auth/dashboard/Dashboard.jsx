@@ -4,7 +4,7 @@ import DashboarTable from "../../../components/DashBoardComponents/DashboarTable
 import HeaderDash from "../../../components/HeaderDash/HeaderDash";
 function Dashboard() {
   return (
-    <div id="dashboard" className="w-screen bg-[#06071B] min-h-screen">
+    <div id="dashboard" className="w-screen bg-[#06071B]  min-h-screen">
       <HeaderDash />
       <div className="w-full h-[58px] flex justify-around items-center">
         <h2 className="text-3xl text-white font-semibold">
@@ -12,18 +12,18 @@ function Dashboard() {
         </h2>
         <label
           htmlFor="my-drawer"
-          className="m-4 daisy-drawer-button w-[160px] h-[38px] border-[1px] border-[#09FCA7] bg-black rounded-[5px] px-[20px] py-[8px] text-center text-[#09FCA7] hover:shadow-[0px_0px_10px_0px_#09FCA7] no-underline"
+          className="m-4 daisy-drawer-button w-[160px] h-[38px] border-[1px] border-[#09FCA7] bg-black rounded-[5px] px-[20px] py-[8px] text-center text-[#09FCA7] no-underline"
         >
           Menu
         </label>
       </div>
       <div className="daisy-drawer h-full">
         <input id="my-drawer" type="checkbox" className="daisy-drawer-toggle" />
-        <div className="daisy-drawer-content w-full  md:h-[200px] h-auto flex flex-row md:flex-col items-center ">
+        <div className="daisy-drawer-content w-full   h-full flex flex-row md:flex-col items-center ">
           {/* Page content here */}
 
-          <div className="px-4 sm:px-6 lg:px-8  w-full h-screen  grid grid-rows-3  gap-4">
-            <div className="row-span-auto sm:row-span-1 text-black  ">
+          <div className="px-4 sm:px-6 lg:px-8  w-full  grid grid-rows-auto  gap-4">
+            <div className="row-span-auto sm:row-span-1 text-black min-h-full ">
               <DashBoardGraphic />
             </div>
             <div className="row-span-1 sm:col-span-2 sm:row-span-1 text-black  w-full  ">

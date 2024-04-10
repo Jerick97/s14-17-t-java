@@ -57,7 +57,6 @@ const DashboarTable = () => {
               </th>
             </tr>
             {/* row 2 */}
-
             <tr className=" border-[1px] border-[#09FCA7]  ">
               <td>
                 <div className="flex items-center gap-3">
