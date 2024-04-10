@@ -4,7 +4,7 @@ import DashboarTable from "../../../components/DashBoardComponents/DashboarTable
 import HeaderDash from "../../../components/HeaderDash/HeaderDash";
 function Dashboard() {
   return (
-    <div id="dashboard" className="w-screen bg-[#06071B] h-auto">
+    <div id="dashboard" className="w-screen bg-[#06071B] min-h-screen">
       <HeaderDash />
       <div className="w-full h-[58px] flex justify-around items-center">
         <h2 className="text-3xl text-white font-semibold">
@@ -17,7 +17,7 @@ function Dashboard() {
           Menu
         </label>
       </div>
-      <div className="daisy-drawer h-screen">
+      <div className="daisy-drawer h-full">
         <input id="my-drawer" type="checkbox" className="daisy-drawer-toggle" />
         <div className="daisy-drawer-content w-full  md:h-[200px] h-auto flex flex-row md:flex-col items-center ">
           {/* Page content here */}
