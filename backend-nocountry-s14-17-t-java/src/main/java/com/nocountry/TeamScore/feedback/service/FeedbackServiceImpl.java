@@ -37,4 +37,29 @@ public class FeedbackServiceImpl implements FeedbackService{
     public void delete(Long id) {
         feedbackRepository.deleteById(id);
     }
+
+    @Override
+    public List<Feedback> feedbacksHechosPorUser(String username) {
+        return null;
+    }
+
+    @Override
+    public List<Feedback> feedbacksHechosParaElUser(String username) {
+        return null;
+    }
+
+    @Override
+    public List<Feedback> feedbacksPorGrupoAUnUsuario(Long idGrupo, String usuarioEvaluado) {
+        return null;
+    }
+
+    @Override
+    public List<Feedback> feedbacksHechosEnElGrupoPorElUsuario(Long idGrupo, String usuarioQEvalua) {
+        return null;
+    }
+
+    @Override
+    public List<Feedback> feedbacksHechosPorElUsuarioParaElUsuario(String UsuarioQEvalua, String usuarioEvaluado, Long idGrupo) {
+        return null;
+    }
 }

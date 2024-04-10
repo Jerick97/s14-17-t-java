@@ -1,9 +1,10 @@
 package com.nocountry.TeamScore.projects.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nocountry.TeamScore.feedback.model.Feedback;
 import com.nocountry.TeamScore.groups.model.Group;
 import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -34,12 +35,13 @@ public class Project {
     @Column(name = "ends_on")
     private LocalDateTime endsOn;
 
-    @OneToMany(mappedBy = "projectId")
-    private Set<Group> groups;
+    @OneToOne(mappedBy = "projectId")
+    private Group group;
 
 //    @ManyToOne(mappedBy = "projectId")
 //    private FieldsByProject fieldsByProject;
 
-
-//    private Feedback feedback;
+    @OneToMany(mappedBy = "proyectoEvaluado")
+    @JsonIgnore
+    private Set<Feedback> feedbacksDelProyecto;
 }

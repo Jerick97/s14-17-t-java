@@ -1,6 +1,7 @@
 package com.nocountry.TeamScore.feedback.model;
 
 import com.nocountry.TeamScore.groups.model.GroupByUser;
+import com.nocountry.TeamScore.projects.model.Project;
 import com.nocountry.TeamScore.security.user.model.User;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -25,9 +26,9 @@ public class Feedback {
     //    @ManyToOne
 //    @JoinColumn(name = "field_id")
     private Long campoQueEvalua; // por ahora lo dejo como long cada campo a evaluar segun el rol
-    //    @ManyToOne
-//    @JoinColumn(name = "project_id")
-    private Long proyectoEvaluado; // por ahora long, el proyecto al que pertenece el feedback// el field(campo) sabe a que proyecto pertenece no se si será necesario
+    @ManyToOne
+    @JoinColumn(name = "project_id", nullable = false)
+    private Project proyectoEvaluado; // por ahora long, el proyecto al que pertenece el feedback// el field(campo) sabe a que proyecto pertenece no se si será necesario
     private Integer value;
     private String comment;
     private LocalDateTime dateTime;

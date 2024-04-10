@@ -12,4 +12,10 @@ public interface FeedbackService {
     List<Feedback> getAll();
 
     void delete(Long id);
+
+    List<Feedback> feedbacksHechosPorUser(String username);
+    List<Feedback> feedbacksHechosParaElUser(String username);
+    List<Feedback> feedbacksPorGrupoAUnUsuario(Long idGrupo, String usuarioEvaluado);
+    List<Feedback> feedbacksHechosEnElGrupoPorElUsuario(Long idGrupo, String usuarioQEvalua);
+    List<Feedback> feedbacksHechosPorElUsuarioParaElUsuario(String UsuarioQEvalua, String usuarioEvaluado, Long idGrupo);
 }
