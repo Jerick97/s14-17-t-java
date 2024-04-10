@@ -17,7 +17,7 @@ public class Group {
     private String name;
     private String description;
     private Integer status; // el status de un grupo es para saber si esta activo o no
-    @OneToMany(mappedBy = "group_id")
+    @OneToMany(mappedBy = "group")
     @JsonIgnore // para que el mapeo con un dto ignore esta propiedad
     private Set<GroupByUser> groupByUserSet;
 }

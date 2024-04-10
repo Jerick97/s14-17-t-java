@@ -82,14 +82,26 @@ public class GroupServiceImpl implements GroupService{
         boolean respuesta = false;
         if (groupRepository.existsById(idGrupo) && userRepository.existsById(idUsuario)) {
             GroupByUser etiqueta = GroupByUser.builder()
-                    .user_id(userRepository.findById(idUsuario).get())
-                    .group_id(groupRepository.findById(idGrupo).get())
-                    .role(rol)
+                    .user(userRepository.findById(idUsuario).get())
+                    .group(groupRepository.findById(idGrupo).get())
+                    .rolElegido(rol)
                     .build();
 
             groupByUserRepository.save(etiqueta);
             respuesta = true;
         }
         return respuesta;
+    }
+
+    public List<Group> getGroupsByUserEmail(String email) { // TODO usar este metodo en un controlador para traer la lista de groups de un usuario en especifico
+        List<GroupByUser> groupByUsers = groupByUserRepository.findByUser_Email(email);
+        return groupByUsers.stream()
+                .map(GroupByUser::getGroup)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<GroupByUser> findByUser_Email(String email) {
+        return groupByUserRepository.findByUser_Email(email);
     }
 }
