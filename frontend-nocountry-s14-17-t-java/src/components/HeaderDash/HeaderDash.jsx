@@ -14,7 +14,7 @@ const HeaderHome = () => {
   };
 
   return (
-    <div className="w-screen">
+    <div className="">
       <div className=" w-full h-[58px] flex justify-around items-center bg-black">
         <Link to="/">
           <Logo />
