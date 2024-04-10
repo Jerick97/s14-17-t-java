@@ -15,10 +15,6 @@ export const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: "/excel",
-    element: <UploadExcel />,
-  },
-  {
     path: "/login",
     element: <Login />,
   },
@@ -33,6 +29,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Dashboard />,
+      },
+      {
+        path: "excel",
+        element: <UploadExcel />,
       },
     ],
   },
