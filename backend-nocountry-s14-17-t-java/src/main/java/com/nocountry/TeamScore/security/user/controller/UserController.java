@@ -1,7 +1,12 @@
 package com.nocountry.TeamScore.security.user.controller;
 
 import com.nocountry.TeamScore.feedback.model.Feedback;
+import com.nocountry.TeamScore.groups.model.Group;
+import com.nocountry.TeamScore.groups.model.GroupByUser;
+import com.nocountry.TeamScore.groups.model.dto.GroupsInUsersDTO;
+import com.nocountry.TeamScore.groups.service.GroupService;
 import com.nocountry.TeamScore.security.user.model.User;
+import com.nocountry.TeamScore.security.user.model.dto.UserDTO;
 import com.nocountry.TeamScore.security.user.model.dto.UserUpdateRequest;
 import com.nocountry.TeamScore.security.user.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -9,7 +14,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @RestController
@@ -17,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+    private final GroupService groupService;
 
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping("/sinVotar")
@@ -56,5 +66,32 @@ public class UserController {
 
         // TODO falataria ver que servicios deberia usar este controller para crear el feedback
         return null;
+    }
+
+    @SecurityRequirement(name = "bearerAuth")
+    @GetMapping("/{email}") // compara el email de aqui
+    @PreAuthorize("#email == authentication.principal.username") // con el usuario autenticado
+    public ResponseEntity<?> getUserProfile(@PathVariable String username) {
+        // aca iria la logica para traer el UserDTO que necesito consruir
+        User user = userService.findByUsername(username);
+
+        List<Group> groups = groupService.getGroupsByUserEmail(username);
+        List<GroupByUser> groupsByUser = groupService.findByUser_Email(username);
+        List<GroupsInUsersDTO> misGrupos = groupsByUser.stream()
+                .filter(gbu -> groups.contains(gbu.getGroup()))
+                .map(gbu -> GroupsInUsersDTO.fromGroupAndGroupByUser(gbu.getGroup(), gbu))
+                .collect(Collectors.toList());
+
+        var userdto = UserDTO.builder()
+                            .id(user.getId())
+                            .name(user.getName())
+                            .surname(user.getSurname())
+                            .email(username)
+                            .status(user.getStatus())
+                            .operador(user.getOperador())
+                            .groups(misGrupos)
+                            .build();
+
+        return ResponseEntity.ok(userdto);
     }
 }

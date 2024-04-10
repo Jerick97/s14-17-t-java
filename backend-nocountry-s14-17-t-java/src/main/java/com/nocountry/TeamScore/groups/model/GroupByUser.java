@@ -18,10 +18,11 @@ public class GroupByUser {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = true)
-    private User user_id;
+    private User user;
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
-    private Group group_id;
-    private String role;
+    private Group group;
+    private String rolElegido;
+    private Long role_id; // por ahora trabaja con Long, despues adaptar con la entidad Role
 }
 
