@@ -4,9 +4,15 @@ import LogoImg from "../../../assets/LogoNoCountry.svg";
 import UserInput from "../../../components/UserInput/UserInput";
 import PasswordInput from "../../../components/PasswordInput/PasswordInput";
 import ButtonPrimary from "../../../components/ButtonPrimary/ButtonPrimary";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/AuthContext";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 function Login() {
+  const MySwal = withReactContent(Swal);
   const navigate = useNavigate();
+  const { setAuth } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -23,16 +29,18 @@ function Login() {
     const user = users[email];
 
     if (!user || user.password !== password) {
-      return alert("El correo electrónico o contraseña es incorrecta");
+      MySwal.fire({
+        icon: "error",
+        title: "Error",
+        text: "El correo electrónico o contraseña es incorrecta",
+      });
+      return;
     }
 
-    navigate(user.isAdmin ? "/dashboard" : "/", {
-      replace: true,
-      state: {
-        logged: true,
-        admin: user.isAdmin,
-      },
-    });
+    //Almacenamos en el contexto los datos del usuario
+    setAuth({ email, roles: user.isAdmin ? "admin" : "user" });
+
+    navigate(user.isAdmin ? "/dashboard" : "/");
   };
 
   return (
