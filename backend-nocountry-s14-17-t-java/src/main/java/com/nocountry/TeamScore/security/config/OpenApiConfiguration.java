@@ -14,7 +14,6 @@ public class OpenApiConfiguration {
     public OpenAPI customOpenAPI() {
         final String securitySchemeName = "bearerAuth";
         return new OpenAPI()
-                .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
                 .components(
                         new Components()
                                 .addSecuritySchemes(securitySchemeName,

@@ -1,6 +1,7 @@
 package com.nocountry.TeamScore.groups.model.dto;
 
-import com.nocountry.TeamScore.security.user.dto.UserDTO;
+
+import com.nocountry.TeamScore.security.user.model.dto.UserDTO;
 import lombok.Builder;
 import lombok.Data;
 
