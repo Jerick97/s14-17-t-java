@@ -1,5 +1,6 @@
 package com.nocountry.TeamScore.groups.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nocountry.TeamScore.projects.model.Project;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,11 +14,13 @@ public class Group {
     @Id
     @GeneratedValue
     private Long id;
-    private Long projectId; // esto es una FK pero de momento la dejo en Long hasta crear su correspondiente entidad
+    @OneToOne
+    @JoinColumn(name = "id_project", referencedColumnName = "id")
+    private Project projectId; // esto es una FK pero de momento la dejo en Long hasta crear su correspondiente entidad
     private String name;
     private String description;
     private Integer status; // el status de un grupo es para saber si esta activo o no
-    @OneToMany(mappedBy = "group_id")
+    @OneToMany(mappedBy = "group")
     @JsonIgnore // para que el mapeo con un dto ignore esta propiedad
     private Set<GroupByUser> groupByUserSet;
 }

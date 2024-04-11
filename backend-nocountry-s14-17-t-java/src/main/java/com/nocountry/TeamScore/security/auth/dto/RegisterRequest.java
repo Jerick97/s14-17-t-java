@@ -16,5 +16,5 @@ public class RegisterRequest { // esto es un DTO de registro, considerar hacerlo
     private String status; // considerar que el status sea un booleano, y ver si no es lo mismo que el enabled de spring-boot
     private Integer operador; // no estoy seguro para que es este atributo
     private String password;
-    private String rolEnElProyecto;
+    private String role; // rol para saber que permisos de usuario tiene
 }

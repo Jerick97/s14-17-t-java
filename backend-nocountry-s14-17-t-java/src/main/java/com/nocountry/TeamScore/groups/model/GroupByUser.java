@@ -1,6 +1,6 @@
 package com.nocountry.TeamScore.groups.model;
 
-import com.nocountry.TeamScore.security.user.User;
+import com.nocountry.TeamScore.security.user.model.User;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,10 +18,11 @@ public class GroupByUser {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = true)
-    private User user_id;
+    private User user;
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
-    private Group group_id;
-    private String role;
+    private Group group;
+    private String rolElegido;
+    private Long role_id; // por ahora trabaja con Long, despues adaptar con la entidad Role
 }
 

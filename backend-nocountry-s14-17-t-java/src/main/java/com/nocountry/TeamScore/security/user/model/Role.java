@@ -1,4 +1,4 @@
-package com.nocountry.TeamScore.security.user;
+package com.nocountry.TeamScore.security.user.model;
 
 public enum Role {
     ROLE_USER,
