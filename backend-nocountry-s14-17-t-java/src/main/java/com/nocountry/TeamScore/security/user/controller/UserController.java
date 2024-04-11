@@ -46,12 +46,13 @@ public class UserController {
         return ResponseEntity.ok().body(userService.findByUsername(username));
     }
 
-    @SecurityRequirement(name = "bearerAuth")
-    @PutMapping("/{id}")
-    public ResponseEntity<HttpStatus> update(@Valid @RequestBody UserUpdateRequest request, @PathVariable Long id) {
-        userService.update(request,id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+//    @SecurityRequirement(name = "bearerAuth")
+//    @PutMapping("/{id}")
+//    public ResponseEntity<HttpStatus> update(@Valid @RequestBody UserUpdateRequest request, @PathVariable Long id) {
+//        // Deshabilito este endpoint xq al actualizar la contraseña no la esta cifrando tengo que revisar eso
+//        userService.update(request,id);
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
 
     @SecurityRequirement(name = "bearerAuth")
     @DeleteMapping("{id}")
@@ -60,16 +61,16 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @SecurityRequirement(name = "bearerAuth")
-    @PostMapping("/{id}/makeFeedForUser/{idUser}/inGroup/{idGroup}")
-    public ResponseEntity<?> makeFeed(@Valid @RequestBody Feedback feedback, @PathVariable Long id,@PathVariable Long idUser, @PathVariable Long idGroup) {
+//    @SecurityRequirement(name = "bearerAuth")
+//    @PostMapping("/{id}/makeFeedForUser/{idUser}/inGroup/{idGroup}")
+//    public ResponseEntity<?> makeFeed(@Valid @RequestBody Feedback feedback, @PathVariable Long id,@PathVariable Long idUser, @PathVariable Long idGroup) {
+//
+//        // TODO falataria ver que servicios deberia usar este controller para crear el feedback
+//        return null;
+//    }
 
-        // TODO falataria ver que servicios deberia usar este controller para crear el feedback
-        return null;
-    }
-
     @SecurityRequirement(name = "bearerAuth")
-    @GetMapping("/{email}") // compara el email de aqui
+    @GetMapping("/profile/{email}") // compara el email de aqui
     @PreAuthorize("#email == authentication.principal.username") // con el usuario autenticado
     public ResponseEntity<?> getUserProfile(@PathVariable String username) {
         // aca iria la logica para traer el UserDTO que necesito consruir
