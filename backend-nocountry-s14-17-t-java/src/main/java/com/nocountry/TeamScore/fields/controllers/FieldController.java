@@ -2,6 +2,8 @@ package com.nocountry.TeamScore.fields.controllers;
 
 import com.nocountry.TeamScore.fields.model.dto.FieldDTO;
 import com.nocountry.TeamScore.fields.service.FieldService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/field")
+@Tag(name = "Field", description = "Endpoints for managing Fields")
 public class FieldController {
 
     private FieldService fieldService;
@@ -19,6 +22,7 @@ public class FieldController {
     }
 
     @PostMapping(consumes = "application/json", produces = "application/json")
+    @Operation(summary = "Create a new Field", description = "This endpoint permits to create a new Field")
     public ResponseEntity<?> createField(@RequestBody FieldDTO fieldDTO) {
         try {
             return ResponseEntity.status(HttpStatus.CREATED).body(fieldService.createField(fieldDTO));
@@ -29,6 +33,7 @@ public class FieldController {
 
 
     @PutMapping(value = "/{fieldId}", consumes = "application/json", produces = "application/json")
+    @Operation(summary = "Update a Field", description = "This endpoint permits to update a Field")
     public ResponseEntity<?> updateField(@PathVariable Long fieldId, @RequestBody FieldDTO fieldDTO) {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(fieldService.updateField(fieldId, fieldDTO));
@@ -38,6 +43,7 @@ public class FieldController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get a Field by id", description = "This endpoint returns a Field by its id")
     public ResponseEntity<?> getFieldById(@PathVariable Long id) {
         try {
             FieldDTO fieldDTO = fieldService.getFieldById(id);
@@ -48,6 +54,7 @@ public class FieldController {
     }
 
     @GetMapping
+    @Operation(summary = "Get all Fields", description = "This endpoint returns a list of all Fields")
     public ResponseEntity<?> getAllFields() {
         try {
             List<FieldDTO> fieldDTOS = fieldService.getAllfields();
@@ -57,6 +64,7 @@ public class FieldController {
         }
     }
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete a Field by id", description = "This endpoint deletes a Field by its id")
     public ResponseEntity<String> deleteField(@PathVariable Long id) {
         try {
             fieldService.deleteField(id);
