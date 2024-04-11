@@ -6,6 +6,7 @@ import Vote from "../pages/vote/Vote";
 import AdminLayout from "../layouts/AdminLayout";
 import Dashboard from "../pages/auth/dashboard/Dashboard";
 import Home from "../pages/main/Home";
+import Error from "../pages/error/Error";
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ export const router = createBrowserRouter([
         <Home />
       </PrivateRoute>
     ),
+    errorElement: <Error/>,
   },
   {
     path: "/login",
@@ -29,6 +31,7 @@ export const router = createBrowserRouter([
         <Vote />
       </PrivateRoute>
     ),
+    // errorElement:<h1>error</h1>,
   },
   {
     path: "/dashboard",
