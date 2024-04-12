@@ -17,7 +17,7 @@ function HomeContent() {
   };
 
   return (
-    <div className='w-full bg-[#06071B] text-white'>
+    <div className='w-full bg-[#06071B] min-h-screen text-white'>
       <HeaderHome />
       <div className='p-10'>
         <h1 className='text-2xl font-bold text-white'>Bienvenido {user} a</h1>
@@ -34,7 +34,6 @@ function HomeContent() {
               role={user.rol}
               staff={user.staff}
               index={index}
-
             />
           ))}
         </div>
