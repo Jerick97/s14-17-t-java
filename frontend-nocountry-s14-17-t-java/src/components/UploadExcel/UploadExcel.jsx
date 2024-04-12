@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import * as XLSX from "xlsx";
 
-// Importa la función que realiza la solicitud POST
-import { sendDataToBackend } from "./excelHook";
-import { sendDataToBackendPrueba } from "./pruebaHook";
 
 function FileUploader() {
   const [groupedData, setGroupedData] = useState({});
@@ -37,11 +34,13 @@ function FileUploader() {
         const staff = personData[4] === 1;
 
         const personObj = {
-          surname: personData[0],
-          name: personData[1],
-          username: email,
+
+          apellidos: personData[0],
+          nombres: personData[1],
+          email: email,
           emailValido: validateEmail(email),
-          role: personData[3],
+          rol: personData[3],
+
           staff: staff,
         };
 
@@ -51,42 +50,15 @@ function FileUploader() {
       delete groupedData["grupo"];
 
       setGroupedData(groupedData);
+
+      console.log(groupedData);
+
     };
 
     reader.readAsBinaryString(acceptedFiles[0]);
   };
 
-  // Función para enviar los datos al servidor
-  const handleSendDataToBackend = () => {
-    console.log("Enviando datos al servidor:", groupedData);
-    sendDataToBackend(groupedData) // Llamada a la función externa
-      .then((data) => {
-        console.log("Datos enviados exitosamente:", data);
-        // Aquí puedes realizar acciones adicionales después de una respuesta exitosa
-      })
-      .catch((error) => {
-        console.error("Error al enviar datos al servidor:", error);
-        // Aquí puedes manejar el error, como mostrar un mensaje al usuario
-      });
-  };
-  const prueba = {
-    username: "pepim2",
-    name: "nombre2",
-  };
 
-  // Función para enviar los datos al servidor
-  const handleSendDataToBackendPrueba = () => {
-    console.log("Enviando datos al servidor:", prueba);
-    sendDataToBackendPrueba(prueba) // Llamada a la función externa
-      .then((data) => {
-        console.log("Datos enviados exitosamente:", data);
-        // Aquí puedes realizar acciones adicionales después de una respuesta exitosa
-      })
-      .catch((error) => {
-        console.error("Error al enviar datos al servidor:", error);
-        // Aquí puedes manejar el error, como mostrar un mensaje al usuario
-      });
-  };
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
@@ -106,16 +78,9 @@ function FileUploader() {
           uno
         </p>
       </div>
-      <button className='btn btn-primary' onClick={handleSendDataToBackend}>
-        Enviar datos al servidor
-      </button>
 
-      <button
-        className='btn btn-primary'
-        onClick={handleSendDataToBackendPrueba}
-      >
-        Enviar datos al servidor
-      </button>
+
+
       <div>
         <h2>Datos del archivo Excel agrupados:</h2>
         <pre>{JSON.stringify(groupedData, null, 2)}</pre>

@@ -4,7 +4,8 @@ import LogoImg from "../../../assets/LogoNoCountry.svg";
 import UserInput from "../../../components/UserInput/UserInput";
 import PasswordInput from "../../../components/PasswordInput/PasswordInput";
 import ButtonPrimary from "../../../components/ButtonPrimary/ButtonPrimary";
-import Count from "../../../components/CountLogin/Countlogin";
+
+
 
 function Login() {
   const navigate = useNavigate();
@@ -38,14 +39,17 @@ function Login() {
 
   return (
     <div
-      className="w-full h-screen text-white overflow-hidden"
+
+      className="w-full h-screen text-white"
+
       style={{
         backgroundColor: "#06071b",
         backgroundImage:
           "radial-gradient(circle farthest-corner at 50% 0%, rgba(29, 144, 252, .29), #06071b)",
       }}
     >
-      <Count />
+
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-lg h-full flex items-center justify-center md:flex-row flex-col">
         <div className="w-full flex items-center justify-center flex-col">
           <img src={LogoImg} alt="logo" className="w-80" />

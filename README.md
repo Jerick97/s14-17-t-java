@@ -108,7 +108,7 @@ Nuestra aplicación se compromete a proteger la privacidad de los datos de los u
 
 ## 🧪 Testers QA
 
-|                                                                                                                                              <img src="https://github.com/Maky-GloryQA.png" width=50>                                                                                                                                               |                                                                                                                                           <img src="https://media.licdn.com/dms/image/D4D03AQFxVXxr0j70sA/profile-displayphoto-shrink_200_200/0/1693753607773?e=1717632000&v=beta&t=2M9qOnZmx0DX1GcISf_wC0hUHDCcVSS68QXsKLCMGNE" width=50>                                                                                                                                            |
+
 | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |                                                                                                                                                                 **Mc Glory Tovar**                                                                                                                                                                  |                                                                                                                                                               **Marcelo Saiz**                                                                                                                                                               |
 | <a href="https://github.com/Maky-GloryQA"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="http://www.linkedin.com/in/mcglorytovar-t3st3rqa"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://github.com/ZombieEater"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="https://www.linkedin.com/in/marcelo-s-aiz/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> |
@@ -179,3 +179,54 @@ npm run dev
 _*La aplicación estará disponible en*_ http://localhost:5173/
 
 Siguiendo estos pasos, podrás ejecutar el proyecto de **frontend** en tu entorno local. Asegúrate de tener **Node.js** instalado en tu sistema antes de comenzar.
+
+
+
+## 🚀 Ejecutar el Proyecto de Backend Local, y Mysql para la base de datos (Guia para el frontend developer)
+
+#### Pasos:
+
+##### 1.Clonar el Repositorio:
+
+```bash
+git clone https://github.com/No-Country/s14-17-t-java.git
+```
+
+##### 2.Cambiar a la Rama backend:
+
+```bash
+git checkout backend
+```
+
+##### 3.Navegar a la Carpeta del Proyecto Backend:
+
+```bash
+cd backend-nocountry-s14-17-t-java
+```
+
+##### 4.Navegar a la carpeta target dentro del proyecto:
+
+```bash
+cd target
+```
+
+##### 5.Ejecutar la base de datos mysql y crear un esquema llamado: "team_score"(sin comillas):
+
+##### 6.Ejecutar el Servidor Web Tomcat que viene emebido en la aplicacion backend:( en caso de tener un error o estar desactualizado pedir a un backend que les empaquete el artefacto .jar)
+
+```bash
+java -jar .\TeamScore-0.0.1-SNAPSHOT.jar
+```
+
+##### 7.Abrir la Documentacion de la ApiRest en el Navegador:
+
+http://localhost:8080/swagger-ui/index.html
+
+##### 8.En caso de tener errores pruebe creando variables de entorno y luego reiniciar su pc:
+ 
+ DB_PORT= "su puerto donde corre mysql, no es necesario crear esta variable si corre en el puerto 3306(valor por defecto)"
+ USER_DATABASE = "el nombre de usuario que registro en mysql workbench, no es necesario modificar si mantiene el por defecto root"
+ PASS_DATABASE = "el password de su usuario, no es necesario modificar si usa el por defecto admin"
+
+ ##### 9.Para probar junto al frontend, tenga en cuenta que la direccion de su servidor backend corre en el puerto 8080
+
