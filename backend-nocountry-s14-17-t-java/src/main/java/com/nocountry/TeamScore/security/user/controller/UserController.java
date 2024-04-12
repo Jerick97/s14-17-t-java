@@ -73,7 +73,7 @@ public class UserController {
 
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping("/profile/{email}") // compara el email de aqui
-    @PreAuthorize("#email == authentication.principal.username") // con el usuario autenticado
+    @PreAuthorize("#email == authentication.principal.username or hasAuthority('ROLE_ADMIN')") // con el usuario autenticado
     public ResponseEntity<?> getUserProfile(@PathVariable String email) {
         // aca iria la logica para traer el UserDTO que necesito consruir
         User user = userService.findByUsername(email);
