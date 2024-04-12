@@ -1,4 +1,4 @@
- export const usuarios = [
+export const usuarios = [
   {
     apellidos: "Nicolas ",
     nombres: " Raffagnini",
@@ -6,6 +6,7 @@
     emailValido: true,
     rol: "PM",
     staff: false,
+    activo: true,
   },
   {
     apellidos: "Mc Glory ",
@@ -14,6 +15,7 @@
     emailValido: true,
     rol: "QA",
     staff: false,
+    activo: true,
   },
   {
     apellidos: "Marcelo Alejandro",
@@ -22,6 +24,7 @@
     emailValido: true,
     rol: "QA",
     staff: false,
+    activo: true,
   },
   {
     apellidos: "David ",
@@ -30,6 +33,7 @@
     emailValido: false,
     rol: "UX/UI",
     staff: false,
+    activo: true,
   },
   {
     apellidos: "Alejandro ",
@@ -38,6 +42,7 @@
     emailValido: true,
     rol: "Backend",
     staff: false,
+    activo: true,
   },
   {
     apellidos: "Ana ",
@@ -46,6 +51,7 @@
     emailValido: true,
     rol: "Backend",
     staff: false,
+    activo: true,
   },
   {
     apellidos: "Efrén ",
@@ -54,6 +60,7 @@
     emailValido: true,
     rol: "Backend",
     staff: false,
+    activo: true,
   },
   {
     apellidos: "Francisco ",
@@ -62,6 +69,7 @@
     emailValido: true,
     rol: "Backend",
     staff: false,
+    activo: true,
   },
   {
     apellidos: "Mario ",
@@ -70,6 +78,7 @@
     emailValido: true,
     rol: "Backend",
     staff: false,
+    activo: true,
   },
   {
     apellidos: "Sturniolo",
@@ -78,6 +87,7 @@
     emailValido: true,
     rol: "Backend",
     staff: false,
+    activo: true,
   },
   {
     apellidos: "Martinez",
@@ -86,6 +96,7 @@
     emailValido: true,
     rol: "Frontend",
     staff: false,
+    activo: true,
   },
   {
     apellidos: "Suarez",
@@ -94,6 +105,7 @@
     emailValido: true,
     rol: "Frontend",
     staff: false,
+    activo: true,
   },
   {
     apellidos: "Franco",
@@ -102,6 +114,7 @@
     emailValido: true,
     rol: "Frontend",
     staff: false,
+    activo: true,
   },
   {
     apellidos: "Ravarotto ",
@@ -110,6 +123,7 @@
     emailValido: true,
     rol: "Frontend",
     staff: false,
+    activo: true,
   },
   {
     apellidos: "Contreras",
@@ -118,6 +132,7 @@
     emailValido: true,
     rol: "Frontend",
     staff: false,
+    activo: false,
   },
   {
     apellidos: "Hurtado Testa",
@@ -126,5 +141,6 @@
     emailValido: true,
     rol: "Frontend",
     staff: false,
+    activo: true,
   },
 ];
