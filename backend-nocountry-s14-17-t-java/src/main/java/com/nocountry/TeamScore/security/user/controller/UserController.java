@@ -12,6 +12,7 @@ import com.nocountry.TeamScore.security.user.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("api/v1/users")
+@Slf4j
 public class UserController {
 
     private final UserService userService;
@@ -46,13 +48,13 @@ public class UserController {
         return ResponseEntity.ok().body(userService.findByUsername(username));
     }
 
-//    @SecurityRequirement(name = "bearerAuth")
-//    @PutMapping("/{id}")
-//    public ResponseEntity<HttpStatus> update(@Valid @RequestBody UserUpdateRequest request, @PathVariable Long id) {
-//        // Deshabilito este endpoint xq al actualizar la contraseña no la esta cifrando tengo que revisar eso
-//        userService.update(request,id);
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
+    @SecurityRequirement(name = "bearerAuth")
+    @PutMapping("/{id}") // Recordar que al cambiar pass se debe autenticar nuevamente
+    public ResponseEntity<HttpStatus> update(@Valid @RequestBody UserUpdateRequest request, @PathVariable Long id) {
+        // Deshabilito este endpoint xq al actualizar la contraseña no la esta cifrando tengo que revisar eso
+        userService.update(request,id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
     @SecurityRequirement(name = "bearerAuth")
     @DeleteMapping("{id}")
@@ -72,12 +74,17 @@ public class UserController {
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping("/profile/{email}") // compara el email de aqui
     @PreAuthorize("#email == authentication.principal.username") // con el usuario autenticado
-    public ResponseEntity<?> getUserProfile(@PathVariable String username) {
+    public ResponseEntity<?> getUserProfile(@PathVariable String email) {
         // aca iria la logica para traer el UserDTO que necesito consruir
-        User user = userService.findByUsername(username);
+        User user = userService.findByUsername(email);
 
-        List<Group> groups = groupService.getGroupsByUserEmail(username);
-        List<GroupByUser> groupsByUser = groupService.findByUser_Email(username);
+        if (user == null) {
+            log.warn("No se encontró el usuario: {}", email);
+        } else {
+            log.info("Usuario encontrado: {}", user);
+        }
+        List<Group> groups = groupService.getGroupsByUserEmail(email);
+        List<GroupByUser> groupsByUser = groupService.findByUser_Email(email);
         List<GroupsInUsersDTO> misGrupos = groupsByUser.stream()
                 .filter(gbu -> groups.contains(gbu.getGroup()))
                 .map(gbu -> GroupsInUsersDTO.fromGroupAndGroupByUser(gbu.getGroup(), gbu))
@@ -87,12 +94,20 @@ public class UserController {
                             .id(user.getId())
                             .name(user.getName())
                             .surname(user.getSurname())
-                            .email(username)
+                            .email(email)
                             .status(user.getStatus())
                             .operador(user.getOperador())
                             .groups(misGrupos)
                             .build();
 
+        log.info("Perfil construido para el usuario: {}", userdto);
+
         return ResponseEntity.ok(userdto);
+    }
+
+    @GetMapping("/count/{status}")
+    public ResponseEntity<Long> countByStatus(@PathVariable String status) {
+        long count = userService.countByStatus(status);
+        return ResponseEntity.ok(count);
     }
 }

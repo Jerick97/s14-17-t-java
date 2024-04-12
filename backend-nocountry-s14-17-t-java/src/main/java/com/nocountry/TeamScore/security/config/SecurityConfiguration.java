@@ -39,13 +39,14 @@ public class SecurityConfiguration {
                                 .requestMatchers(HttpMethod.GET,"/api/v1/groups/**").hasAnyAuthority(Role.ROLE_ADMIN.toString(), Role.ROLE_TL.toString())// esto despues hay que ponerlo para que solo los admin puedan crear grupos.
                                 .requestMatchers(HttpMethod.POST,"/api/v1/groups/**").hasAnyAuthority(Role.ROLE_ADMIN.toString(), Role.ROLE_TL.toString())
                                 .requestMatchers("/ejemplos/privado").authenticated()
+                                .requestMatchers("/api/v1/users/profile/**").authenticated()
                 )
                 .authorizeHttpRequests(authRequest ->
                         authRequest
-                                .requestMatchers(HttpMethod.POST).hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
-                                .requestMatchers(HttpMethod.GET).hasAnyRole("ADMIN","TL")
-                                .requestMatchers(HttpMethod.PUT).hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST).hasAuthority("ROLE_ADMIN")
+                                .requestMatchers(HttpMethod.DELETE).hasAuthority("ROLE_ADMIN")
+                                .requestMatchers(HttpMethod.GET).hasAuthority("ROLE_ADMIN")
+                                .requestMatchers(HttpMethod.PUT).hasAuthority("ROLE_ADMIN")
                 )
                 .authorizeHttpRequests(
                         authRequest -> authRequest.anyRequest().permitAll()
