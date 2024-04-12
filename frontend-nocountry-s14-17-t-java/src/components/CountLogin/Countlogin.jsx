@@ -30,18 +30,17 @@ function Count() {
   /* RENDERIZAMOS CON ".toLocaleDateString()" PARA TRANSFORMAR LAS FECHAS EN CADENAS DE TEXTO Y DE ACUERDO A LA REGION EN LA QUE NOS ENCONTREMOS */
   return (
     <div>
-      <h1>
-        Fecha de inicio de la calificacion a compañeros:{" "}
+      <h1 className="text-center" style={{ backgroundColor: "#06071b" }}>
+        {/* Fecha de inicio de la calificacion a compañeros:{" "}
         <span style={{ color: "#1d90fc" }}>
           {startDate.toLocaleDateString()}
-        </span>
-        . <br />
-        Faltan <span style={{ color: "#1d90fc" }}>
-          {daysRemainingDate}
-        </span>{" "}
-        dias para que finalice el periodo de calificacion. <br />
+        </span>.
+        <br /> */}
+        Faltan <span style={{ color: "#1d90fc" }}>{daysRemainingDate}</span>{" "}
+        dias para que finalice el periodo de calificacion.{" "}
+        {/*<br />
         Fecha de finalizacion de la calificacion:{" "}
-        <span style={{ color: "#1d90fc" }}>{endDate.toLocaleDateString()}</span>
+        <span style={{ color: "#1d90fc" }}>{endDate.toLocaleDateString()}</span> */}
       </h1>
     </div>
   );

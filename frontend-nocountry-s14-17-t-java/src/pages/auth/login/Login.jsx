@@ -38,94 +38,90 @@ function Login() {
 
   return (
     <div
-      className="w-full h-screen text-white"
+      className="w-full h-screen text-white overflow-hidden"
       style={{
         backgroundColor: "#06071b",
         backgroundImage:
           "radial-gradient(circle farthest-corner at 50% 0%, rgba(29, 144, 252, .29), #06071b)",
       }}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-lg h-full flex items-center justify-center flex-row flex-col">
-        <div className="container flex">
-          <div className="w-full flex items-center justify-center flex-col">
-            <img src={LogoImg} alt="logo" className="w-80" />
-            <h1 className="my-4 md:text-6xl text-3xl text-white font-medium text-center">
-              Feedback{" "}
-              <span className="bg-gradient-to-r from-[#1d90fc] to-[#0cfca7] inline-block text-transparent bg-clip-text">
-                a tus compañeros
-              </span>
-            </h1>
-          </div>
-          <div className="h-96 w-full max-w-sm relative overflow-hidden mt-6 z-10 rounded-2xl">
-            <div className="absolute inset-0 bg-gradient-to-br from-[#091A3A] from-[50%] to-[#0C274F] to-[50%] transform skew-y-45"></div>
-            <form
-              className="absolute inset-0 flex justify-around items-center flex-col sm:p-8 p-4"
-              autoComplete="off"
-              onSubmit={handleSubmit(handleLogin)}
-            >
-              <h4 className="text-white text-2xl text-center font-extrabold uppercase mb-5">
-                User Login
-              </h4>
-              <div className="my-2 w-full">
-                <div className="mb-4">
-                  <UserInput
-                    {...register("email", {
-                      required: {
-                        value: true,
-                        message: "Email is required",
-                      },
-                      pattern: {
-                        value: /^[\w-ñÑ]+(\.[\w-ñÑ]+)*@[\w-ñÑ]+(\.[\w-ñÑ]+)+$/,
-                        message: "Please enter a valid email",
-                      },
-                    })}
-                    name="email"
-                    placeholder="Email"
-                    customStyle={
-                      errors.email
-                        ? "border-2 border-solid border-red-500 placeholder:text-red-400 text-red-400"
-                        : "text-[#acacb5]"
-                    }
-                  />
-                  {errors.email && (
-                    <p className={`ml-12 text-red-500 text-sm`}>
-                      {errors.email?.message}
-                    </p>
-                  )}
-                </div>
-                <div className="mb-4">
-                  <PasswordInput
-                    {...register("password", {
-                      required: {
-                        value: true,
-                        message: "Password is required",
-                      },
-                      minLength: {
-                        value: 8,
-                        message: "Minimum 8 characters",
-                      },
-                    })}
-                    name="password"
-                    placeholder="Password"
-                    customStyle={
-                      errors.password
-                        ? "border-2 border-solid border-red-500 placeholder:text-red-400 text-red-400"
-                        : "text-[#acacb5]"
-                    }
-                  />
-                  {errors.password && (
-                    <p className={`ml-12 text-red-500 text-sm`}>
-                      {errors.password?.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-              <ButtonPrimary text="Login" type="submit" />
-            </form>
-          </div>
+      <Count />
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-lg h-full flex items-center justify-center md:flex-row flex-col">
+        <div className="w-full flex items-center justify-center flex-col">
+          <img src={LogoImg} alt="logo" className="w-80" />
+          <h1 className="my-4 md:text-6xl text-3xl text-white font-medium text-center">
+            Feedback{" "}
+            <span className="bg-gradient-to-r from-[#1d90fc] to-[#0cfca7] inline-block text-transparent bg-clip-text">
+              a tus compañeros
+            </span>
+          </h1>
         </div>
-        <div className="m-10 text-center text-lg">
-          <Count />
+        <div className="h-96 w-full max-w-sm relative overflow-hidden mt-6 z-10 rounded-2xl">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#091A3A] from-[50%] to-[#0C274F] to-[50%] transform skew-y-45"></div>
+          <form
+            className="absolute inset-0 flex justify-around items-center flex-col sm:p-8 p-4"
+            autoComplete="off"
+            onSubmit={handleSubmit(handleLogin)}
+          >
+            <h4 className="text-white text-2xl text-center font-extrabold uppercase mb-5">
+              User Login
+            </h4>
+            <div className="my-2 w-full">
+              <div className="mb-4">
+                <UserInput
+                  {...register("email", {
+                    required: {
+                      value: true,
+                      message: "Email is required",
+                    },
+                    pattern: {
+                      value: /^[\w-ñÑ]+(\.[\w-ñÑ]+)*@[\w-ñÑ]+(\.[\w-ñÑ]+)+$/,
+                      message: "Please enter a valid email",
+                    },
+                  })}
+                  name="email"
+                  placeholder="Email"
+                  customStyle={
+                    errors.email
+                      ? "border-2 border-solid border-red-500 placeholder:text-red-400 text-red-400"
+                      : "text-[#acacb5]"
+                  }
+                />
+                {errors.email && (
+                  <p className={`ml-12 text-red-500 text-sm`}>
+                    {errors.email?.message}
+                  </p>
+                )}
+              </div>
+              <div className="mb-4">
+                <PasswordInput
+                  {...register("password", {
+                    required: {
+                      value: true,
+                      message: "Password is required",
+                    },
+                    minLength: {
+                      value: 8,
+                      message: "Minimum 8 characters",
+                    },
+                  })}
+                  name="password"
+                  placeholder="Password"
+                  customStyle={
+                    errors.password
+                      ? "border-2 border-solid border-red-500 placeholder:text-red-400 text-red-400"
+                      : "text-[#acacb5]"
+                  }
+                />
+                {errors.password && (
+                  <p className={`ml-12 text-red-500 text-sm`}>
+                    {errors.password?.message}
+                  </p>
+                )}
+              </div>
+            </div>
+            <ButtonPrimary text="Login" type="submit" />
+          </form>
         </div>
       </div>
     </div>
