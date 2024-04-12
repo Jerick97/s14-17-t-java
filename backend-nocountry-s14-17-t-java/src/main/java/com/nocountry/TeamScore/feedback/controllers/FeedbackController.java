@@ -1,6 +1,7 @@
 package com.nocountry.TeamScore.feedback.controllers;
 
 import com.nocountry.TeamScore.feedback.model.Feedback;
+import com.nocountry.TeamScore.feedback.model.dto.FeedbackRequestDTO;
 import com.nocountry.TeamScore.feedback.service.FeedbackService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -22,7 +23,7 @@ public class FeedbackController {
 
     @SecurityRequirement(name = "bearearAuth")
     @PostMapping
-    public ResponseEntity<?> createFeedback(@RequestBody Feedback feedback) {
+    public ResponseEntity<?> createFeedback(@RequestBody FeedbackRequestDTO feedback) { // el feedback deberia ser capaz de crear un feedback por si solo?, seria logico quitar este endpoint y dejarlo en user
         return ResponseEntity.ok(feedbackService.create(feedback));
     }
 
@@ -39,7 +40,7 @@ public class FeedbackController {
 
     @SecurityRequirement(name = "bearerAuth")
     @Operation(summary= "Update feedback", description = "Update a feedback")
-    public ResponseEntity<?> updateFeedback(@Valid @RequestBody Feedback feedback) {
+    public ResponseEntity<?> updateFeedback(@Valid @RequestBody FeedbackRequestDTO feedback) {
         return ResponseEntity.ok(feedbackService.update(feedback));
     }
 

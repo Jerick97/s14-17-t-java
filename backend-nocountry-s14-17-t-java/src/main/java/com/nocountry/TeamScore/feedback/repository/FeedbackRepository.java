@@ -31,10 +31,10 @@ public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
 
 //     Por convencion de nombres, podria crearlo tmb asi:---------------------------------------------------------------
     // Feedbacks hechos por un usuario
-    List<Feedback> findByUsuarioQueEvalua_Email(String email);
+    List<Feedback> findByUsuarioQueEvaluaEmail(String email);
 
     // Feedbacks hechos para un usuario
-    List<Feedback> findByUsuarioEvaluado_User_Email(String email);
+    List<Feedback> findByUsuarioEvaluadoUserEmail(String email);
 
     // Feedbacks de un grupo a un usuario
     List<Feedback> findByProyectoEvaluado_Group_IdAndUsuarioEvaluado_User_Email(Long idGrupo, String email);

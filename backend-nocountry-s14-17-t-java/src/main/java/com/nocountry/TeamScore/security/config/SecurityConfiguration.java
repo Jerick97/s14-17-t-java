@@ -32,6 +32,11 @@ public class SecurityConfiguration {
                                 .requestMatchers("/auth/**","/v3/api-docs/**","/swagger-ui.html", "/swagger-ui/**", "/api-docs.yaml","/swagger-ui-custom.html").permitAll() // para poder entrar a estos endpoints sin autenticar
                                 .requestMatchers(HttpMethod.POST,"/api/v1/auth/register").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/api/v1/auth/authenticate").permitAll()
+                                .requestMatchers("api/v1/feedback/**").permitAll()
+                                .requestMatchers("/api/v1/field/**").permitAll()
+                                .requestMatchers("/api/v1/projects/**").permitAll()
+                                .requestMatchers("/api/v1/groups/**").permitAll()
+                                .requestMatchers("/api/v1/users/**").permitAll()
 
                 )
                 .authorizeHttpRequests(authRequest ->
