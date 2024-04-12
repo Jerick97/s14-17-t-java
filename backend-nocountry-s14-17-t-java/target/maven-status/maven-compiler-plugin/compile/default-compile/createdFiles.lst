@@ -21,14 +21,19 @@ com\nocountry\TeamScore\groups\service\GroupService.class
 com\nocountry\TeamScore\security\auth\dto\AuthenticationResponse.class
 com\nocountry\TeamScore\projects\model\Project.class
 com\nocountry\TeamScore\security\config\OpenApiConfiguration.class
+com\nocountry\TeamScore\fields\service\FieldService.class
 com\nocountry\TeamScore\groups\model\GroupByUser$GroupByUserBuilder.class
+com\nocountry\TeamScore\fields\model\dto\FieldDTO.class
 com\nocountry\TeamScore\security\config\JwtService.class
 com\nocountry\TeamScore\groups\model\dto\GroupDTO.class
 com\nocountry\TeamScore\groups\model\Group.class
+com\nocountry\TeamScore\fields\service\FieldServiceImpl.class
 com\nocountry\TeamScore\groups\service\GroupServiceImpl.class
 com\nocountry\TeamScore\groups\repository\GroupByUserRepository.class
+com\nocountry\TeamScore\fields\repository\FieldRepository.class
 com\nocountry\TeamScore\groups\model\dto\GroupsInUsersDTO.class
 com\nocountry\TeamScore\security\auth\dto\RegisterRequest.class
+com\nocountry\TeamScore\fields\controllers\FieldController.class
 com\nocountry\TeamScore\groups\model\dto\GroupRequest.class
 com\nocountry\TeamScore\projects\repository\ProjectRepository.class
 com\nocountry\TeamScore\groups\repository\GroupRepository.class
@@ -48,5 +53,6 @@ com\nocountry\TeamScore\security\auth\dto\AuthenticationRequest.class
 com\nocountry\TeamScore\feedback\service\FeedbackService.class
 com\nocountry\TeamScore\groups\controller\GroupController.class
 com\nocountry\TeamScore\security\user\service\UserServiceImpl.class
+com\nocountry\TeamScore\fields\model\Field.class
 com\nocountry\TeamScore\security\auth\AuthenticationController.class
 com\nocountry\TeamScore\security\auth\dto\RegisterRequest$RegisterRequestBuilder.class
