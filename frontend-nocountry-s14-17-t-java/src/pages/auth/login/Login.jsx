@@ -20,8 +20,8 @@ function Login() {
   } = useForm();
 
   const users = {
-    "admin@gmail.com": { password: "Administrador", isAdmin: true },
-    "user@gmail.com": { password: "Usuario123", isAdmin: false },
+    "admin@gmail.com": { password: "Administrador", isAdmin: true, name: "pepito" },
+    "user@gmail.com": { password: "Usuario123", isAdmin: false, name: "pepito" },
   };
 
   const handleLogin = (data) => {
@@ -38,7 +38,7 @@ function Login() {
     }
 
     //Almacenamos en el contexto los datos del usuario
-    setAuth({ email, roles: user.isAdmin ? "admin" : "user" });
+    setAuth({ email, roles: user.isAdmin ? "admin" : "user", name : user.name });
 
     navigate(user.isAdmin ? "/dashboard" : "/");
   };
