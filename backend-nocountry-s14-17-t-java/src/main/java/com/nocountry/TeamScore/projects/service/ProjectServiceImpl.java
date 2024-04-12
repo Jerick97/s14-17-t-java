@@ -31,6 +31,11 @@ public class ProjectServiceImpl implements ProjectService {
         return mapper.convertValue(project, ProjectDTO.class);
     }
 
+    @Override
+    public Project findById(Long id) {
+        return projectRepository.findById(id).orElseThrow();
+    }
+
     public ProjectDTO createProject(ProjectRequest request) {
         Project project = mapper.convertValue(request, Project.class);
         return mapper.convertValue(

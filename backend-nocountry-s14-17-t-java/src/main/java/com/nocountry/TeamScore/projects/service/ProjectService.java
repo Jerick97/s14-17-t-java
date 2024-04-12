@@ -9,6 +9,8 @@ import java.util.List;
 public interface ProjectService {
     List<ProjectDTO> getAllProjects();
     ProjectDTO getProjectById(Long id);
+
+    Project findById(Long id);
     ProjectDTO createProject(ProjectRequest request);
 
     ProjectDTO updateProject(Long id, ProjectRequest request);
