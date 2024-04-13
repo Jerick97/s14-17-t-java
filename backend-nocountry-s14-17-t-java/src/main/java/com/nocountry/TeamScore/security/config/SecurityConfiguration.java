@@ -37,6 +37,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/api/v1/projects/**").permitAll()
                                 .requestMatchers("/api/v1/groups/**").permitAll()
                                 .requestMatchers("/api/v1/users/**").permitAll()
+                                .requestMatchers("/api/v1/roles/**").permitAll()
 
                 )
                 .authorizeHttpRequests(authRequest ->

@@ -4,10 +4,12 @@ import com.nocountry.TeamScore.feedback.model.Feedback;
 import com.nocountry.TeamScore.groups.model.Group;
 import com.nocountry.TeamScore.groups.model.GroupByUser;
 import com.nocountry.TeamScore.groups.model.dto.GroupsInUsersDTO;
+import com.nocountry.TeamScore.groups.repository.GroupByUserRepository;
 import com.nocountry.TeamScore.groups.service.GroupService;
 import com.nocountry.TeamScore.security.user.model.User;
 import com.nocountry.TeamScore.security.user.model.dto.UserDTO;
 import com.nocountry.TeamScore.security.user.model.dto.UserUpdateRequest;
+import com.nocountry.TeamScore.security.user.model.dto.UsersInGroup;
 import com.nocountry.TeamScore.security.user.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -29,6 +31,7 @@ public class UserController {
 
     private final UserService userService;
     private final GroupService groupService;
+    private final GroupByUserRepository groupByUserRepository; // considerar despues hacer un service para esta tabla.
 
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping("/sinVotar")
@@ -105,9 +108,21 @@ public class UserController {
         return ResponseEntity.ok(userdto);
     }
 
+    @SecurityRequirement(name = "bearerAuth")
     @GetMapping("/count/{status}")
     public ResponseEntity<Long> countByStatus(@PathVariable String status) {
         long count = userService.countByStatus(status);
         return ResponseEntity.ok(count);
     }
+
+    @SecurityRequirement(name = "bearerAuth")
+    @GetMapping("/usersInGroup/{idGroup}")
+    public ResponseEntity<?> getUsersInGroup(@PathVariable Long idGroup) {
+        List<GroupByUser> asignacionesGrupos = groupByUserRepository.findByGroupId(idGroup);
+        List<UsersInGroup> usuarios = asignacionesGrupos.stream()
+                .map(UsersInGroup::fromGroupByUser)
+                .toList();
+        return ResponseEntity.ok(usuarios);
+    }
+
 }
