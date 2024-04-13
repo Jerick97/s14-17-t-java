@@ -14,7 +14,7 @@ public class GroupsInUsersDTO {
         GroupsInUsersDTO dto = new GroupsInUsersDTO();
         dto.id = group.getId();
         dto.group_name = group.getName();
-        dto.group_role = groupByUser.getRole_id();
+       // dto.group_role = groupByUser.getRole_id();
         dto.group_role_type = groupByUser.getRolElegido();
         dto.choosen_role = groupByUser.getRolElegido();
         return dto;

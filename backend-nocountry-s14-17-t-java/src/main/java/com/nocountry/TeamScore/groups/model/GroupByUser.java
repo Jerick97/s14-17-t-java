@@ -1,6 +1,6 @@
 package com.nocountry.TeamScore.groups.model;
 
-import com.nocountry.TeamScore.role.model.Roles;
+
 import com.nocountry.TeamScore.security.user.model.User;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -24,6 +24,6 @@ public class GroupByUser {
     @JoinColumn(name = "group_id", nullable = false)
     private Group group;
     private String rolElegido;
-    private Roles role_id; // por ahora trabaja con Long, despues adaptar con la entidad Role
+   // private Roles role_id;
 }
 

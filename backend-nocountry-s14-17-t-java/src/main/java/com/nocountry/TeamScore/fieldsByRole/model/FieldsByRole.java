@@ -3,14 +3,14 @@ package com.nocountry.TeamScore.fieldsByRole.model;
 import com.nocountry.TeamScore.projects.model.Project;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Entity
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+
 @Table(name = "fields_by_role")
 public class FieldsByRole {
     @Id

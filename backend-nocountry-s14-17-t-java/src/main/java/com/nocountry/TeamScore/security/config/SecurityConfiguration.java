@@ -29,9 +29,10 @@ public class SecurityConfiguration {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authRequest ->
                         authRequest
-                                .requestMatchers("/auth/**","/v3/api-docs/**","/swagger-ui.html", "/swagger-ui/**", "/api-docs.yaml","/swagger-ui-custom.html").permitAll() // para poder entrar a estos endpoints sin autenticar
+                                .requestMatchers( "/auth/**","/v3/api-docs/**","/swagger-ui.html", "/swagger-ui/**", "/api-docs.yaml","/swagger-ui-custom.html").permitAll() // para poder entrar a estos endpoints sin autenticar
                                 .requestMatchers(HttpMethod.POST,"/api/v1/auth/register").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/api/v1/auth/authenticate").permitAll()
+
 
                 )
                 .authorizeHttpRequests(authRequest ->
