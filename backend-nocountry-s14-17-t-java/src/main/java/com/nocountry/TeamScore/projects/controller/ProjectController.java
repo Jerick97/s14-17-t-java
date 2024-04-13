@@ -31,6 +31,12 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.getProjectById(id));
     }
 
+    @GetMapping("/by-date/{date}")
+    @Operation(summary = "Get project by publish date", description = "Get a list of projects by a specific date")
+    public ResponseEntity<List<ProjectDTO>> getProjectByPublishDate(@PathVariable String date) {
+        return ResponseEntity.ok(projectService.getProjectByPublishDate(date));
+    }
+
     @PostMapping
     @Operation(summary = "Create project", description = "This endpoint create a new project")
     public ResponseEntity<ProjectDTO> save(@RequestBody ProjectRequest request) {
