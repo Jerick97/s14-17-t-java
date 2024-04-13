@@ -4,6 +4,7 @@ import TittleGradient from "../../components/TittleGradient/TittleGradient";
 import { AuthContext } from "../../context/AuthContext";
 import question from "../../data/question.json";
 import QuestionCard from "../../components/QuestionCard/QuestionCard";
+// import HeaderDash from "../../components/HeaderDash/HeaderDash"
 
 
 const Vote = () => {
@@ -25,17 +26,14 @@ const Vote = () => {
 
 
   return (
-    <div className='w-full h-screen flex items-center justify-center bg-[#06071B] flex-col'> 
+    <div className='w-full min-h-screen flex items-center justify-center pt-8 bg-[#06071B] flex-col'> 
+
       <TittleGradient user={auth.name} voting={userVoting} />
-      <div className='flex flex-col'> 
+      <div className='flex flex-col h-auto pt-8 container items-center mx-auto w-3/4 justify-around '> 
         {question.map((pregunta, index) => (
-          <QuestionCard key={index}>
-            <h3 className='text-2xl text-center font-medium mb-2 text-white'>
-              Pregunta {index + 1}:
-            </h3>
-            <h1 className='text-3xl text-center font-bold text-white'>
-              {pregunta}
-            </h1>
+          <QuestionCard key={index} pregunta={pregunta}>
+      
+
           </QuestionCard>
         ))}
       </div>
