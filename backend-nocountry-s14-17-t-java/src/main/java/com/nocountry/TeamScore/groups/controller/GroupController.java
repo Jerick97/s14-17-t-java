@@ -19,11 +19,15 @@ public class GroupController {
 
     @SecurityRequirement(name = "bearerAuth")
     @PostMapping
-    @Operation(summary = "Create a new Group", description = "This endpoint permits to create a new Group")
+    @Operation(summary = "Create a new empty Group", description = "This endpoint permits to create a new empty Group")
     public ResponseEntity<?> crearGrupoVacio(@RequestBody GroupDTO groupDTO) {
         groupService.crearGrupo(groupDTO);
         return ResponseEntity.ok(HttpStatus.OK);
     }
+
+    // considerar dos cosas, que el endpoint de creacion del grupo les devuelva el grupo al momento de crearlo en vez de void(facilita el manejo del lado del front)
+    // un endpoint para crear grupos con usuarios al mismo tiempo, ver si conviene q cree usuarios por cascade, o que use usuarios existentes?
+    // y por ultimo lo del endpoint para traer el group por nombre, asi tmb le facilita al front recuperar data.
 
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping("/{id}")
