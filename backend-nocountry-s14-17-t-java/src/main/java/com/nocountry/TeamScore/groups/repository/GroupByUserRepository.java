@@ -10,4 +10,7 @@ import java.util.List;
 public interface GroupByUserRepository extends JpaRepository<GroupByUser, Long> {
     List<GroupByUser> findByUser_Email(String email);
     GroupByUser findByUserIdAndGroupId(Long userId, Long groupId);
+
+    List<GroupByUser> findByGroupId(Long groupId);
+
 }
