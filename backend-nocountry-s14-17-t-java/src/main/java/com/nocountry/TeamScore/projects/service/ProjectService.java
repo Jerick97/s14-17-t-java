@@ -11,6 +11,8 @@ public interface ProjectService {
     ProjectDTO getProjectById(Long id);
 
     Project findById(Long id);
+
+    List<ProjectDTO> getProjectByPublishDate(String publishDate);
     ProjectDTO createProject(ProjectRequest request);
 
     ProjectDTO updateProject(Long id, ProjectRequest request);
