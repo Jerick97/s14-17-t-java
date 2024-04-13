@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import TittleGradient from "../../components/TittleGradient/TittleGradient";
 import { AuthContext } from "../../context/AuthContext";
+import question from "../../data/question.json";
+import QuestionCard from "../../components/QuestionCard/QuestionCard";
 
 
 const Vote = () => {
@@ -21,30 +23,32 @@ const Vote = () => {
 
   };
 
-  const preguntas = ["¿Se sienten seguros y apoyados por sus compañeros?"];
 
   return (
-    <div className='w-full h-screen flex flex-col items-center justify-center bg-[#06071B]'>
+    <div className='w-full h-screen flex items-center justify-center bg-[#06071B] flex-col'> 
       <TittleGradient user={auth.name} voting={userVoting} />
-      <div className='w-1200 h-350 rounded-3xl bg-gradient-to-b from-blue-400 to-#06071B opacity-30 p-20 flex-col flex mt-40'>
-        {preguntas.map((pregunta, index) => (
-          <div key={index} className=''>
+      <div className='flex flex-col'> 
+        {question.map((pregunta, index) => (
+          <QuestionCard key={index}>
             <h3 className='text-2xl text-center font-medium mb-2 text-white'>
               Pregunta {index + 1}:
             </h3>
             <h1 className='text-3xl text-center font-bold text-white'>
               {pregunta}
             </h1>
-          </div>
+          </QuestionCard>
         ))}
       </div>
+  
       <Link to={"/"}>
-        <button className='bg-white text-black' onClick={handleSubmit}>
-          Submit
+        <button className='bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow' onClick={handleSubmit}>
+          Enviar
         </button>
       </Link>
     </div>
   );
+
+
 };
 
 export default Vote;
