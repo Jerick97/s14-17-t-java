@@ -20,7 +20,7 @@ public class Group {
     private Long id;
     @OneToOne
     @JoinColumn(name = "id_project", referencedColumnName = "id")
-    private Project projectId; // esto es una FK pero de momento la dejo en Long hasta crear su correspondiente entidad
+    private Project projectId;
     private String name;
     private String description;
     private Integer status; // el status de un grupo es para saber si esta activo o no
