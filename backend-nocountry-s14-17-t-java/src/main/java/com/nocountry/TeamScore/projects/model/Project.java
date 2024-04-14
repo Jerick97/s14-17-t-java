@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nocountry.TeamScore.feedback.model.Feedback;
 import com.nocountry.TeamScore.fieldByProject.model.FieldByProject;
 import com.nocountry.TeamScore.groups.model.Group;
+import com.nocountry.TeamScore.projectsByRole.model.ProjectsByRole;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -46,6 +47,9 @@ public class Project {
     @OneToMany(mappedBy = "proyectoEvaluado")
     @JsonIgnore
     private Set<Feedback> feedbacksDelProyecto;
+
+    @OneToMany(mappedBy = "project")
+    private List<ProjectsByRole> projectByRoles;
 }
 
 
