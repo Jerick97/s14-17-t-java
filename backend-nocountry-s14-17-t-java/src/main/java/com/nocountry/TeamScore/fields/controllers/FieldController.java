@@ -1,6 +1,7 @@
 package com.nocountry.TeamScore.fields.controllers;
 
 import com.nocountry.TeamScore.fields.model.dto.FieldDTO;
+import com.nocountry.TeamScore.fields.model.dto.FieldResponseDTO;
 import com.nocountry.TeamScore.fields.service.FieldService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +42,7 @@ public class FieldController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getFieldById(@PathVariable Long id) {
         try {
-            FieldDTO fieldDTO = fieldService.getFieldById(id);
+            FieldResponseDTO fieldDTO = fieldService.getFieldById(id);
             return ResponseEntity.status(HttpStatus.OK).body(fieldDTO);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Field not found."+ e.getMessage());
@@ -51,7 +52,7 @@ public class FieldController {
     @GetMapping
     public ResponseEntity<?> getAllFields() {
         try {
-            List<FieldDTO> fieldDTOS = fieldService.getAllfields();
+            List<FieldResponseDTO> fieldDTOS = fieldService.getAllfields();
             return ResponseEntity.status(HttpStatus.OK).body(fieldDTOS);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error! Something went wrong"+ e.getMessage());
