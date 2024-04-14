@@ -8,4 +8,7 @@ public interface UserService {
     User findByUsername(String username);
     User getByID(Long id);
     void delete(Long id);
+
+    // Nuevo método para contar usuarios por estado
+    long countByStatus(String status);
 }

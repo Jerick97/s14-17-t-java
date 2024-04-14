@@ -1,21 +1,22 @@
 package com.nocountry.TeamScore.feedback.service;
 
 import com.nocountry.TeamScore.feedback.model.Feedback;
+import com.nocountry.TeamScore.feedback.model.dto.FeedbackRequestDTO;
 
 import java.util.List;
 
 public interface FeedbackService {
-    Feedback create(Feedback feedback);
-    Feedback update(Feedback feedback);
+    Feedback create(FeedbackRequestDTO feedback);
+    Feedback update(FeedbackRequestDTO feedback);
 
     Feedback getById(Long id);
-    List<Feedback> getAll();
+    List<FeedbackRequestDTO> getAll();
 
     void delete(Long id);
 
-    List<Feedback> feedbacksHechosPorUser(String username);
-    List<Feedback> feedbacksHechosParaElUser(String username);
-    List<Feedback> feedbacksPorGrupoAUnUsuario(Long idGrupo, String usuarioEvaluado);
-    List<Feedback> feedbacksHechosEnElGrupoPorElUsuario(Long idGrupo, String usuarioQEvalua);
-    List<Feedback> feedbacksHechosPorElUsuarioParaElUsuario(String UsuarioQEvalua, String usuarioEvaluado, Long idGrupo);
+    List<FeedbackRequestDTO> feedbacksHechosPorUser(String username);
+    List<FeedbackRequestDTO> feedbacksHechosParaElUser(String username);
+    List<FeedbackRequestDTO> feedbacksPorGrupoAUnUsuario(Long idGrupo, String usuarioEvaluado);
+    List<FeedbackRequestDTO> feedbacksHechosEnElGrupoPorElUsuario(Long idGrupo, String usuarioQEvalua);
+    List<FeedbackRequestDTO> feedbacksHechosPorElUsuarioParaElUsuario(String UsuarioQEvalua, String usuarioEvaluado, Long idGrupo);
 }

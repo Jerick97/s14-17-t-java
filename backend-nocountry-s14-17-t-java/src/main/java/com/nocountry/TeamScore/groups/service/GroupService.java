@@ -9,6 +9,8 @@ import java.util.Set;
 
 public interface GroupService {
     void crearGrupo(GroupDTO groupDTO);
+
+    Group getGroupById(Long id);
     GroupDTO getGrupo(Long id);
     void modificarGrupo(GroupDTO groupDTO);
     void eliminarGrupo(Long id);

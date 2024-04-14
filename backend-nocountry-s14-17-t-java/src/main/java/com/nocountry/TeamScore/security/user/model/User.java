@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import com.nocountry.TeamScore.security.user.model.Role;
+
 
 import java.util.Collection;
 import java.util.List;
