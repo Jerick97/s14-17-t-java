@@ -22,19 +22,16 @@ public class Feedback {
 
     @ManyToOne
     @JoinColumn(name = "user_que_evalua")
-    @JsonIgnore
     @Schema(description = "User who evaluates", example = "1")
     private User usuarioQueEvalua; // aca es mucho por que se da feedback de muchos campos para un usuario
 
     @ManyToOne
     @JoinColumn(name = "user_evaluado")
-    @JsonIgnore
     @Schema(description = "User evaluated", example = "1")
     private User usuarioEvaluado;
 
     @ManyToOne
     @JoinColumn(name = "project_id")
-    @JsonIgnore
     @Schema(description = "Project to evaluate", example = "1")
     private Project proyectoEvaluado; // por ahora long, el proyecto al que pertenece el feedback// el field(campo) sabe a que proyecto pertenece no se si será necesario
 

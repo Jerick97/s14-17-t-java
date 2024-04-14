@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nocountry.TeamScore.feedback.model.Feedback;
 import com.nocountry.TeamScore.feedback.model.dto.FeedbackRequestDTO;
 import com.nocountry.TeamScore.feedback.repository.FeedbackRepository;
+import com.nocountry.TeamScore.feedback.util.FeedbackMapper;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,15 +17,15 @@ import java.util.stream.Collectors;
 public class FeedbackServiceImpl implements FeedbackService{
 
     private final FeedbackRepository feedbackRepository;
-    private final ObjectMapper mapper;
+    private final FeedbackMapper mapper;
     @Override
     public Feedback create(FeedbackRequestDTO feedbackRequestDTO) {
-        return feedbackRepository.save(dtoMapper.convertToFeedback(feedbackRequestDTO));
+        return feedbackRepository.save(mapper.mapToFeedback(feedbackRequestDTO));
     }
 
     @Override
     public Feedback update(FeedbackRequestDTO feedbackRequestDTO) {
-        return feedbackRepository.save(dtoMapper.convertToFeedback(feedbackRequestDTO));
+        return feedbackRepository.save(mapper.mapToFeedback(feedbackRequestDTO));
     }
 
     @Override
@@ -35,7 +36,7 @@ public class FeedbackServiceImpl implements FeedbackService{
     @Override
     public List<FeedbackRequestDTO> getAll() {
         return feedbackRepository.findAll().stream()
-                .map(dtoMapper::convertToFeedbackDTO)
+                .map(mapper::mapToFeedbackRequestDTO)
                 .collect(Collectors.toList());
     }
 
