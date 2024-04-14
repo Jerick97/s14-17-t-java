@@ -1,26 +1,31 @@
 package com.nocountry.TeamScore.feedback.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nocountry.TeamScore.feedback.model.Feedback;
+import com.nocountry.TeamScore.feedback.model.dto.FeedbackRequestDTO;
 import com.nocountry.TeamScore.feedback.repository.FeedbackRepository;
+import com.nocountry.TeamScore.feedback.util.FeedbackMapper;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class FeedbackServiceImpl implements FeedbackService{
 
     private final FeedbackRepository feedbackRepository;
+    private final FeedbackMapper mapper;
     @Override
-    public Feedback create(Feedback feedback) {
-        return feedbackRepository.save(feedback);
+    public Feedback create(FeedbackRequestDTO feedbackRequestDTO) {
+        return feedbackRepository.save(mapper.mapToFeedback(feedbackRequestDTO));
     }
 
     @Override
-    public Feedback update(Feedback feedback) {
-        return feedbackRepository.save(feedback);
+    public Feedback update(FeedbackRequestDTO feedbackRequestDTO) {
+        return feedbackRepository.save(mapper.mapToFeedback(feedbackRequestDTO));
     }
 
     @Override
@@ -29,8 +34,10 @@ public class FeedbackServiceImpl implements FeedbackService{
     }
 
     @Override
-    public List<Feedback> getAll() {
-        return feedbackRepository.findAll();
+    public List<FeedbackRequestDTO> getAll() {
+        return feedbackRepository.findAll().stream()
+                .map(mapper::mapToFeedbackRequestDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -38,28 +45,5 @@ public class FeedbackServiceImpl implements FeedbackService{
         feedbackRepository.deleteById(id);
     }
 
-    @Override
-    public List<Feedback> feedbacksHechosPorUser(String username) {
-        return null;
-    }
 
-    @Override
-    public List<Feedback> feedbacksHechosParaElUser(String username) {
-        return null;
-    }
-
-    @Override
-    public List<Feedback> feedbacksPorGrupoAUnUsuario(Long idGrupo, String usuarioEvaluado) {
-        return null;
-    }
-
-    @Override
-    public List<Feedback> feedbacksHechosEnElGrupoPorElUsuario(Long idGrupo, String usuarioQEvalua) {
-        return null;
-    }
-
-    @Override
-    public List<Feedback> feedbacksHechosPorElUsuarioParaElUsuario(String UsuarioQEvalua, String usuarioEvaluado, Long idGrupo) {
-        return null;
-    }
 }

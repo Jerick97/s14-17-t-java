@@ -41,6 +41,11 @@ public class GroupServiceImpl implements GroupService{
     }
 
     @Override
+    public Group getGroupById(Long id) {
+        return groupRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+    }
+
+    @Override
     public GroupDTO getGrupo(Long id) { // analizar despues hacer un metodo para buscar por nombre si el front precisa
         Optional<Group> group = groupRepository.findById(id);
         GroupDTO groupDTO = null;

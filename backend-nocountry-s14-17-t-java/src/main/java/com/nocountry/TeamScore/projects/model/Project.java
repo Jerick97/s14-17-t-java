@@ -3,6 +3,7 @@ package com.nocountry.TeamScore.projects.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nocountry.TeamScore.feedback.model.Feedback;
+import com.nocountry.TeamScore.fieldByProject.model.FieldByProject;
 import com.nocountry.TeamScore.groups.model.Group;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -38,10 +40,13 @@ public class Project {
     @OneToOne(mappedBy = "projectId")
     private Group group;
 
-//    @ManyToOne(mappedBy = "projectId")
-//    private FieldsByProject fieldsByProject;
+    @OneToMany(mappedBy = "project")
+    private List<FieldByProject> fieldByProjects;
 
     @OneToMany(mappedBy = "proyectoEvaluado")
     @JsonIgnore
     private Set<Feedback> feedbacksDelProyecto;
 }
+
+
+

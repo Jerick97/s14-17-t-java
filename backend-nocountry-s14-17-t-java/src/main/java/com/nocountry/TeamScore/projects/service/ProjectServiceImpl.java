@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -17,6 +18,7 @@ public class ProjectServiceImpl implements ProjectService {
     private final ProjectRepository projectRepository;
     private final ObjectMapper mapper;
 
+    @Override
     public List<ProjectDTO> getAllProjects() {
         List<ProjectDTO> projectsDTO = mapper.convertValue(
                 projectRepository.findAll(),
@@ -26,11 +28,18 @@ public class ProjectServiceImpl implements ProjectService {
         return projectsDTO;
     }
 
+    @Override
     public ProjectDTO getProjectById(Long id) {
         Project project = projectRepository.findById(id).orElseThrow();
         return mapper.convertValue(project, ProjectDTO.class);
     }
 
+    @Override
+    public Project findById(Long id) {
+        return projectRepository.findById(id).orElseThrow();
+    }
+
+    @Override
     public ProjectDTO createProject(ProjectRequest request) {
         Project project = mapper.convertValue(request, Project.class);
         return mapper.convertValue(
@@ -39,6 +48,17 @@ public class ProjectServiceImpl implements ProjectService {
         );
     }
 
+    @Override
+    public List<ProjectDTO> getProjectByPublishDate(String publishDate) {
+        List<Project> projects = projectRepository.findAll();
+        List<ProjectDTO> listFilter = projects.stream()
+                .map(project -> mapper.convertValue(project, ProjectDTO.class))
+                .filter(project -> project.getPublishDate().toString().equals(publishDate))
+                .collect(Collectors.toList());
+        return listFilter;
+    }
+
+    @Override
     public ProjectDTO updateProject(Long id, ProjectRequest request) {
         Project projectDB = projectRepository.findById(id).orElseThrow();
 
@@ -55,6 +75,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     }
 
+    @Override
     public void deleteProject(Long id) {
         if(projectRepository.existsById(id)) {
             projectRepository.deleteById(id);

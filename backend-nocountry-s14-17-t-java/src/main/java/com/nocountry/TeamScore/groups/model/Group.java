@@ -2,11 +2,15 @@ package com.nocountry.TeamScore.groups.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nocountry.TeamScore.projects.model.Project;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.Set;
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "_groups")
 public class Group {

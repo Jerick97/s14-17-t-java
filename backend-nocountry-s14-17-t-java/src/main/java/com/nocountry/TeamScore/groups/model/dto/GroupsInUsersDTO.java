@@ -2,7 +2,9 @@ package com.nocountry.TeamScore.groups.model.dto;
 
 import com.nocountry.TeamScore.groups.model.Group;
 import com.nocountry.TeamScore.groups.model.GroupByUser;
+import lombok.Data;
 
+@Data
 public class GroupsInUsersDTO {
     private Long id;
     private String group_name;
