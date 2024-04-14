@@ -23,6 +23,7 @@ public class FeedbackController {
 
     @SecurityRequirement(name = "bearearAuth")
     @PostMapping
+    @Operation(summary = "Create a new Feedback with all associations", description = "necesario tener un proyecto asignado a un grupo con usuarios")
     public ResponseEntity<?> createFeedback(@RequestBody FeedbackRequestDTO feedback) { // el feedback deberia ser capaz de crear un feedback por si solo?, seria logico quitar este endpoint y dejarlo en user
         return ResponseEntity.ok(feedbackService.create(feedback));
     }
