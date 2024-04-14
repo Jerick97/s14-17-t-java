@@ -1,10 +1,13 @@
 package com.nocountry.TeamScore.fields.model;
 
+import com.nocountry.TeamScore.fieldByProject.model.FieldByProject;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,6 +20,7 @@ public class Field {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
+
     @Column(name = "name")
     private String name;
 
@@ -34,4 +38,7 @@ public class Field {
 
     @Column(name = "allow_comment")
     private Integer allowComment;
+
+    @OneToMany(mappedBy = "field")
+    private List<FieldByProject> fieldByProjects;
 }

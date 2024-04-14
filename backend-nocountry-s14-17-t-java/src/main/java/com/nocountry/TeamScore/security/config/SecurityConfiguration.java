@@ -32,6 +32,20 @@ public class SecurityConfiguration {
                                 .requestMatchers("/auth/**","/v3/api-docs/**","/swagger-ui.html", "/swagger-ui/**", "/api-docs.yaml","/swagger-ui-custom.html").permitAll() // para poder entrar a estos endpoints sin autenticar
                                 .requestMatchers(HttpMethod.POST,"/api/v1/auth/register").permitAll()
                                 .requestMatchers(HttpMethod.POST,"/api/v1/auth/authenticate").permitAll()
+                                .requestMatchers(HttpMethod.POST,"/api/v1/field/**").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/v1/field/**").permitAll()
+                                .requestMatchers(HttpMethod.PUT,"/api/v1/field/**").permitAll()
+                                .requestMatchers(HttpMethod.DELETE,"/api/v1/field/**").permitAll()
+
+                                .requestMatchers(HttpMethod.POST,"/api/v1/projects/**").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/v1/projects/**").permitAll()
+                                .requestMatchers(HttpMethod.PUT,"/api/v1/projects/**").permitAll()
+                                .requestMatchers(HttpMethod.DELETE,"/api/v1/projects/**").permitAll()
+
+                                .requestMatchers(HttpMethod.POST,"/api/v1/fielByProject/**").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/v1/fielByProject/**").permitAll()
+                                .requestMatchers(HttpMethod.PUT,"/api/v1/fielByProject/**").permitAll()
+                                .requestMatchers(HttpMethod.DELETE,"/api/v1/fielByProject/**").permitAll()
 
                 )
                 .authorizeHttpRequests(authRequest ->
