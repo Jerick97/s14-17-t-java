@@ -14,9 +14,4 @@ public interface FeedbackService {
 
     void delete(Long id);
 
-    List<FeedbackRequestDTO> feedbacksHechosPorUser(String username);
-    List<FeedbackRequestDTO> feedbacksHechosParaElUser(String username);
-    List<FeedbackRequestDTO> feedbacksPorGrupoAUnUsuario(Long idGrupo, String usuarioEvaluado);
-    List<FeedbackRequestDTO> feedbacksHechosEnElGrupoPorElUsuario(Long idGrupo, String usuarioQEvalua);
-    List<FeedbackRequestDTO> feedbacksHechosPorElUsuarioParaElUsuario(String UsuarioQEvalua, String usuarioEvaluado, Long idGrupo);
 }

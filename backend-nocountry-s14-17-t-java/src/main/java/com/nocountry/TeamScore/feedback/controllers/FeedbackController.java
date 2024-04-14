@@ -23,6 +23,7 @@ public class FeedbackController {
 
     @SecurityRequirement(name = "bearearAuth")
     @PostMapping
+    @Operation(summary = "Create a new Feedback with all associations", description = "necesario tener grupo/s asignado/s a un proyecto, y al menos dos usuarios en el mismo grupo")
     public ResponseEntity<?> createFeedback(@RequestBody FeedbackRequestDTO feedback) { // el feedback deberia ser capaz de crear un feedback por si solo?, seria logico quitar este endpoint y dejarlo en user
         return ResponseEntity.ok(feedbackService.create(feedback));
     }
@@ -51,7 +52,7 @@ public class FeedbackController {
         return ResponseEntity.ok(feedbackService.getAll());
     }
 
-    @SecurityRequirement(name = "bearerAuth")
+    /*@SecurityRequirement(name = "bearerAuth")
     @GetMapping("/hechosPorUser/{username}")
     @Operation(summary = "Get feedbacks by user", description = "Return feedbacks already done by username")
     public ResponseEntity<?> feedbacksHechosPorUser(@PathVariable String username) {
@@ -84,7 +85,7 @@ public class FeedbackController {
     @Operation(summary = "Get feedbacks by specific user to other user", description = "Return feedbacks by specific user to other member of same team")
     public ResponseEntity<?> feedbacksHechosPorElUsuarioParaElUsuario(@PathVariable String UsuarioQEvalua, @PathVariable String usuarioEvaluado, @PathVariable Long idGrupo) {
         return ResponseEntity.ok(feedbackService.feedbacksHechosPorElUsuarioParaElUsuario(UsuarioQEvalua, usuarioEvaluado, idGrupo));
-    }
+    }*/
 
     // faltarian enpoints para recuperar los feedback echos en un proyecto, o por un usuario
     // endpoint para recuperar el rol del usuario al que estoy evaluando
