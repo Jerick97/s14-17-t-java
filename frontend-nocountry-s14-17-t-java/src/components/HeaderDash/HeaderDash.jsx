@@ -5,11 +5,11 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 const HeaderHome = () => {
-  const { setAuth } = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const logout = () => {
-    setAuth({});
+  const handlerlogout = () => {
+    logout();
     navigate("/login");
   };
 
@@ -20,7 +20,7 @@ const HeaderHome = () => {
           <Logo />
         </Link>
         <div className="w-auto h-auto flex items-center gap-2">
-          <ButtonNeon text="Log Out" onClick={logout} />
+          <ButtonNeon text="Log Out" onClick={handlerlogout} />
         </div>
       </div>
     </div>

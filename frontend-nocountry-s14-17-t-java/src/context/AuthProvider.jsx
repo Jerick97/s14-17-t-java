@@ -1,28 +1,61 @@
 import { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { AuthContext } from "./AuthContext";
-import {
-  saveLocalStorage,
-  getLocalStorage,
-} from "../services/localStorageService";
 import { usuarios } from "./usuarios";
-
+import axiosInstance from "../api/axiosInstance";
 export const AuthProvider = ({ children }) => {
   // Estado y efecto para el contexto de autenticación
-  const [auth, setAuth] = useState(
-    JSON.parse(localStorage.getItem("auth")) || {}
-  );
+  const [auth, setAuth] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [jwt, setJwt] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // Set initial loading state
 
   useEffect(() => {
-    saveLocalStorage("user", auth);
-  }, [auth]);
+    const storedJwt = localStorage.getItem("jwt-token");
+    if (storedJwt) {
+      setIsLoggedIn(true);
+      setJwt(storedJwt);
 
-  useEffect(() => {
-    const savedUser = getLocalStorage("user");
-    if (savedUser) {
-      setAuth(savedUser);
+      (async () => {
+        try {
+          const response = await axiosInstance.get("/user"); // Replace with your user data endpoint
+
+          if (response.status === 200) {
+            // Handle successful response
+            setAuth(response.data);
+            setIsLoading(false);
+          } else {
+            console.error(
+              "Error fetching user data:",
+              response.status,
+              response.data
+            );
+          }
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        } finally {
+          setIsLoading(false); // Always set loading to false after fetching
+        }
+      })();
+    } else {
+      setIsLoggedIn(false);
+      setIsLoading(false);
+      setAuth({}); // Set auth to empty object if no token
     }
   }, []);
+
+  function login(token) {
+    setIsLoggedIn(true);
+    setJwt(token);
+    localStorage.setItem("jwt-token", token);
+  }
+
+  function logout() {
+    setIsLoggedIn(false);
+    setJwt(null);
+    localStorage.removeItem("jwt-token");
+    setAuth({});
+  }
 
   // Estado y efecto para el contexto de usuarios
   const [users, setUsers] = useState(() => {
@@ -42,12 +75,16 @@ export const AuthProvider = ({ children }) => {
     setUsers(updatedUsers);
   };
 
-  // Valor combinado para el contexto de autenticación
   const contextValue = {
     auth,
     setAuth,
     users,
     updateUserStaff,
+    isLoggedIn,
+    isLoading,
+    login,
+    logout,
+    jwt,
   };
 
   return (
