@@ -6,13 +6,14 @@ import PasswordInput from "../../../components/PasswordInput/PasswordInput";
 import ButtonPrimary from "../../../components/ButtonPrimary/ButtonPrimary";
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthContext";
+import authService from "../../../services/authService";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 function Login() {
   const MySwal = withReactContent(Swal);
   const navigate = useNavigate();
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth, login } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -20,27 +21,50 @@ function Login() {
   } = useForm();
 
   const users = {
-    "admin@gmail.com": { password: "Administrador", isAdmin: true, name: "pepito" },
-    "user@gmail.com": { password: "Usuario123", isAdmin: false, name: "pepito" },
+    "admin@gmail.com": {
+      password: "Administrador",
+      isAdmin: true,
+      name: "Gloria",
+    },
+    "kaosinc@gmail.com": {
+      password: "Usuario123",
+      isAdmin: false,
+      name: "Marcelo",
+    },
   };
 
-  const handleLogin = (data) => {
+  const handleLogin = async (data) => {
     const { email, password } = data;
     const user = users[email];
 
-    if (!user || user.password !== password) {
+    try {
+      // Llama al método login del servicio de autenticación para iniciar sesión
+      const response = await authService.login(email, password);
+
+      // Verifica si el inicio de sesión fue exitoso
+      if (response.message === "success") {
+        // Extrae el token del objeto de respuesta
+        const { token } = response;
+        // Guarda el token en el localStorage
+        localStorage.setItem("jwt-token", token);
+        //Almacenamos en el contexto los datos del usuario
+        setAuth({
+          email,
+          role: user.isAdmin ? "admin" : "user",
+          name: user.name,
+        });
+
+        login(token);
+        navigate(user.isAdmin ? "/dashboard" : "/");
+      }
+    } catch (error) {
+      // Manejo de errores en caso de que falle el inicio de sesión
       MySwal.fire({
         icon: "error",
         title: "Error",
-        text: "El correo electrónico o contraseña es incorrecta",
+        text: "El correo electrónico o la contraseña son incorrectos",
       });
-      return;
     }
-
-    //Almacenamos en el contexto los datos del usuario
-    setAuth({ email, roles: user.isAdmin ? "admin" : "user", name : user.name });
-
-    navigate(user.isAdmin ? "/dashboard" : "/");
   };
 
   return (

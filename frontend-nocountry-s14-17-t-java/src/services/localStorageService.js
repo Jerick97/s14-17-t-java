@@ -1,4 +1,4 @@
-// Función para guardar los votos en el localStorage
+// Función para guardar la data en el localStorage
 export const saveLocalStorage = (name, data) => {
   // Convertir la data a formato JSON
   const dataJSON = JSON.stringify(data);

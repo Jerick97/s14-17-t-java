@@ -1,23 +1,30 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-
-const isObjectEmpty = (objectName) => {
-  return Object.keys(objectName).length === 0;
-};
+import Loading from "../components/Loading/Loading";
 
 export const PrivateRoute = ({ allowed, redirectPath, children }) => {
-  const { auth } = useContext(AuthContext);
-  if (isObjectEmpty(auth)) {
+  const { auth, isLoggedIn, isLoading } = useContext(AuthContext);
+  console.log(isLoggedIn);
+  // Mientras se trae la data del usuario con el token
+  if (isLoading) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center">
+        <Loading />
+      </div>
+    );
+  }
+
+  if (!isLoggedIn) {
     return <Navigate to="/login" replace />; // Redirecciona al login si no inicia sesión
   }
 
-  if (auth.roles !== allowed) {
+  if (auth.role !== allowed) {
     return <Navigate to={redirectPath} replace />; // Redirecciona sino si no tiene el rol permitido
   }
 
-  return children ? children : <Outlet />;
+  return children;
 };
 
 PrivateRoute.propTypes = {
