@@ -1,6 +1,8 @@
 import flags from "../../data/flags.json";
-import users from "../../data/users.json";
-const DashboarTable = () => {
+// import users from "../../data/users.json";
+
+
+const DashboarTable = ( { users }) => {
   const rolColors = {
     PM: "text-[#DB540D]",
     QA: "text-[#DB2D4B]",

@@ -31,12 +31,12 @@ function AdminLayout() {
                 {/* Sidebar content here */}
                 <li>
                   <Link to={"/dashboard"}>
-                    <a>Menu</a>
+                    <p>Menu</p>
                   </Link>
                 </li>
                 <li>
                   <Link to={"/dashboard/excel"}>
-                    <a>Importar excel</a>
+                    <p>Importar excel</p>
                   </Link>
                 </li>
               </ul>
