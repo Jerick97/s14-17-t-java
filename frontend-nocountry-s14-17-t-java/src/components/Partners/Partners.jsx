@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import check from "@assets/check.svg";
 export default function Partners({
@@ -9,7 +9,7 @@ export default function Partners({
   index,
   activo,
 }) {
-  console.log(activo);
+
   const fullName = `${name} ${surname}`;
   return (
     <Link to={`/vote?user=${encodeURIComponent(fullName)}&index=${index}`}>
