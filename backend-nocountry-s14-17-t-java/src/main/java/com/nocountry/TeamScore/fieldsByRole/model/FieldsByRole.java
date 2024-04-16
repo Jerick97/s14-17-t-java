@@ -2,6 +2,7 @@ package com.nocountry.TeamScore.fieldsByRole.model;
 
 import com.nocountry.TeamScore.projects.model.Project;
 
+import com.nocountry.TeamScore.roles.model.Roles;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,7 +19,7 @@ public class FieldsByRole {
     private Long id;
     @ManyToOne
     private Project project_id;
-   // @ManyToOne
-  //  private Roles role_id;
+    @ManyToOne
+    private Roles role_id;
 
 }

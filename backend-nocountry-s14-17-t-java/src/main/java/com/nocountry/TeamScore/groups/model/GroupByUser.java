@@ -1,6 +1,7 @@
 package com.nocountry.TeamScore.groups.model;
 
 
+import com.nocountry.TeamScore.roles.model.Roles;
 import com.nocountry.TeamScore.security.user.model.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -24,6 +25,7 @@ public class GroupByUser {
     @JoinColumn(name = "group_id", nullable = false)
     private Group group;
     private String rolElegido;
-   // private Roles role_id;
+    @ManyToOne
+    private Roles role_id;
 }
 

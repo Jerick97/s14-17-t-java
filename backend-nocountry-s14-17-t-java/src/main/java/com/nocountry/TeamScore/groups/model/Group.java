@@ -12,7 +12,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "_groups")
+@Table(name = "_groups", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
 public class Group {
 
     @Id
