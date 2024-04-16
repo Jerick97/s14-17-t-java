@@ -6,18 +6,18 @@ import Loading from "../components/Loading/Loading";
 
 export const PrivateRoute = ({ allowed, redirectPath, children }) => {
   const { auth, isLoggedIn, isLoading } = useContext(AuthContext);
-  console.log(isLoggedIn);
+
   // Mientras se trae la data del usuario con el token
   if (isLoading) {
     return (
-      <div className="w-full h-screen flex items-center justify-center">
+      <div className='w-full h-screen flex items-center justify-center'>
         <Loading />
       </div>
     );
   }
 
   if (!isLoggedIn) {
-    return <Navigate to="/login" replace />; // Redirecciona al login si no inicia sesión
+    return <Navigate to='/login' replace />; // Redirecciona al login si no inicia sesión
   }
 
   if (auth.role !== allowed) {

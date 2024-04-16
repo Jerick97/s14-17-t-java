@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import TittleGradient from "../../components/TittleGradient/TittleGradient";
 import { AuthContext } from "../../context/AuthContext";
 
-
 const Vote = () => {
   const { auth, updateUserStaff } = useContext(AuthContext);
 
@@ -18,7 +17,6 @@ const Vote = () => {
     // Lógica para actualizar el staff del socio correspondiente (usando el índice)
     updateUserStaff(index);
     // Navegar de regreso a la página de inicio
-
   };
 
   const preguntas = ["¿Se sienten seguros y apoyados por sus compañeros?"];

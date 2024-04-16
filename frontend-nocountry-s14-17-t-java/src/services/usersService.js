@@ -4,7 +4,7 @@ const usersService = {
   users: async () => {
     try {
       const response = await axiosInstance.get("/");
-      console.log(response.data);
+
       return response.data;
     } catch (error) {
       console.error("Error fetching users:", error);
