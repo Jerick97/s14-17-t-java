@@ -1,6 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 import HeaderHome from "../components/HeaderDash/HeaderDash";
 import MenuDashboard from "../components/MenuDashboard/MenuDashboard";
+import Footer from "../components/Footer/Footer";
 
 function AdminLayout() {
   return (
@@ -31,12 +32,12 @@ function AdminLayout() {
                 {/* Sidebar content here */}
                 <li>
                   <Link to={"/dashboard"}>
-                    <p>Menu</p>
+                    <a>Menu</a>
                   </Link>
                 </li>
                 <li>
                   <Link to={"/dashboard/excel"}>
-                    <p>Importar excel</p>
+                    <a>Importar excel</a>
                   </Link>
                 </li>
               </ul>
@@ -44,6 +45,7 @@ function AdminLayout() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

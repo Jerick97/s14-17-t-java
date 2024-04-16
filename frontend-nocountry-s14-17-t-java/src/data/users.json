@@ -126,7 +126,7 @@
     "emailValido": true,
     "rol": "Frontend",
     "state": true,
-    "progress": 100,
+    "progress": 0,
     "country": "Argentina"
   },
   {
@@ -136,7 +136,7 @@
     "emailValido": true,
     "rol": "Frontend",
     "state": true,
-    "progress": 70,
+    "progress": 0,
     "country": "Argentina"
   },
   {
@@ -146,7 +146,7 @@
     "emailValido": true,
     "rol": "Frontend",
     "state": true,
-    "progress": 40,
+    "progress": 0,
     "country": "Argentina"
   },
   {
