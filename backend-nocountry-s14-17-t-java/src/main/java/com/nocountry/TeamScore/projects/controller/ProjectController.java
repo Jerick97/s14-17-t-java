@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -25,6 +26,11 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.getAllProjects());
     }
 
+    @GetMapping("/recent")
+    public ResponseEntity<List<ProjectDTO>> getProjectsRecent() {
+        return ResponseEntity.ok(projectService.getProjectsRecent());
+    }
+
     @GetMapping("/{id}")
     @Operation(summary = "Get project by id", description = "This endpoint return a project by id")
     public ResponseEntity<ProjectDTO> getProjectById(@PathVariable Long id) {
@@ -35,6 +41,11 @@ public class ProjectController {
     @Operation(summary = "Get project by publish date", description = "Get a list of projects by a specific date")
     public ResponseEntity<List<ProjectDTO>> getProjectByPublishDate(@PathVariable String date) {
         return ResponseEntity.ok(projectService.getProjectByPublishDate(date));
+    }
+
+    @GetMapping("/{id}/limit-date")
+    public ResponseEntity<String> getDateLimitRecentProject(@PathVariable Long id) {
+        return ResponseEntity.ok(projectService.getDateLimitRecentProject(id));
     }
 
     @PostMapping

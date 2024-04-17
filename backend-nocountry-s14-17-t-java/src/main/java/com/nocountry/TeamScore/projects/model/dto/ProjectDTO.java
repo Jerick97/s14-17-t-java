@@ -13,6 +13,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProjectDTO {
+    @Schema(description = "Id project", example = "1")
+    private Long id;
 
     @Schema(description = "Name project", example = "TeamScore")
     private String name;

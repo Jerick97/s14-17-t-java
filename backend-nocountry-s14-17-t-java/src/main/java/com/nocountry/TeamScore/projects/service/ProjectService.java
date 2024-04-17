@@ -8,7 +8,9 @@ import java.util.List;
 
 public interface ProjectService {
     List<ProjectDTO> getAllProjects();
+    List<ProjectDTO> getProjectsRecent();
     ProjectDTO getProjectById(Long id);
+    String getDateLimitRecentProject(Long idProject);
 
     Project findById(Long id);
 

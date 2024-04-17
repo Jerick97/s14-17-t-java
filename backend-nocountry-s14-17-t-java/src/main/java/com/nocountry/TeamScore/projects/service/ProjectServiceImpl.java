@@ -8,6 +8,8 @@ import com.nocountry.TeamScore.projects.repository.ProjectRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +28,14 @@ public class ProjectServiceImpl implements ProjectService {
         );
 
         return projectsDTO;
+    }
+    @Override
+    public List<ProjectDTO> getProjectsRecent() {
+        return projectRepository.findAll()
+                .stream()
+                .filter(project -> project.getEndsOn() != null && LocalDateTime.now().isBefore(project.getEndsOn()))
+                .map(project -> mapper.convertValue(project, ProjectDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -56,6 +66,13 @@ public class ProjectServiceImpl implements ProjectService {
                 .filter(project -> project.getPublishDate().toString().equals(publishDate))
                 .collect(Collectors.toList());
         return listFilter;
+    }
+
+    @Override
+    public String getDateLimitRecentProject(Long idProject) {
+        Project project = projectRepository.findById(idProject).orElseThrow();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return project.getEndsOn().format(formatter);
     }
 
     @Override
