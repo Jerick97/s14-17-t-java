@@ -1,8 +1,9 @@
 import { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { AuthContext } from "./AuthContext";
-import { usuarios } from "./usuarios";
 import axiosInstance from "../api/axiosInstance";
+import usersService from "../services/usersService";
+
 export const AuthProvider = ({ children }) => {
   // Estado y efecto para el contexto de autenticación
   const [auth, setAuth] = useState({});
@@ -18,7 +19,7 @@ export const AuthProvider = ({ children }) => {
 
       (async () => {
         try {
-          const response = await axiosInstance.get("/user"); // Replace with your user data endpoint
+          const response = await axiosInstance.get("/user");
 
           if (response.status === 200) {
             // Handle successful response
@@ -58,13 +59,36 @@ export const AuthProvider = ({ children }) => {
   }
 
   // Estado y efecto para el contexto de usuarios
-  const [users, setUsers] = useState(() => {
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
     const storedUsers = localStorage.getItem("users");
-    return storedUsers ? JSON.parse(storedUsers) : usuarios;
-  });
+
+    if (storedUsers) {
+      setUsers(JSON.parse(storedUsers)); // Establecer usuarios desde el almacenamiento local al cargar la página
+    } else {
+      // Si no hay datos en el almacenamiento local, solicita los datos de la API
+      usersService
+        .users()
+        .then((data) => {
+          // Agregar el atributo "staff:false" a cada usuario
+          const usersWithStaff = data.map((user) => ({
+            ...user,
+            staff: false, // Inicializar staff en false
+          }));
+          setUsers(usersWithStaff);
+          localStorage.setItem("users", JSON.stringify(usersWithStaff)); // Guardar en el almacenamiento local
+        })
+        .catch((error) => {
+          console.error("Error fetching users:", error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+        });
+    }
+  }, []);
 
   useEffect(() => {
-    localStorage.setItem("users", JSON.stringify(users));
+    console.log(users); // Este console.log reflejará los datos actualizados después de establecer el estado
   }, [users]);
 
   // Función para actualizar el estado del usuario en el contexto de usuarios
@@ -73,6 +97,7 @@ export const AuthProvider = ({ children }) => {
     const currentStaffStatus = updatedUsers[index].staff;
     updatedUsers[index].staff = !currentStaffStatus;
     setUsers(updatedUsers);
+    localStorage.setItem("users", JSON.stringify(updatedUsers)); // Guardar en el almacenamiento local
   };
 
   const contextValue = {

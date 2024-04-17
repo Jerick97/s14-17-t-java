@@ -19,8 +19,7 @@
 **/.nb-gradle/
 **/build/
 **/.vscode/
-**/src/main/resources/application.properties
-**/src/test/resources/application.properties
+
 
 # Ignorar archivos específicos de React
 **/node_modules/

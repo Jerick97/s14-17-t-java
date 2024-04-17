@@ -6,6 +6,7 @@ import usersService from "../../../services/usersService";
 // import users from "../../../data/users.json";
 
 function Dashboard() {
+
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -33,8 +34,8 @@ function Dashboard() {
       <div className="sm:row-span-auto sm:col-span-3 lg:w-full sm:w-auto justify-center text-black w-full ">
         <DashboarTable users={users} />
       </div>
-    </div>
-  );
+  </div>
+);
 }
 
 export default Dashboard;
