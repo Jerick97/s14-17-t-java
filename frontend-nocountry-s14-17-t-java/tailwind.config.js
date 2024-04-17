@@ -12,7 +12,7 @@ export default {
   plugins: [daisyui],
   daisyui: {
 
-    // prefix: "daisy-",
+    prefix: "daisy-",
 
   },
   darkMode: "class",
