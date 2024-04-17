@@ -1,13 +1,31 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState} from "react";
 import { Link, useLocation } from "react-router-dom";
 import TittleGradient from "../../components/TittleGradient/TittleGradient";
 import { AuthContext } from "../../context/AuthContext";
-import question from "../../data/question.json";
+import questionService from "../../services/questionService";
+//import question from "../../data/question.json";
 import QuestionCard from "../../components/QuestionCard/QuestionCard";
+import ButtonNeon from "../../components/ButtonNeon/ButtonNeon";
 // import HeaderDash from "../../components/HeaderDash/HeaderDash"
 
 const Vote = () => {
   const { auth, updateUserStaff } = useContext(AuthContext);
+
+
+  const [question, setQuestion] = useState([]); //Hacer lo mismo para Question
+  useEffect(() => {
+    questionService
+      .users()
+      .then((data) => {
+        // Hacer algo con los datos recibidos
+        setQuestion(data);
+      })
+      .catch((error) => {
+        // Manejar cualquier error que ocurra durante la solicitud
+        console.error("Error fetching question:", error);
+      });
+  }, []);
+
 
   // Obtener la ubicación actual
 
@@ -23,24 +41,32 @@ const Vote = () => {
   };
 
 
+
   return (
     <div className='w-full min-h-screen flex items-center justify-center pt-8 bg-[#06071B] flex-col'> 
-
+    
+      <div className="mb-40 w-full text-center flex items-center justify-center">
       <TittleGradient user={auth.name} voting={userVoting} />
-      <div className='flex flex-col h-auto pt-8 container items-center mx-auto w-3/4 justify-around '> 
-        {question.map((pregunta, index) => (
-          <QuestionCard key={index} pregunta={pregunta}>
-      
+      </div>
+      <form >
 
+      <div className='flex flex-col h-auto pt-8 container items-center mx-auto w-3/4 justify-around '> 
+        {question.map((question) => (
+          <QuestionCard description={question.description} key={question.field_id} name={question.name} field_id={question.field_id}>
           </QuestionCard>
         ))}
       </div>
-  
+        
+
+       <div className="flex items-center justify-center my-10">
       <Link to={"/"}>
-        <button className='bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow' onClick={handleSubmit}>
-          Enviar
-        </button>
+        <ButtonNeon onClick={handleSubmit} text={"Enviar Votacion"}>
+          
+        </ButtonNeon>
       </Link>
+      </div>
+      </form>
+
     </div>
   );
 
