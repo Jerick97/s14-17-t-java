@@ -7,16 +7,26 @@ import Partners from "../Partners/Partners";
 import Groups from "../Partners/Groups";
 
 function FileUploader() {
-  const [groupedData, setGroupedData] = useState({});
-  const [errorMessage, setErrorMessage] = useState(null);
 
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  let [errorMessage, setErrorMessage] = useState(null);
+
+  const [excelData, setExcelData] = useState([]);
+  const handleEmailChange = (index, newValue) => {
+    const newExcelData = [...excelData];
+    newExcelData[index].email = newValue;
+    setExcelData(newExcelData);
+  };
+
+  let validateEmail = (email) => {
+    let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
-  const onDrop = (acceptedFiles) => {
+  let { getRootProps, getInputProps } = useDropzone({ onDrop });
+
+  function onDrop(acceptedFiles) {
     const reader = new FileReader();
+    reader.readAsBinaryString(acceptedFiles[0]);
 
     reader.onload = (event) => {
       try {
@@ -24,35 +34,20 @@ function FileUploader() {
         const workbook = XLSX.read(binaryString, { type: "binary" });
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
-        const excelData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+        const data = XLSX.utils.sheet_to_json(worksheet, { header: 1, range: 1 });
 
-        const groupedData = {};
-        excelData.forEach((row) => {
-          const [group, ...personData] = row;
-          const groupName = group.trim();
+        const excelRows = data.map(row => { 
+          const group = row[0];
+          const name = row[1];
+          const surname = row[2];
+          const email = (row[3]);
+          const role = row[4];
+          const staff = row[5];
 
-          if (!groupedData[groupName]) {
-            groupedData[groupName] = [];
-          }
-
-          const email = personData[2];
-          const staff = personData[4] === 1;
-
-          const personObj = {
-            surname: personData[0],
-            name: personData[1],
-            username: email,
-            emailValido: validateEmail(email),
-            role: personData[3],
-            staff: staff,
-          };
-
-          groupedData[groupName].push(personObj);
+          return { group, name, surname, email, role, staff };
         });
 
-        delete groupedData["grupo"];
-
-        setGroupedData(groupedData);
+        setExcelData(excelRows);
         setErrorMessage(null);
       } catch (error) {
         console.error("Error al leer el archivo Excel:", error);
@@ -61,86 +56,98 @@ function FileUploader() {
         );
       }
     };
+  }
 
-    reader.readAsBinaryString(acceptedFiles[0]);
-  };
+  function handleSendDataToBackend() {
+    
+    // Objeto para almacenar las personas agrupadas por grupo
+    const groupedData = [];
 
-  const handleSendDataToBackend = () => {
-    console.log("Enviando datos al servidor:", groupedData);
-    sendDataToBackend(groupedData)
-      .then((data) => {
-        console.log("Datos enviados exitosamente:", data);
-      })
-      .catch((error) => {
-        console.error("Error al enviar datos al servidor:", error);
-      });
-  };
+    // Recorrer excelData y agrupar por grupo
+    excelData.forEach(person => {
+      // Buscar si el grupo ya existe en groupedData
+      const existingGroupIndex = groupedData.findIndex(group => group.nameGroup === person.group);
 
-  const prueba = {
-    username: "pepim2",
-    name: "nombre2",
-  };
+      if (existingGroupIndex !== -1) {
+        // Si el grupo ya existe, agregar la persona al array de usuarios correspondiente
+        groupedData[existingGroupIndex].users.push({
+          username: person.email,
+          // Puedes asignar los otros campos según sea necesario
+          name: person.name,
+          surname: person.surname,
+          role: person.role
+          // Agrega los otros campos según sea necesario para que coincidan con UserModel
+        });
+      } else {
+        // Si el grupo no existe, crear un nuevo objeto LoadBulkModel
+        const newGroup = {
+          nameGroup: person.group,
+          users: [{
+            username: person.email,
+            // Puedes asignar los otros campos según sea necesario
+            name: person.name,
+            surname: person.surname,
+            role: person.role
+            // Agrega los otros campos según sea necesario para que coincidan con UserModel
+          }]
+        };
+        groupedData.push(newGroup);
+      }
+    });
 
-  const handleSendDataToBackendPrueba = () => {
-    console.log("Enviando datos al servidor:", prueba);
-    sendDataToBackendPrueba(prueba)
-      .then((data) => {
-        console.log("Datos enviados exitosamente:", data);
-      })
-      .catch((error) => {
-        console.error("Error al enviar datos al servidor:", error);
-      });
-  };
-
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+    console.log(groupedData);
+  }
 
   return (
     <div>
-      <div
-        {...getRootProps()}
-        className='border-[#0CFCA7] border rounded-lg mb-3 p-5 cursor-pointer'
-      >
+      <div {...getRootProps()} className="border-[#0CFCA7] border rounded-lg mb-3 p-5 cursor-pointer">
         <input {...getInputProps()} />
-        <p>
-          Arrastra y suelta un archivo Excel aquí, o haz clic para seleccionar
-          uno
-        </p>
+        <p>Arrastra y suelta un archivo Excel aquí, o haz clic para seleccionar uno</p>
       </div>
-      <button className='btn btn-primary' onClick={handleSendDataToBackend}>
-        Enviar datos al servidor
+
+      {/* Mostrar el mensaje de error si existe */}
+      {errorMessage && (
+        <div className="text-red-500">
+          <h2>Error:</h2>
+          <p>{errorMessage}</p>
+        </div>
+      )}
+
+      <table className="table-auto">
+        <thead>
+          <tr>
+            <th className="text-white px-4 py-2">Group</th>
+            <th className="text-white px-4 py-2">Name</th>
+            <th className="text-white px-4 py-2">Surname</th>
+            <th className="text-white px-4 py-2">Email</th>
+            <th className="text-white px-4 py-2">Role</th>
+            <th className="text-white px-4 py-2">Staff</th>
+          </tr>
+        </thead>
+        <tbody>
+          {excelData.map((row, index) => (
+            <tr key={index}>
+              <td className="text-white px-4 py-2">{row.group}</td>
+              <td className="text-white px-4 py-2">{row.name}</td>
+              <td className="text-white px-4 py-2">{row.surname}</td>
+              <td className="text-white px-4 py-2">
+                <input
+                  type="text"
+                  className="w-full bg-transparent text-black text-white"
+                  value={row.email}
+                  onChange={(e) => handleEmailChange(index, e.target.value)}
+                />
+              </td>
+              <td className="text-white px-4 py-2">{row.role}</td>
+              <td className="text-white px-4 py-2">{row.staff}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleSendDataToBackend}>
+        Guardar
       </button>
-
-      <button
-        className='btn btn-primary'
-        onClick={handleSendDataToBackendPrueba}
-      >
-        Enviar datos al servidor
-      </button>
-      <div>
-        {errorMessage ? (
-          <div>
-            <h2>Error:</h2>
-            <p>{errorMessage}</p>
-          </div>
-        ) : (
-          <div>
-            <h2>Importaste los siguientes equipos:</h2>
-
-            <ul className='flex flex-wrap gap-5 my-5'>
-              {Object.keys(groupedData).map((groupName) => (
-                <Groups key={groupName} name={groupName} />
-              ))}
-            </ul>
-
-            <div>
-              <h2>Datos del archivo Excel agrupados:</h2>
-              <pre className='overflow-hidden'>
-                {JSON.stringify(groupedData, null, 2)}
-              </pre>
-            </div>
-          </div>
-        )}
-      </div>
     </div>
   );
 }
