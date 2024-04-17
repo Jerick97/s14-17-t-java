@@ -30,7 +30,7 @@ function Count() {
   /* RENDERIZAMOS CON ".toLocaleDateString()" PARA TRANSFORMAR LAS FECHAS EN CADENAS DE TEXTO Y DE ACUERDO A LA REGION EN LA QUE NOS ENCONTREMOS */
   return (
     <div>
-      <h1 className="text-center" style={{ backgroundColor: "#06071b" }}>
+      <h1 className="text-center py-1" style={{ backgroundColor: "#06071b" }}>
         {/* Fecha de inicio de la calificacion a compañeros:{" "}
         <span style={{ color: "#1d90fc" }}>
           {startDate.toLocaleDateString()}
