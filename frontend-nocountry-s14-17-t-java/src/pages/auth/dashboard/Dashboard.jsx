@@ -6,9 +6,7 @@ import usersService from "../../../services/usersService";
 // import users from "../../../data/users.json";
 
 function Dashboard() {
-
   const [users, setUsers] = useState([]);
-
   useEffect(() => {
     usersService
       .users()
