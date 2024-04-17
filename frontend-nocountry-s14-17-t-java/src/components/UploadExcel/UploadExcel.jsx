@@ -1,114 +1,155 @@
 import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import * as XLSX from "xlsx";
-
+import { sendDataToBackend } from "./excelHook";
+import { sendDataToBackendPrueba } from "./pruebaHook";
+import Partners from "../Partners/Partners";
+import Groups from "../Partners/Groups";
 
 function FileUploader() {
-  const [groupedData, setGroupedData] = useState({});
 
-  const validateEmail = (email) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
+let [errorMessage, setErrorMessage] = useState(null);
 
-  const onDrop = (acceptedFiles) => {
-    const reader = new FileReader();
+const [excelData, setExcelData] = useState([]);
+const handleEmailChange = (index, newValue) => {
+  const newExcelData = [...excelData];
+  newExcelData[index].email = newValue;
+  setExcelData(newExcelData);
+};
 
-    reader.onload = (event) => {
+let validateEmail = (email) => {
+  let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+let { getRootProps, getInputProps } = useDropzone({ onDrop });
+
+function onDrop(acceptedFiles) {
+  const reader = new FileReader();
+  reader.readAsBinaryString(acceptedFiles[0]);
+
+  reader.onload = (event) => {
+    try {
       const binaryString = event.target.result;
       const workbook = XLSX.read(binaryString, { type: "binary" });
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
-      const excelData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+      const data = XLSX.utils.sheet_to_json(worksheet, { header: 1, range: 1 });
 
-      const groupedData = {};
-      excelData.forEach((row) => {
-        const [group, ...personData] = row;
-        const groupName = group.trim();
+      const excelRows = data.map(row => { 
+        const group = row[0];
+        const name = row[1];
+        const surname = row[2];
+        const email = (row[3]);
+        const role = row[4];
+        const staff = row[5];
 
-        if (!groupedData[groupName]) {
-          groupedData[groupName] = [];
-        }
-
-        const email = personData[2];
-        const staff = personData[4] === 1;
-
-        const personObj = {
-
-          apellidos: personData[0],
-          nombres: personData[1],
-          email: email,
-          emailValido: validateEmail(email),
-          rol: personData[3],
-
-          staff: staff,
-        };
-
-        groupedData[groupName].push(personObj);
+        return { group, name, surname, email, role, staff };
       });
 
-      delete groupedData["grupo"];
-
-      setGroupedData(groupedData);
-
-      console.log(groupedData);
-
-    };
-
-    reader.readAsBinaryString(acceptedFiles[0]);
+      setExcelData(excelRows);
+      setErrorMessage(null);
+    } catch (error) {
+      console.error("Error al leer el archivo Excel:", error);
+      setErrorMessage(
+        "Error al leer el archivo Excel. Por favor, asegúrate de que sea un archivo válido."
+      );
+    }
   };
+}
 
+function handleSendDataToBackend() {
 
-  const { getRootProps, getInputProps } = useDropzone({ onDrop });
+  // Objeto para almacenar las personas agrupadas por grupo
+  const groupedData = [];
 
-  return (
-    <div>
-      <div
-        {...getRootProps()}
-        style={{
-          border: "1px solid #ccc",
-          padding: "20px",
-          textAlign: "center",
-          cursor: "pointer",
-        }}
-      >
-        <input {...getInputProps()} />
-        <p>
-          Arrastra y suelta un archivo Excel aquí, o haz clic para seleccionar
-          uno
-        </p>
-      </div>
+  // Recorrer excelData y agrupar por grupo
+  excelData.forEach(person => {
+    // Buscar si el grupo ya existe en groupedData
+    const existingGroupIndex = groupedData.findIndex(group => group.nameGroup === person.group);
 
+    if (existingGroupIndex !== -1) {
+      // Si el grupo ya existe, agregar la persona al array de usuarios correspondiente
+      groupedData[existingGroupIndex].users.push({
+        username: person.email,
+        // Puedes asignar los otros campos según sea necesario
+        name: person.name,
+        surname: person.surname,
+        role: person.role
+        // Agrega los otros campos según sea necesario para que coincidan con UserModel
+      });
+    } else {
+      // Si el grupo no existe, crear un nuevo objeto LoadBulkModel
+      const newGroup = {
+        nameGroup: person.group,
+        users: [{
+          username: person.email,
+          // Puedes asignar los otros campos según sea necesario
+          name: person.name,
+          surname: person.surname,
+          role: person.role
+          // Agrega los otros campos según sea necesario para que coincidan con UserModel
+        }]
+      };
+      groupedData.push(newGroup);
+    }
+  });
 
+  console.log(groupedData);
+}
 
-      <div>
-        <h2>Datos del archivo Excel agrupados:</h2>
-        <pre>{JSON.stringify(groupedData, null, 2)}</pre>
-      </div>
-
-      <div>
-        <h2>Datos del archivo Excel agrupados:</h2>
-        {Object.keys(groupedData).map((group) => (
-          <div key={group}>
-            <h3>{group}</h3>
-            <ul>
-              {groupedData[group].map((person, index) => (
-                <li key={index}>
-                  <strong>Apellidos:</strong> {person.apellidos},{" "}
-                  <strong>Nombres:</strong> {person.nombres},{" "}
-                  <strong>Email:</strong> {person.email},{" "}
-                  <strong>Formato de Email válido:</strong>{" "}
-                  {person.emailValido ? "Sí" : "No"}, <strong>Rol:</strong>{" "}
-                  {person.rol}, <strong>Staff:</strong>{" "}
-                  {person.staff ? "Sí" : "No"}
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
+return (
+  <div>
+    <div {...getRootProps()} className="border-[#0CFCA7] border rounded-lg mb-3 p-5 cursor-pointer">
+      <input {...getInputProps()} />
+      <p>Arrastra y suelta un archivo Excel aquí, o haz clic para seleccionar uno</p>
     </div>
-  );
+
+    {/* Mostrar el mensaje de error si existe */}
+    {errorMessage && (
+      <div className="text-red-500">
+        <h2>Error:</h2>
+        <p>{errorMessage}</p>
+      </div>
+    )}
+
+    <table className="table-auto">
+      <thead>
+        <tr>
+          <th className="text-white px-4 py-2">Group</th>
+          <th className="text-white px-4 py-2">Name</th>
+          <th className="text-white px-4 py-2">Surname</th>
+          <th className="text-white px-4 py-2">Email</th>
+          <th className="text-white px-4 py-2">Role</th>
+          <th className="text-white px-4 py-2">Staff</th>
+        </tr>
+      </thead>
+      <tbody>
+        {excelData.map((row, index) => (
+          <tr key={index}>
+            <td className="text-white px-4 py-2">{row.group}</td>
+            <td className="text-white px-4 py-2">{row.name}</td>
+            <td className="text-white px-4 py-2">{row.surname}</td>
+            <td className="text-white px-4 py-2">
+              <input
+                type="text"
+                className="w-full bg-transparent text-black text-white"
+                value={row.email}
+                onChange={(e) => handleEmailChange(index, e.target.value)}
+              />
+            </td>
+            <td className="text-white px-4 py-2">{row.role}</td>
+            <td className="text-white px-4 py-2">{row.staff}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+
+    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleSendDataToBackend}>
+      Guardar
+    </button>
+  </div>
+);
 }
 
 export default FileUploader;

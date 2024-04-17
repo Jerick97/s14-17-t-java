@@ -74,6 +74,11 @@ Como frutillita del postre, los datos recabados, pueden ser exportados para su p
 - **_Trello_**: Herramienta de gestión de proyectos basada en tableros.
 - **_Figma_**: Herramienta de diseño de interfaz de usuario y prototipado colaborativo basada en la nube.
 
+**_Herramientas de QA_**:
+
+- **_Postman_**: Plataforma de colaboración para el desarrollo de API que simplifica cada paso del ciclo de vida de la API y acorta los tiempos de desarrollo.
+- **_Testmonitor_**: Herramienta de gestión de pruebas de software que facilita la planificación, ejecución y seguimiento de pruebas, así como la colaboración entre equipos de desarrollo y QA.
+
 ## 🔐 Seguridad y Privacidad:
 
 Nuestra aplicación se compromete a proteger la privacidad de los datos de los usuarios mediante el cumplimiento de regulaciones como GDPR y CCPA. Implementamos medidas de seguridad robustas, como cifrado de datos y gestión de accesos, y realizamos auditorías periódicas para identificar y mitigar riesgos de seguridad. Los usuarios tienen control sobre sus datos y pueden ejercer sus derechos de privacidad según lo establecido por la ley. Nuestra política de privacidad detalla cómo se recopilan, utilizan y protegen los datos personales de los usuarios. Nos esforzamos por garantizar la confidencialidad y seguridad de la información en nuestra plataforma.
@@ -107,7 +112,6 @@ Nuestra aplicación se compromete a proteger la privacidad de los datos de los u
 <div align="center">
 
 ## 🧪 Testers QA
-
 
 | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |                                                                                                                                                                 **Mc Glory Tovar**                                                                                                                                                                  |                                                                                                                                                               **Marcelo Saiz**                                                                                                                                                               |
@@ -181,8 +185,7 @@ _*La aplicación estará disponible en*_ http://localhost:5173/
 Siguiendo estos pasos, podrás ejecutar el proyecto de **frontend** en tu entorno local. Asegúrate de tener **Node.js** instalado en tu sistema antes de comenzar.
 
 
-
-## 🚀 Ejecutar el Proyecto de Backend Local, y Mysql para la base de datos (Guia para el frontend developer)
+## 🚀 Ejecutar el Proyecto de Backend Local, y Mysql para la base de datos
 
 #### Pasos:
 
@@ -223,10 +226,11 @@ java -jar .\TeamScore-0.0.1-SNAPSHOT.jar
 http://localhost:8080/swagger-ui/index.html
 
 ##### 8.En caso de tener errores pruebe creando variables de entorno y luego reiniciar su pc:
- 
- DB_PORT= "su puerto donde corre mysql, no es necesario crear esta variable si corre en el puerto 3306(valor por defecto)"
- USER_DATABASE = "el nombre de usuario que registro en mysql workbench, no es necesario modificar si mantiene el por defecto root"
- PASS_DATABASE = "el password de su usuario, no es necesario modificar si usa el por defecto admin"
 
- ##### 9.Para probar junto al frontend, tenga en cuenta que la direccion de su servidor backend corre en el puerto 8080
+**DB_PORT**= "su puerto donde corre mysql, no es necesario crear esta variable si corre en el puerto 3306(valor por defecto)"
 
+**USER_DATABASE** = "el nombre de usuario que registro en mysql workbench, no es necesario modificar si mantiene el por defecto root"
+
+**PASS_DATABASE** = "el password de su usuario, no es necesario modificar si usa el por defecto admin"
+
+##### 9.Para probar junto al frontend, tenga en cuenta que la direccion de su servidor backend corre en el puerto 8080

@@ -4,11 +4,18 @@ import LogoImg from "../../../assets/LogoNoCountry.svg";
 import UserInput from "../../../components/UserInput/UserInput";
 import PasswordInput from "../../../components/PasswordInput/PasswordInput";
 import ButtonPrimary from "../../../components/ButtonPrimary/ButtonPrimary";
+import { useContext } from "react";
+import { AuthContext } from "../../../context/AuthContext";
+import authService from "../../../services/authService";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 
 
 function Login() {
+  const MySwal = withReactContent(Swal);
   const navigate = useNavigate();
+  const { setAuth, login } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -16,25 +23,50 @@ function Login() {
   } = useForm();
 
   const users = {
-    "admin@gmail.com": { password: "Administrador", isAdmin: true },
-    "user@gmail.com": { password: "Usuario123", isAdmin: false },
+    "admin@gmail.com": {
+      password: "Administrador",
+      isAdmin: true,
+      name: "Gloria",
+    },
+    "kaosinc@gmail.com": {
+      password: "Usuario123",
+      isAdmin: false,
+      name: "Marcelo",
+    },
   };
 
-  const handleLogin = (data) => {
+  const handleLogin = async (data) => {
     const { email, password } = data;
     const user = users[email];
 
-    if (!user || user.password !== password) {
-      return alert("El correo electrónico o contraseña es incorrecta");
-    }
+    try {
+      // Llama al método login del servicio de autenticación para iniciar sesión
+      const response = await authService.login(email, password);
 
-    navigate(user.isAdmin ? "/dashboard" : "/", {
-      replace: true,
-      state: {
-        logged: true,
-        admin: user.isAdmin,
-      },
-    });
+      // Verifica si el inicio de sesión fue exitoso
+      if (response.message === "success") {
+        // Extrae el token del objeto de respuesta
+        const { token } = response;
+        // Guarda el token en el localStorage
+        localStorage.setItem("jwt-token", token);
+        //Almacenamos en el contexto los datos del usuario
+        setAuth({
+          email,
+          role: user.isAdmin ? "admin" : "user",
+          name: user.name,
+        });
+
+        login(token);
+        navigate(user.isAdmin ? "/dashboard" : "/");
+      }
+    } catch (error) {
+      // Manejo de errores en caso de que falle el inicio de sesión
+      MySwal.fire({
+        icon: "error",
+        title: "Error",
+        text: "El correo electrónico o la contraseña son incorrectos",
+      });
+    }
   };
 
   return (
