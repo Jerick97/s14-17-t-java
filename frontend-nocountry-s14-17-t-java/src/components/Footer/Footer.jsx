@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="mt-6 daisy-footer daisy-footer-center p-10 bg-black text-primary-content">
       <Link to="/"><Logo /></Link>
-      <aside   >
+      <aside>
         <Link to="https://github.com/No-Country/s14-17-t-java">
           <FaGithub  className="w-[40px] h-[40px]"/>
         </Link>
@@ -17,7 +17,7 @@ const Footer = () => {
           Proyecto realizado <br />
           Por el equipo S14-17-T-JAVA
         </p>
-        <p>Copyright © 2024 - All right reserved</p>
+        <p>Copyright © 2024 - Todos los derechos reservados</p>
       </div>
     </footer>
   );
