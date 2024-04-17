@@ -11,7 +11,9 @@ export default {
   },
   plugins: [daisyui],
   daisyui: {
+
     prefix: "daisy-",
+
   },
   darkMode: "class",
 };

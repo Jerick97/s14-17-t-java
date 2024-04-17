@@ -113,7 +113,6 @@ Nuestra aplicación se compromete a proteger la privacidad de los datos de los u
 
 ## 🧪 Testers QA
 
-|                                                                                                                                              <img src="https://github.com/Maky-GloryQA.png" width=50>                                                                                                                                               |                                                                       <img src="https://media.licdn.com/dms/image/D4D03AQFxVXxr0j70sA/profile-displayphoto-shrink_200_200/0/1693753607773?e=1717632000&v=beta&t=2M9qOnZmx0DX1GcISf_wC0hUHDCcVSS68QXsKLCMGNE" width=50>                                                                       |
 | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |                                                                                                                                                                 **Mc Glory Tovar**                                                                                                                                                                  |                                                                                                                                                               **Marcelo Saiz**                                                                                                                                                               |
 | <a href="https://github.com/Maky-GloryQA"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="http://www.linkedin.com/in/mcglorytovar-t3st3rqa"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> | <a href="https://github.com/ZombieEater"><img src="https://img.shields.io/badge/github-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/></a> <a href="https://www.linkedin.com/in/marcelo-s-aiz/"><img src="https://img.shields.io/badge/linkedin%20-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white"/></a> |
@@ -184,6 +183,7 @@ npm run dev
 _*La aplicación estará disponible en*_ http://localhost:5173/
 
 Siguiendo estos pasos, podrás ejecutar el proyecto de **frontend** en tu entorno local. Asegúrate de tener **Node.js** instalado en tu sistema antes de comenzar.
+
 
 ## 🚀 Ejecutar el Proyecto de Backend Local, y Mysql para la base de datos
 

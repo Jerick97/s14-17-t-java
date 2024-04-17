@@ -1,4 +1,4 @@
-const DashBoardCard = () => {
+const DashBoardCard = ( { users }) => {
   return (
     <div className='w-full  h-full flex justify-center items-center  border-[1px] border-[#09FCA7] rounded-[10px]'>
       <div className='w-full h-full  daisy-stats shadow  text-center bg-black'>
@@ -19,7 +19,7 @@ const DashBoardCard = () => {
             Usuarios sin votar
           </div>
           <div className='daisy-stat-value text-secondary lg:text-1xl text-2xl'>
-            4
+            {users.filter((user) => user.progress === 0).length}
           </div>
           <div className='daisy-stat-desc text-white lg:text-lg text-sm '>
             Fecha limite 01/06/2024
@@ -31,7 +31,7 @@ const DashBoardCard = () => {
             Total participantes
           </div>
           <div className='daisy-stat-value text-warning lg:text-2xl text-xl'>
-            13
+            {users.length}
           </div>
           <div className='daisy-stat-desc text-white lg:text-lg text-sm'>
             De la simulacion Fecha Abril

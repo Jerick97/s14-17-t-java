@@ -10,6 +10,8 @@ import authService from "../../../services/authService";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
+
+
 function Login() {
   const MySwal = withReactContent(Swal);
   const navigate = useNavigate();
@@ -69,13 +71,17 @@ function Login() {
 
   return (
     <div
+
       className="w-full h-screen text-white"
+
       style={{
         backgroundColor: "#06071b",
         backgroundImage:
           "radial-gradient(circle farthest-corner at 50% 0%, rgba(29, 144, 252, .29), #06071b)",
       }}
     >
+
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-screen-lg h-full flex items-center justify-center md:flex-row flex-col">
         <div className="w-full flex items-center justify-center flex-col">
           <img src={LogoImg} alt="logo" className="w-80" />
