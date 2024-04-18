@@ -33,6 +33,7 @@ public class User implements UserDetails {
     private Boolean isEnabled;
     private Integer operador; // esto seria el rol del usuario que maneja springboot
     private String password;
+    private String country;
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private Set<GroupByUser> groupByUserSet;
