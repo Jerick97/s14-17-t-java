@@ -10,7 +10,7 @@ import java.util.List;
 
 // es un controlador con anotacion Maping para solicitudes Http
 @RestController
-@RequestMapping("/roles") // para toda solicitud que empiece con '/roles a este controlador
+@RequestMapping("api/v1/roles") // para toda solicitud que empiece con '/roles a este controlador
 public class RoleController {
     private final RoleRepository roleRepository;
 
