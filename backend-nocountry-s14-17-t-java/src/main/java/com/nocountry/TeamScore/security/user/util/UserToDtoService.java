@@ -16,9 +16,13 @@ public class UserToDtoService {
         groupsDTOs.setGroup_id(groupByUser.getGroup().getId().toString());
         groupsDTOs.setGroup_name(groupByUser.getGroup().getName());
         groupsDTOs.setChoosen_role(groupByUser.getRolElegido());
-        // TODO falta poner lo de role_tiype y id del rol
-        groupsDTOs.setGroup_role_type("Usuario"); // por ahora los pongo a todos usuarios
-        groupsDTOs.setGroup_role("1");
+
+        // Aquí se obtiene el nombre del rol y el id del rol
+        if (groupByUser.getRole_id() != null) {
+            groupsDTOs.setGroup_role_type(groupByUser.getRole_id().getName());
+            groupsDTOs.setGroup_role(groupByUser.getRole_id().getId().toString());
+        }
+
         return groupsDTOs;
     }
 
