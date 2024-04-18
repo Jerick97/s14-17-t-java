@@ -10,6 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [jwt, setJwt] = useState(null);
   const [isLoading, setIsLoading] = useState(true); // Set initial loading state
+  const [group, setGroup] = useState(); //Grupo Seleccionado Actual
 
   useEffect(() => {
     const storedJwt = localStorage.getItem("jwt-token");
@@ -110,6 +111,8 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     jwt,
+    group,
+    setGroup,
   };
 
   return (
