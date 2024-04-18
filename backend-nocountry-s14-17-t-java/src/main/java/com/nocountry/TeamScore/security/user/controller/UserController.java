@@ -6,6 +6,7 @@ import com.nocountry.TeamScore.groups.model.GroupByUser;
 import com.nocountry.TeamScore.groups.model.dto.GroupsInUsersDTO;
 import com.nocountry.TeamScore.groups.repository.GroupByUserRepository;
 import com.nocountry.TeamScore.groups.service.GroupService;
+import com.nocountry.TeamScore.security.config.JwtService;
 import com.nocountry.TeamScore.security.user.model.User;
 import com.nocountry.TeamScore.security.user.model.dto.UserDTO;
 import com.nocountry.TeamScore.security.user.model.dto.UserUpdateRequest;
@@ -18,6 +19,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,6 +35,7 @@ public class UserController {
     private final UserService userService;
     private final GroupService groupService;
     private final GroupByUserRepository groupByUserRepository; // considerar despues hacer un service para esta tabla.
+    private final JwtService jwtService;
 
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping("/sinVotar")
@@ -123,6 +127,19 @@ public class UserController {
                 .map(UsersInGroup::fromGroupByUser)
                 .toList();
         return ResponseEntity.ok(usuarios);
+    }
+
+    @GetMapping("/me")
+    @SecurityRequirement(name = "bearerAuth")
+    public ResponseEntity<User> getCurrentUser() {
+        // Obtiene el UserDetails del contexto de seguridad
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        // Busca al usuario en la base de datos
+        User user = userService.findByUsername(userDetails.getUsername());
+
+        // Devuelve los datos del usuario
+        return ResponseEntity.ok(user);
     }
 
 }
