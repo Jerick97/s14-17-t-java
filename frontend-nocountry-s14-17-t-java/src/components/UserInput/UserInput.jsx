@@ -13,7 +13,7 @@ const UserInput = forwardRef(function UserInput(
       <input
         type="text"
         name={name}
-        className={`w-full rounded-full pl-16 pr-5 h-9 bg-[#476468] focus:outline-none font-normal ${customStyle}`}
+        className={`w-full rounded-full pl-16 pr-5 h-9 bg-[#476468]/20 focus:outline-none font-normal ${customStyle}`}
         placeholder={placeholder}
         {...rest}
         ref={ref}

@@ -22,7 +22,9 @@ function Dashboard() {
 
 
   return (
-    <div className="w-full grid grid-rows-auto md:gap-4">
+    
+    <div className="w-full grid grid-rows-auto md:gap-4" >
+      
       <div className="row-span-auto sm:row-span-1 text-black">
         <DashBoardGraphic users={users} />
       </div>
