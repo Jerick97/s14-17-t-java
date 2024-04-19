@@ -18,7 +18,7 @@ public class Group {
     @Id
     @GeneratedValue
     private Long id;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_project", referencedColumnName = "id")
     private Project projectId;
     private String name;
