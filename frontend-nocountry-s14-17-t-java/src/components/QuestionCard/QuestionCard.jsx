@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState } from "react";
+import { forwardRef, useState } from "react";
 import PropTypes from "prop-types";
 const QuestionCard = forwardRef(function QuestionCard(
   { description, name, field_id, ...rest },
@@ -8,13 +8,9 @@ const QuestionCard = forwardRef(function QuestionCard(
   const max = 10;
   const middle = Math.floor((min + max) / 2);
   const [value, setValue] = useState(1);
-  const handlerValue = () => {
-    setValue(null);
+  const handleChange = (e) => {
+    setValue(e.target.value);
   };
-
-  useEffect(() => {
-    if (value === null) setValue(null);
-  }, [value]);
 
   return (
     <div className="md:w-[90%] h-[250px] p-5 rounded-3xl bg-gradient-to-b from-blue-400/10 to-#06071B	   flex-col flex mb-10  ">
@@ -39,8 +35,9 @@ const QuestionCard = forwardRef(function QuestionCard(
           max={max}
           className="daisy-ui daisy-range"
           step="1"
-          value={value}
-          onClick={handlerValue}
+          defaultValue={value}
+          onChange={(e) => console.log(e.target.value)}
+          onMouseUp={handleChange}
           {...rest}
           ref={ref}
         />
