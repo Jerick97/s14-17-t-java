@@ -1,16 +1,42 @@
-import React, { useContext, useEffect, useState} from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useLocation, useNavigate } from "react-router-dom";
 import TittleGradient from "../../components/TittleGradient/TittleGradient";
 import { AuthContext } from "../../context/AuthContext";
 import questionService from "../../services/questionService";
-//import question from "../../data/question.json";
 import QuestionCard from "../../components/QuestionCard/QuestionCard";
 import ButtonNeon from "../../components/ButtonNeon/ButtonNeon";
-// import HeaderDash from "../../components/HeaderDash/HeaderDash"
 
 const Vote = () => {
+  // Obtener la ubicación actual
+  const location = useLocation();
+  const navigate = useNavigate();
+  // Obtener el parámetro 'user' de la URL
+  const userVoting = new URLSearchParams(location.search).get("user");
+  const id = new URLSearchParams(location.search).get("index");
   const { auth, updateUserStaff } = useContext(AuthContext);
+  const { register, handleSubmit } = useForm();
 
+  const onSubmit = (data) => {
+    // Construye el JSON final
+    const jsonToSend = {
+      idUsuarioQueEvalua: auth.name,
+      idUsuarioEvaluado: id,
+      valorDelFeedback: Object.entries(data).map(([questionId, score]) => ({
+        questionId,
+        score,
+      })),
+    };
+
+    // Muestra el JSON en la consola
+    console.log(jsonToSend);
+
+    // Lógica para actualizar el staff del socio correspondiente (usando el índice)
+    updateUserStaff(id);
+
+    // Navegar de regreso a la página de inicio
+    navigate("/");
+  };
 
   const [question, setQuestion] = useState([]); //Hacer lo mismo para Question
   useEffect(() => {
@@ -26,51 +52,35 @@ const Vote = () => {
       });
   }, []);
 
-
-  // Obtener la ubicación actual
-
-  const location = useLocation();
-  // Obtener el parámetro 'user' de la URL
-  const userVoting = new URLSearchParams(location.search).get("user");
-  const index = new URLSearchParams(location.search).get("index");
-
-  const handleSubmit = () => {
-    // Lógica para actualizar el staff del socio correspondiente (usando el índice)
-    updateUserStaff(index);
-    // Navegar de regreso a la página de inicio
-  };
-
-
-
   return (
-    <div className='w-full min-h-screen flex items-center justify-center pt-8 bg-[#06071B] flex-col'> 
-    
+    <div className="w-full min-h-screen flex items-center justify-center pt-8 bg-[#06071B] flex-col">
       <div className="mb-40 w-full text-center flex items-center justify-center">
-      <TittleGradient user={auth.name} voting={userVoting} />
+        <TittleGradient user={auth.name} voting={userVoting} />
       </div>
-      <form >
+      <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+        <div className="flex flex-col h-auto pt-8 container items-center mx-auto w-3/4 justify-around ">
+          {question.map((question) => (
+            <QuestionCard
+              description={question.description}
+              key={question.field_id + 1}
+              name={question.name}
+              field_id={question.field_id}
+              {...register(`${question.field_id}`, {
+                required: {
+                  value: true,
+                  message: "Question is required",
+                },
+              })}
+            />
+          ))}
+        </div>
 
-      <div className='flex flex-col h-auto pt-8 container items-center mx-auto w-3/4 justify-around '> 
-        {question.map((question) => (
-          <QuestionCard description={question.description} key={question.field_id} name={question.name} field_id={question.field_id}>
-          </QuestionCard>
-        ))}
-      </div>
-        
-
-       <div className="flex items-center justify-center my-10">
-      <Link to={"/"}>
-        <ButtonNeon onClick={handleSubmit} text={"Enviar Votacion"}>
-          
-        </ButtonNeon>
-      </Link>
-      </div>
+        <div className="flex items-center justify-center my-10">
+          <ButtonNeon text="Enviar Votacion" />
+        </div>
       </form>
-
     </div>
   );
-
-
 };
 
 export default Vote;

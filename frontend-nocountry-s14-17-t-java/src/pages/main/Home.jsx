@@ -49,14 +49,14 @@ function HomeContent() {
             </button>
           </div>
           <div className="flex flex-wrap gap-x-10 gap-y-5 mt-5">
-            {users.map((user, index) => (
+            {users.map((user) => (
               <Partners
-                key={index}
+                key={user.id}
+                id={user.id}
                 name={user.nombres}
                 surname={user.apellidos}
                 role={user.rol}
                 staff={user.staff}
-                index={index}
                 activo={user.state}
               />
             ))}
