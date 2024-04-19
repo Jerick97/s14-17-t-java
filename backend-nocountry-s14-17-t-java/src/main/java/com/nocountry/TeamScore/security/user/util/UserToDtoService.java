@@ -17,6 +17,7 @@ public class UserToDtoService {
         groupsDTOs.setGroup_name(groupByUser.getGroup().getName());
         groupsDTOs.setChoosen_role(groupByUser.getRolElegido());
 
+        groupsDTOs.setProjectId(groupByUser.getGroup().getProjectId().getId().toString());
         // Aquí se obtiene el nombre del rol y el id del rol
         if (groupByUser.getRole_id() != null) {
             groupsDTOs.setGroup_role_type(groupByUser.getRole_id().getName());

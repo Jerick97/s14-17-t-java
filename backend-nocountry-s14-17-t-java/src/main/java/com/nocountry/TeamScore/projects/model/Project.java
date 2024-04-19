@@ -38,8 +38,9 @@ public class Project {
     @Column(name = "ends_on")
     private LocalDateTime endsOn;
 
-    @OneToOne(mappedBy = "projectId")
-    private Group group;
+    @OneToMany(mappedBy = "projectId")
+    @JsonIgnore
+    private Set<Group> groups;
 
     @OneToMany(mappedBy = "project")
     private List<FieldByProject> fieldByProjects;

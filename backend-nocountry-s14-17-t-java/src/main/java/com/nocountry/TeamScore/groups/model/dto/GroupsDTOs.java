@@ -9,5 +9,5 @@ public class GroupsDTOs {
     private String group_role;
     private String group_role_type;
     private String choosen_role;
-
+    private String projectId;
 }

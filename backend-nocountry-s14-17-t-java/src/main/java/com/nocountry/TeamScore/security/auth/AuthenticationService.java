@@ -49,7 +49,7 @@ public class AuthenticationService {
                         request.getPassword()
                 )
         );
-        var user = userRepository.findByEmail(request.getEmail()) // aqui podría usar el service ahora pero tendría que crearle tmb un create para el caso de registro
+        var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
@@ -61,7 +61,6 @@ public class AuthenticationService {
                 .status(String.valueOf(user.getStatus()))
                 .operador(String.valueOf(user.getOperador()))
                 .groups(userToDtoService.createGroupsDtosFromUser(user))
-                // tener en cuenta que estoy hardcodeando el id del role, y el rol hasta que este la relacion Role
                 .build();
     }
 }
