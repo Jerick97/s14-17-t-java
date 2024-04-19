@@ -2,7 +2,7 @@ const TittleGradient = ({ user, voting }) => {
   return (
     <h1 className="md:text-5xl text-2xl top-20 absolute text-gray-400 font-semibold text-center">
       <span
-        className="font-bold bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text
+        className="font-bold bg-gradient-to-r from-[#1d90fc] to-[#0cfca7] inline-block text-transparent bg-clip-text
 "
       >
         {user}
