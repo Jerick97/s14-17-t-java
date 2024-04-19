@@ -89,14 +89,15 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    console.log(users); // Este console.log reflejará los datos actualizados después de establecer el estado
+    //console.log(users); // Este console.log reflejará los datos actualizados después de establecer el estado
   }, [users]);
 
   // Función para actualizar el estado del usuario en el contexto de usuarios
-  const updateUserStaff = (index) => {
+  const updateUserStaff = (id) => {
+    const userIdx = id - 1; // Ajustar el ID al índice del arreglo
     const updatedUsers = [...users];
-    const currentStaffStatus = updatedUsers[index].staff;
-    updatedUsers[index].staff = !currentStaffStatus;
+    const currentStaffStatus = updatedUsers[userIdx].staff;
+    updatedUsers[userIdx].staff = !currentStaffStatus;
     setUsers(updatedUsers);
     localStorage.setItem("users", JSON.stringify(updatedUsers)); // Guardar en el almacenamiento local
   };
