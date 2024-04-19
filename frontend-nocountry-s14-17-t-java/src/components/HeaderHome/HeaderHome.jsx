@@ -14,9 +14,9 @@ const HeaderHome = () => {
   };
   return (
     <div className="">
-      <div className=" w-full h-[58px] flex justify-around items-center bg-black">
+      <div className=" w-full h-[90px] flex justify-between pl-10 pr-10  items-center ">
         <Link to="/">
-          <Logo />
+          <Logo/>
         </Link>
         <div className="flex gap-4">
           <ButtonNeon text="S14-17-t-Java" />

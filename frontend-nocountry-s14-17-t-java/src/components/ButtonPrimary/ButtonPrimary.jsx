@@ -6,7 +6,7 @@ function ButtonPrimary({ text, onClick, type }) {
   return (
     <button
       type={buttonType}
-      className="bg-white hover:bg-gray-100 text-[#01212E] font-bold py-2 px-6 w-full border border-gray-400 rounded-full shadow"
+      className="bg-blue-400/10  text-white font-bold py-2 px-6 w-full rounded-full shadow"
       onClick={onClick}
     >
       {text}
