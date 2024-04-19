@@ -10,7 +10,7 @@ const PasswordInput = forwardRef(function PasswordInput(
       <input
         type="password"
         name={name}
-        className={`w-full rounded-full pl-5 pr-16 h-9 focus:outline-none text-[#acacb5] font-normal bg-[#476468] ${customStyle}`}
+        className={`w-full rounded-full pl-5 pr-16 h-9 focus:outline-none text-[#acacb5] font-normal bg-[#476468]/20 ${customStyle}`}
         placeholder={placeholder}
         {...rest}
         ref={ref}

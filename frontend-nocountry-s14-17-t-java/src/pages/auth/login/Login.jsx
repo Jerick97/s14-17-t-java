@@ -89,14 +89,14 @@ function Login() {
           </h1>
         </div>
         <div className="h-96 w-full max-w-sm relative overflow-hidden mt-6 z-10 rounded-2xl">
-          <div className="absolute inset-0 bg-gradient-to-br from-[#091A3A] from-[50%] to-[#0C274F] to-[50%] transform skew-y-45"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-400/10 to-#06071B	 transform skew-y-45"></div>
           <form
             className="absolute inset-0 flex justify-around items-center flex-col sm:p-8 p-4"
             autoComplete="off"
             onSubmit={handleSubmit(handleLogin)}
           >
             <h4 className="text-white text-2xl text-center font-extrabold uppercase mb-5">
-              User Login
+              Inicia Sesion
             </h4>
             <div className="my-2 w-full">
               <div className="mb-4">

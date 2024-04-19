@@ -24,7 +24,11 @@ function HomeContent() {
   };
 
   return (
-    <div className="w-full bg-[#06071B] min-h-screen text-white">
+    <div className="w-full  min-h-screen text-white" style={{
+      backgroundColor: "#06071b",
+      backgroundImage:
+        "radial-gradient(circle farthest-corner at 50% 0%, rgba(29, 144, 252, .29), #06071b)",
+    }}>
       <HeaderHome />
       {/** Si existe más de 1 grupo */}
       {groups && groups.length > 1 ? (
@@ -43,12 +47,12 @@ function HomeContent() {
             </div>
             <button
               onClick={resetData}
-              className="bg-gray-600 ml-32 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-gray-600/30 ml-32 hover:bg-gray-700/40 border border-gray-500/90 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             >
               Restablecer Datos
             </button>
           </div>
-          <div className="flex flex-wrap gap-x-10 gap-y-5 mt-5">
+          <div className="flex flex-wrap gap-x-10 gap-y-5 mt-5 ">
             {users.map((user, index) => (
               <Partners
                 key={index}

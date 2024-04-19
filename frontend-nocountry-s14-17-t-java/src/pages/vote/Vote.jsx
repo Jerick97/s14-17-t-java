@@ -43,7 +43,12 @@ const Vote = () => {
 
 
   return (
-    <div className='w-full min-h-screen flex items-center justify-center pt-8 bg-[#06071B] flex-col'> 
+    <div className='w-full min-h-screen flex items-center justify-center pt-8  flex-col'
+    style={{
+      backgroundColor: "#06071b",
+      backgroundImage:
+        "radial-gradient(circle farthest-corner at 50% 0%, rgba(29, 144, 252, .29), #06071b)",
+    }}> 
     
       <div className="mb-40 w-full text-center flex items-center justify-center">
       <TittleGradient user={auth.name} voting={userVoting} />
