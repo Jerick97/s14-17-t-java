@@ -11,5 +11,6 @@ public class GroupDTO { // para crear grupos vacios pasar un array vacio, o no p
     private String name;
     private String description;
     private Integer status;
+    private Long projectId;
     private Set<UsersInGroup> usuariosEnElGrupo;
 }

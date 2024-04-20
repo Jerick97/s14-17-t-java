@@ -45,6 +45,7 @@ public class GroupController {
             groupDTO.setName(group.getName());
             groupDTO.setDescription(group.getDescription());
             groupDTO.setStatus(group.getStatus());
+            groupDTO.setProjectId(group.getProjectId().getId());
             groupDTO.setUsuariosEnElGrupo(group.getGroupByUserSet().stream().map(UsersInGroup::fromGroupByUser).collect(Collectors.toSet()));
             return ResponseEntity.ok(groupDTO);
         } else {
