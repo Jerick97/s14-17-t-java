@@ -3,6 +3,9 @@ import HeaderHome from "../../components/HeaderHome/HeaderHome";
 import Partners from "../../components/Partners/Partners";
 import { AuthContext } from "../../context/AuthContext";
 import UserGroups from "../../components/UserGroups/UserGroups";
+import ButtonNeon from "../../components/ButtonNeon/ButtonNeon";
+import Footer from "../../components/Footer/Footer";
+import HomeCard from "../../components/HomeCard/HomeCard";
 
 export default function Home() {
   return <HomeContent />;
@@ -14,46 +17,60 @@ function HomeContent() {
   const user = "Camilo";
   const groups = [
     { id: "1", name: "S14-17-t-Java" },
-    /*{ id: "2", name: "S14-Java-tt" },
-    { id: "3", name: "S14-Node-tt" }, */
+    // { id: "2", name: "S14-Java-tt" },
+    // { id: "3", name: "S14-Node-tt" },
     //Si existen más de 1 grupo te pedira seleccionar tu grupo
   ];
+
   const resetData = () => {
     localStorage.removeItem("users");
     window.location.reload();
   };
 
+  // Metodo elimina el propio usuario
+  const usersFiltered = users.filter((usuario) => usuario.nombres !== user);
+  // Metodo elimina el usuario que no participo
+  const userDisabled = usersFiltered.filter((user) => user.state !== false);
+  // Nuevo Array de usuarios sin el usuario que no participo
+  const usersTotalVote = (usersFiltered, userDisabled) =>
+    usersFiltered.filter((user) => userDisabled.includes(user));
+
+
+  const usersVoted = usersTotalVote(usersFiltered, userDisabled).filter(
+    (user) => user.staff === true
+  );
+
+
   return (
-    <div className="w-full  min-h-screen text-white" style={{
-      backgroundColor: "#06071b",
-      backgroundImage:
-        "radial-gradient(circle farthest-corner at 50% 0%, rgba(29, 144, 252, .29), #06071b)",
-    }}>
-      <HeaderHome />
+    <div className="w-full bg-[#06071B] min-h-screen text-white">
       {/** Si existe más de 1 grupo */}
       {groups && groups.length > 1 ? (
         <UserGroups name={user} groups={groups} />
       ) : groups && groups.length === 1 ? (
         <div className="p-10">
-          <div className="flex items-center">
-            <div>
-              <h1 className="text-2xl font-bold text-white">
-                Bienvenido {user} a
-              </h1>
-              <span className="bg-gradient-to-r font-extrabold text-3xl from-[#1d90fc] to-[#0cfca7] inline-block text-transparent bg-clip-text">
-                Team Score
-              </span>
-              <h3>Tus compañeros de cohorte son:</h3>
+          <div className="flex md:flex-row flex-col items-center ">
+            <div className="md:w-1/2 w-full flex justify-between items-center">
+              <div>
+                <h1 className="text-2xl font-bold text-white">
+                  Bienvenido {user} a
+                </h1>
+                <span className="bg-gradient-to-r font-extrabold text-3xl from-[#1d90fc] to-[#0cfca7] inline-block text-transparent bg-clip-text">
+                  Team Score
+                </span>
+                <h3>Tus compañeros de cohorte son:</h3>
+              </div>
+              <ButtonNeon text="Refrescar" onClick={resetData} />
             </div>
-            <button
-              onClick={resetData}
-              className="bg-gray-600/30 ml-32 hover:bg-gray-700/40 border border-gray-500/90 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Restablecer Datos
-            </button>
+            <div className="ml-auto">
+              <HomeCard
+                users={users}
+                usersTotalVote={usersTotalVote(usersFiltered, userDisabled)}
+                usersVoted={usersVoted}
+              />
+            </div>
           </div>
           <div className="flex flex-wrap gap-x-10 gap-y-5 mt-5">
-            {users.map((user) => (
+            {usersFiltered.map((user, index) => (
               <Partners
                 key={user.id}
                 id={user.id}

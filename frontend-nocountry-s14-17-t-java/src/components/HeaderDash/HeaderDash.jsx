@@ -15,7 +15,7 @@ const HeaderHome = () => {
 
   return (
     <div className="">
-      <div className=" w-full h-[58px] flex justify-between pl-10 pr-10 pt-10 items-center">
+      <div className=" w-full h-[58px] flex justify-between pl-10 pr-10 pt-10 items-center bg-black">
         <Link to="/">
           <Logo />
         </Link>

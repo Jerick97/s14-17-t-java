@@ -14,7 +14,7 @@ const HeaderHome = () => {
   };
   return (
     <div className="">
-      <div className=" w-full h-[90px] flex justify-between pl-10 pr-10  items-center ">
+      <div className=" w-full h-[90px] flex justify-between pl-10 pr-10  items-center bg-black ">
         <Link to="/">
           <Logo/>
         </Link>
