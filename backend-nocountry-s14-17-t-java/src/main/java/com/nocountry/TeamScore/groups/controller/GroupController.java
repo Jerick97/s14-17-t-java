@@ -1,7 +1,9 @@
 package com.nocountry.TeamScore.groups.controller;
 
+import com.nocountry.TeamScore.groups.model.Group;
 import com.nocountry.TeamScore.groups.model.dto.GroupDTO;
 import com.nocountry.TeamScore.groups.service.GroupService;
+import com.nocountry.TeamScore.security.user.model.dto.UsersInGroup;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -10,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/groups")
@@ -25,18 +29,26 @@ public class GroupController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    // considerar dos cosas, que el endpoint de creacion del grupo les devuelva el grupo al momento de crearlo en vez de void(facilita el manejo del lado del front)
     // un endpoint para crear grupos con usuarios al mismo tiempo, ver si conviene q cree usuarios por cascade, o que use usuarios existentes?
-    // y por ultimo lo del endpoint para traer el group por nombre, asi tmb le facilita al front recuperar data.
+    // seria lo q se va a tratar en la tarea de importacion
+    // tener en cuenta que el country por ahora es siempre argentina
 
+    @Operation(summary = "trae un grupo y sus usuarios", description = "Los usuarios por ahora siempre son de argentina, hay q cambiar eso en un futuro")
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping("/{id}")
-    @Operation(summary = "Get a Group by id", description = "This endpoint returns a Group by its id")
-    public ResponseEntity<?> getGroupDTO(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(groupService.getGrupo(id));
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.ok("No se encontró el grupo con id: " + id);
+    public ResponseEntity<GroupDTO> getGroupAndUsersById(@PathVariable Long id) {
+        Group group = groupService.getGroupById(id);
+
+        if (group != null) {
+
+            GroupDTO groupDTO = new GroupDTO();
+            groupDTO.setName(group.getName());
+            groupDTO.setDescription(group.getDescription());
+            groupDTO.setStatus(group.getStatus());
+            groupDTO.setUsuariosEnElGrupo(group.getGroupByUserSet().stream().map(UsersInGroup::fromGroupByUser).collect(Collectors.toSet()));
+            return ResponseEntity.ok(groupDTO);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 
