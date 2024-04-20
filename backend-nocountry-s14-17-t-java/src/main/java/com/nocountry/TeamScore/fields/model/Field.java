@@ -1,5 +1,7 @@
 package com.nocountry.TeamScore.fields.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nocountry.TeamScore.feedback.model.Feedback;
 import com.nocountry.TeamScore.fieldByProject.model.FieldByProject;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -41,4 +43,9 @@ public class Field {
 
     @OneToMany(mappedBy = "field")
     private List<FieldByProject> fieldByProjects;
+
+    @OneToMany(mappedBy = "field")
+    @JsonIgnore
+    private List<Feedback> feedbacks;
+
 }
