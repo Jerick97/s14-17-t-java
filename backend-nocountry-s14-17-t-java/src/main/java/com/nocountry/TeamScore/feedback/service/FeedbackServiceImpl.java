@@ -1,6 +1,5 @@
 package com.nocountry.TeamScore.feedback.service;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nocountry.TeamScore.feedback.model.Feedback;
 import com.nocountry.TeamScore.feedback.model.dto.FeedbackRequestDTO;
 import com.nocountry.TeamScore.feedback.repository.FeedbackRepository;
@@ -19,14 +18,22 @@ public class FeedbackServiceImpl implements FeedbackService{
     private final FeedbackRepository feedbackRepository;
     private final FeedbackMapper mapper;
     @Override
-    public Feedback create(FeedbackRequestDTO feedbackRequestDTO) {
-        return feedbackRepository.save(mapper.mapToFeedback(feedbackRequestDTO));
+    public List<Feedback> create(List<FeedbackRequestDTO> feedbackRequestDTOs) {
+        return feedbackRequestDTOs.stream()
+                .flatMap(feedbackRequestDTO -> feedbackRequestDTO.getValorDelFeedback().stream()
+                        .map(valorDelFeedbackDTO -> mapper.mapToFeedback(feedbackRequestDTO, valorDelFeedbackDTO)))
+                .map(feedbackRepository::save)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Feedback update(FeedbackRequestDTO feedbackRequestDTO) {
-        return feedbackRepository.save(mapper.mapToFeedback(feedbackRequestDTO));
+    public List<Feedback> update(FeedbackRequestDTO feedbackRequestDTO) {
+        return feedbackRequestDTO.getValorDelFeedback().stream()
+                .map(valorDelFeedbackDTO -> mapper.mapToFeedback(feedbackRequestDTO, valorDelFeedbackDTO))
+                .map(feedbackRepository::save)
+                .collect(Collectors.toList());
     }
+
 
     @Override
     public Feedback getById(Long id) {

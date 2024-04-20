@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/feedback")
 @Tag(name = "Feedback", description = "Endpoints for feedback")
@@ -24,32 +26,35 @@ public class FeedbackController {
     @SecurityRequirement(name = "bearearAuth")
     @PostMapping
     @Operation(summary = "Create a new Feedback with all associations", description = "necesario tener grupo/s asignado/s a un proyecto, y al menos dos usuarios en el mismo grupo")
-    public ResponseEntity<?> createFeedback(@RequestBody FeedbackRequestDTO feedback) { // el feedback deberia ser capaz de crear un feedback por si solo?, seria logico quitar este endpoint y dejarlo en user
-        return ResponseEntity.ok(feedbackService.create(feedback));
+    public ResponseEntity<List<Feedback>> create(@RequestBody List<FeedbackRequestDTO> feedbackRequestDTOs) {
+        return ResponseEntity.ok(feedbackService.create(feedbackRequestDTOs));
     }
 
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping("/{id}")
     @Operation(summary = "Get feedback by id", description = "Return feedback by id")
-    public ResponseEntity<?> getFeedbackById(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(feedbackService.getById(id));
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.ok("No se encontró el feedback con id: " + id);
-        }
+    public ResponseEntity<Feedback> getById(@PathVariable Long id) {
+        return ResponseEntity.ok(feedbackService.getById(id));
     }
 
     @SecurityRequirement(name = "bearerAuth")
-    @Operation(summary= "Update feedback", description = "Update a feedback")
-    public ResponseEntity<?> updateFeedback(@Valid @RequestBody FeedbackRequestDTO feedback) {
-        return ResponseEntity.ok(feedbackService.update(feedback));
+    @Operation(summary= "Update feedback", description = "Update a feedback/s segun el tamaño del array q se le pase")
+    @PutMapping
+    public ResponseEntity<List<Feedback>> update(@RequestBody FeedbackRequestDTO feedbackRequestDTO) {
+        return ResponseEntity.ok(feedbackService.update(feedbackRequestDTO));
     }
 
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping
     @Operation(summary = "Get all feedback", description = "Return a list of all feedback")
-    public ResponseEntity<?> getAllFeedback(){ // esto devuelve todos los feedback sin importar de que usuario campo, o proyecto sean
+    public ResponseEntity<List<FeedbackRequestDTO>> getAll() {
         return ResponseEntity.ok(feedbackService.getAll());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        feedbackService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
     /*@SecurityRequirement(name = "bearerAuth")
