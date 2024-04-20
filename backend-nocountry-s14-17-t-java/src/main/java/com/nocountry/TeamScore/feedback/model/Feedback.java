@@ -1,6 +1,7 @@
 package com.nocountry.TeamScore.feedback.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.nocountry.TeamScore.fields.model.Field;
 import com.nocountry.TeamScore.projects.model.Project;
 import com.nocountry.TeamScore.security.user.model.User;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -43,5 +44,10 @@ public class Feedback {
 
     @Schema(description = "Date of feedback", example = "2022-01-01T00:00:00")
     private LocalDateTime dateTime;
+
+    @ManyToOne
+    @JoinColumn(name = "field_id")
+    private Field field;
+
 
 }
