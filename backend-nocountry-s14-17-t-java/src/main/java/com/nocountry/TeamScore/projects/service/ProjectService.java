@@ -1,5 +1,6 @@
 package com.nocountry.TeamScore.projects.service;
 
+import com.nocountry.TeamScore.groups.model.dto.GroupRequest;
 import com.nocountry.TeamScore.projects.model.Project;
 import com.nocountry.TeamScore.projects.model.dto.ProjectDTO;
 import com.nocountry.TeamScore.projects.model.dto.ProjectRequest;
@@ -19,4 +20,6 @@ public interface ProjectService {
 
     ProjectDTO updateProject(Long id, ProjectRequest request);
     void deleteProject(Long id);
+
+    Project addGroupsToProject(Long projectId, List<Long> groups);
 }

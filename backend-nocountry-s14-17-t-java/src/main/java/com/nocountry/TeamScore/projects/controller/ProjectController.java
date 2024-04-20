@@ -1,5 +1,7 @@
 package com.nocountry.TeamScore.projects.controller;
 
+import com.nocountry.TeamScore.groups.model.dto.GroupRequest;
+import com.nocountry.TeamScore.projects.model.Project;
 import com.nocountry.TeamScore.projects.model.dto.ProjectDTO;
 import com.nocountry.TeamScore.projects.model.dto.ProjectRequest;
 import com.nocountry.TeamScore.projects.service.ProjectService;
@@ -65,5 +67,11 @@ public class ProjectController {
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         projectService.deleteProject(id);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{projectId}/groups")
+    @Operation(summary = "Add groups to project", description = "This endpoint adds one or more groups to a project, necesita que los grupos existan, y proporcionar el arrays solo con sus ids")
+    public ResponseEntity<Project> addGroupsToProject(@PathVariable Long projectId, @RequestBody List<Long> groupsIds) {
+        return ResponseEntity.ok(projectService.addGroupsToProject(projectId, groupsIds));
     }
 }

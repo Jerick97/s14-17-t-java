@@ -1,10 +1,16 @@
 package com.nocountry.TeamScore.projects.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nocountry.TeamScore.groups.model.Group;
+import com.nocountry.TeamScore.groups.model.dto.GroupDTO;
+import com.nocountry.TeamScore.groups.model.dto.GroupRequest;
+import com.nocountry.TeamScore.groups.repository.GroupRepository;
+import com.nocountry.TeamScore.groups.service.GroupService;
 import com.nocountry.TeamScore.projects.model.Project;
 import com.nocountry.TeamScore.projects.model.dto.ProjectDTO;
 import com.nocountry.TeamScore.projects.model.dto.ProjectRequest;
 import com.nocountry.TeamScore.projects.repository.ProjectRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +25,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     private final ProjectRepository projectRepository;
     private final ObjectMapper mapper;
+    private final GroupRepository groupRepository;
 
     @Override
     public List<ProjectDTO> getAllProjects() {
@@ -101,6 +108,18 @@ public class ProjectServiceImpl implements ProjectService {
         }
     }
 
+    public Project addGroupsToProject(Long projectId, List<Long> groupsIds) {
+        Project project = findById(projectId);
+        if (project == null) {
+            throw new EntityNotFoundException("Project not found with id " + projectId);
+        }
+        for (Long groupId : groupsIds) {
+            Group group = groupRepository.findById(groupId).orElseThrow();
+            group.setProjectId(project);
+            groupRepository.save(group);
+        }
+        return project;
+    }
 
 
 }
