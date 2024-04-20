@@ -6,8 +6,8 @@ import com.nocountry.TeamScore.feedback.model.dto.FeedbackRequestDTO;
 import java.util.List;
 
 public interface FeedbackService {
-    Feedback create(FeedbackRequestDTO feedback);
-    Feedback update(FeedbackRequestDTO feedback);
+    List<Feedback> create(List<FeedbackRequestDTO> feedbackRequestDTOs);
+    List<Feedback> update(FeedbackRequestDTO feedbackRequestDTO);
 
     Feedback getById(Long id);
     List<FeedbackRequestDTO> getAll();
