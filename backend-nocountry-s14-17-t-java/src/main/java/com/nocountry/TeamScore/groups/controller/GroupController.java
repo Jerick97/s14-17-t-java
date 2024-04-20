@@ -23,7 +23,7 @@ public class GroupController {
 
     @SecurityRequirement(name = "bearerAuth")
     @PostMapping
-    @Operation(summary = "Create a new empty Group", description = "This endpoint permits to create a new empty Group")
+    @Operation(summary = "Create a new empty Group", description = "This endpoint permits to create a new empty Group, necesario pasar el grupo vacio,borrar de project para abajo")
     public ResponseEntity<?> crearGrupoVacio(@RequestBody GroupDTO groupDTO) {
         groupService.crearGrupo(groupDTO);
         return ResponseEntity.ok(HttpStatus.OK);
@@ -33,7 +33,8 @@ public class GroupController {
     // seria lo q se va a tratar en la tarea de importacion
     // tener en cuenta que el country por ahora es siempre argentina
 
-    @Operation(summary = "trae un grupo y sus usuarios", description = "Los usuarios por ahora siempre son de argentina, hay q cambiar eso en un futuro")
+    @Operation(summary = "trae un grupo y sus usuarios", description = "Importante, el grupo debe estar en un proyecto." +
+            "Los usuarios por ahora siempre son de argentina, hay q cambiar eso en un futuro")
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping("/{id}")
     public ResponseEntity<GroupDTO> getGroupAndUsersById(@PathVariable Long id) {

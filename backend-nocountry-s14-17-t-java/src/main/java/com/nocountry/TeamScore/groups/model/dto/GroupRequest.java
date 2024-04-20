@@ -9,7 +9,6 @@ import java.util.Set;
 
 @Data
 @Builder
-public class GroupRequest {
-    private String name;
-    private Set<UserDTO> users;
+public class GroupRequest { // este ya no lo uso por ahora
+   private Long groupId;
 }
