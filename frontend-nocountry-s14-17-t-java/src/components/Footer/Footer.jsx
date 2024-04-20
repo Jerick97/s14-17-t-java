@@ -4,11 +4,13 @@ import { FaGithub } from "react-icons/fa6";
 
 const Footer = () => {
   return (
-    <footer className="fixed bottom-0 mt-6 daisy-footer daisy-footer-center p-10 bg-black text-primary-content">
-      <Link to="/"><Logo /></Link>
-      <aside>
+    <footer className=" daisy-footer daisy-footer-center p-10 bg-black text-primary-content border-t border-[#09FCA7]">
+      <aside className="w-full flex justify-between m-3">
+        <Link to="/">
+          <Logo />
+        </Link>
         <Link to="https://github.com/No-Country/s14-17-t-java">
-          <FaGithub  className="w-[40px] h-[40px]"/>
+          <FaGithub className="w-[40px] h-[40px]" />
         </Link>
       </aside>
 
