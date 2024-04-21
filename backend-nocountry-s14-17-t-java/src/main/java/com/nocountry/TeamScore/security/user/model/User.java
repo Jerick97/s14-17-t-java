@@ -2,6 +2,7 @@ package com.nocountry.TeamScore.security.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nocountry.TeamScore.groups.model.GroupByUser;
+import com.nocountry.TeamScore.groups.service.GroupService;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
