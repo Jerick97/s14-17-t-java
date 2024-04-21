@@ -9,10 +9,16 @@ import com.nocountry.TeamScore.groups.repository.GroupByUserRepository;
 import com.nocountry.TeamScore.groups.repository.GroupRepository;
 import com.nocountry.TeamScore.security.user.model.User;
 import com.nocountry.TeamScore.security.user.repository.UserRepository;
+import com.nocountry.TeamScore.security.user.service.UserService;
+import com.nocountry.TeamScore.security.user.service.UserServiceImpl;
+import com.nocountry.TeamScore.util.Importation;
+import com.nocountry.TeamScore.util.UserImportation;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -22,6 +28,9 @@ import java.util.stream.Collectors;
 public class GroupServiceImpl implements GroupService{
     @Autowired
     ObjectMapper mapper;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     private GroupRepository groupRepository;
@@ -166,5 +175,42 @@ public class GroupServiceImpl implements GroupService{
     @Override
     public List<GroupByUser> findByUser_Email(String email) {
         return groupByUserRepository.findByUser_Email(email);
+    }
+
+    @Override
+    public Group getOrCreateGroup(String name) {
+        return groupRepository.findByName(name)
+                .orElseGet(() -> {
+                    Group newGroup = new Group();
+                    newGroup.setName(name);
+                    return groupRepository.save(newGroup);
+                });
+    }
+
+    @Transactional
+    public Importation importData(Importation importation) {
+        String nombreGrupo = importation.getNameGroup();
+        List<UserImportation> usuarios = importation.getUsuarios();
+
+        Group group = getOrCreateGroup(nombreGrupo);
+        List<GroupByUser> etiquetas = new ArrayList<>();
+        List<User> usuariosAPersistir = new ArrayList<>();
+        for (UserImportation usuario: usuarios) {
+            User usuarioAGuardarOActualizar = userService.getOrCreateUser(usuario.getUsername(), usuario.getName(), usuario.getSurname());
+            usuariosAPersistir.add(usuarioAGuardarOActualizar);
+            etiquetas.add(GroupByUser.builder()
+                            .group(group)
+                            .rolElegido(usuario.getRole())
+                            .user(usuarioAGuardarOActualizar)
+                    // Me falta el Role_id pero es que no se si tengo un servicio que dado el nombre del role me diga el id.
+                    .build());
+        }
+
+        // Aquí puedes persistir tus usuarios y etiquetas
+        groupRepository.save(group);
+        userRepository.saveAll(usuariosAPersistir);
+        groupByUserRepository.saveAll(etiquetas);
+
+        return importation;
     }
 }

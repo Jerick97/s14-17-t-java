@@ -4,6 +4,7 @@ import com.nocountry.TeamScore.groups.model.AsignacionUsuarioRequest;
 import com.nocountry.TeamScore.groups.model.Group;
 import com.nocountry.TeamScore.groups.model.GroupByUser;
 import com.nocountry.TeamScore.groups.model.dto.GroupDTO;
+import com.nocountry.TeamScore.util.Importation;
 
 import java.util.List;
 import java.util.Set;
@@ -30,4 +31,7 @@ public interface GroupService {
     List<Group> getGroupsByUserEmail(String email);
 
     List<GroupByUser> findByUser_Email(String email);
+    Group getOrCreateGroup(String name);
+
+    Importation importData(Importation importation);
 }
