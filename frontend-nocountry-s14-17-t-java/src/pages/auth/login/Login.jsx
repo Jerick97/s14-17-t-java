@@ -133,8 +133,8 @@ function Login() {
                       message: "Password is required",
                     },
                     minLength: {
-                      value: 8,
-                      message: "Minimum 8 characters",
+                      value: 6,
+                      message: "Minimum 6 characters",
                     },
                   })}
                   name="password"

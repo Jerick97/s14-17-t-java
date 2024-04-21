@@ -1,10 +1,8 @@
 import { useContext } from "react";
-import HeaderHome from "../../components/HeaderHome/HeaderHome";
 import Partners from "../../components/Partners/Partners";
 import { AuthContext } from "../../context/AuthContext";
 import UserGroups from "../../components/UserGroups/UserGroups";
 import ButtonNeon from "../../components/ButtonNeon/ButtonNeon";
-import Footer from "../../components/Footer/Footer";
 import HomeCard from "../../components/HomeCard/HomeCard";
 
 export default function Home() {
@@ -32,14 +30,11 @@ function HomeContent() {
   // Metodo elimina el usuario que no participo
   const userDisabled = usersFiltered.filter((user) => user.state !== false);
   // Nuevo Array de usuarios sin el usuario que no participo
-  const usersTotalVote = (usersFiltered, userDisabled) =>
-    usersFiltered.filter((user) => userDisabled.includes(user));
-
-
-  const usersVoted = usersTotalVote(usersFiltered, userDisabled).filter(
-    (user) => user.staff === true
+  const usersTotalVote = usersFiltered.filter(
+    (user) => userDisabled.includes(user) && user.staff !== true
   );
 
+  const usersVoted = usersFiltered.filter((user) => user.staff === true);
 
   return (
     <div className="w-full bg-[#06071B] min-h-screen text-white">
@@ -64,13 +59,13 @@ function HomeContent() {
             <div className="ml-auto">
               <HomeCard
                 users={users}
-                usersTotalVote={usersTotalVote(usersFiltered, userDisabled)}
+                usersTotalVote={usersTotalVote}
                 usersVoted={usersVoted}
               />
             </div>
           </div>
           <div className="flex flex-wrap gap-x-10 gap-y-5 mt-5">
-            {usersFiltered.map((user, index) => (
+            {usersFiltered.map((user) => (
               <Partners
                 key={user.id}
                 id={user.id}
