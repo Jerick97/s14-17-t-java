@@ -12,6 +12,7 @@ import com.nocountry.TeamScore.security.user.model.dto.UserDTO;
 import com.nocountry.TeamScore.security.user.model.dto.UserUpdateRequest;
 import com.nocountry.TeamScore.security.user.model.dto.UsersInGroup;
 import com.nocountry.TeamScore.security.user.service.UserService;
+import com.nocountry.TeamScore.security.user.util.ProgressService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,7 @@ public class UserController {
     private final GroupService groupService;
     private final GroupByUserRepository groupByUserRepository; // considerar despues hacer un service para esta tabla.
     private final JwtService jwtService;
+    private final ProgressService progressService;
 
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping("/sinVotar")
@@ -124,8 +126,8 @@ public class UserController {
     public ResponseEntity<?> getUsersInGroup(@PathVariable Long idGroup) {
         List<GroupByUser> asignacionesGrupos = groupByUserRepository.findByGroupId(idGroup);
         List<UsersInGroup> usuarios = asignacionesGrupos.stream()
-                .map(UsersInGroup::fromGroupByUser)
-                .toList();
+                .map(groupByUser -> UsersInGroup.fromGroupByUser(groupByUser, progressService))
+                .collect(Collectors.toList());
         return ResponseEntity.ok(usuarios);
     }
 

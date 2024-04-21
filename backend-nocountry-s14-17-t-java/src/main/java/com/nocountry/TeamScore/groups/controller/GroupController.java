@@ -4,6 +4,7 @@ import com.nocountry.TeamScore.groups.model.Group;
 import com.nocountry.TeamScore.groups.model.dto.GroupDTO;
 import com.nocountry.TeamScore.groups.service.GroupService;
 import com.nocountry.TeamScore.security.user.model.dto.UsersInGroup;
+import com.nocountry.TeamScore.security.user.util.ProgressService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -21,6 +22,9 @@ public class GroupController {
     @Autowired
     GroupService groupService;
 
+    @Autowired
+    ProgressService progressService;
+
     @SecurityRequirement(name = "bearerAuth")
     @PostMapping
     @Operation(summary = "Create a new empty Group", description = "This endpoint permits to create a new empty Group, necesario pasar el grupo vacio,borrar de project para abajo")
@@ -33,8 +37,7 @@ public class GroupController {
     // seria lo q se va a tratar en la tarea de importacion
     // tener en cuenta que el country por ahora es siempre argentina
 
-    @Operation(summary = "trae un grupo y sus usuarios", description = "Importante, el grupo debe estar en un proyecto." +
-            "Los usuarios por ahora siempre son de argentina, hay q cambiar eso en un futuro")
+    @Operation(summary = "trae un grupo y sus usuarios", description = "Importante, el grupo debe estar en un proyecto.")
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping("/{id}")
     public ResponseEntity<GroupDTO> getGroupAndUsersById(@PathVariable Long id) {
@@ -47,7 +50,11 @@ public class GroupController {
             groupDTO.setDescription(group.getDescription());
             groupDTO.setStatus(group.getStatus());
             groupDTO.setProjectId(group.getProjectId().getId());
-            groupDTO.setUsuariosEnElGrupo(group.getGroupByUserSet().stream().map(UsersInGroup::fromGroupByUser).collect(Collectors.toSet()));
+            groupDTO.setUsuariosEnElGrupo(
+                    group.getGroupByUserSet().stream()
+                            .map(groupByUser -> UsersInGroup.fromGroupByUser(groupByUser, progressService))
+                            .collect(Collectors.toSet())
+            );
             return ResponseEntity.ok(groupDTO);
         } else {
             return ResponseEntity.notFound().build();

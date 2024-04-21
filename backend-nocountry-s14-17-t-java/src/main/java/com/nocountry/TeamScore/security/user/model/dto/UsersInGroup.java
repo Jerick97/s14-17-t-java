@@ -2,6 +2,7 @@ package com.nocountry.TeamScore.security.user.model.dto;
 
 import com.nocountry.TeamScore.groups.model.GroupByUser;
 import com.nocountry.TeamScore.security.user.model.User;
+import com.nocountry.TeamScore.security.user.util.ProgressService;
 import lombok.Data;
 
 @Data
@@ -11,11 +12,11 @@ public class UsersInGroup {
     private String email;
     private Boolean emailValidado;
     private String rol;
-    private Boolean state;
+    private String state;
     private Integer progress;
     private String country; // tendria que agregar en el perfil un endpoint para solicitar este campo.
 
-    public static UsersInGroup fromGroupByUser(GroupByUser groupByUser) {
+    public static UsersInGroup fromGroupByUser(GroupByUser groupByUser, ProgressService progressService) {
         User user = groupByUser.getUser();
         UsersInGroup usersInGroup = new UsersInGroup();
         usersInGroup.setSurname(user.getSurname());
@@ -27,15 +28,14 @@ public class UsersInGroup {
 
         usersInGroup.setRol(groupByUser.getRolElegido());
 
-        // si el usuario esta habilitado en el grupo, no es lo mismo que si esta habilitado en security, aca iria una logica con respecto a la fecha del proyecto creo
-        usersInGroup.setState(true);
+        // si el usuario esta habilitado para ser evaluado
+        usersInGroup.setState(user.getStatus());
 
 
-        // aca va la lógica para establecer 'progress'
-        usersInGroup.setProgress(100);
 
-        // aca va la lógica para establecer 'country'
-        usersInGroup.setCountry("argentina papá");
+        usersInGroup.setProgress(progressService.calculateProgress(user, groupByUser.getGroup()));
+
+        usersInGroup.setCountry(user.getCountry());
 
         return usersInGroup;
     }
