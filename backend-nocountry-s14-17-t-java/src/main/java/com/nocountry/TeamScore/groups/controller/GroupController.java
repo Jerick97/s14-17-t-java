@@ -6,6 +6,7 @@ import com.nocountry.TeamScore.groups.model.dto.GroupDTO;
 import com.nocountry.TeamScore.groups.service.GroupService;
 import com.nocountry.TeamScore.security.user.model.dto.UsersInGroup;
 import com.nocountry.TeamScore.security.user.util.ProgressService;
+import com.nocountry.TeamScore.util.Importation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -83,5 +84,11 @@ public class GroupController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se pudo asignar usuarios al grupo");
 
         }
+    }
+
+    @PostMapping("/import")
+    public ResponseEntity<Importation> importData(@RequestBody Importation importation) {
+        Importation result = groupService.importData(importation);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

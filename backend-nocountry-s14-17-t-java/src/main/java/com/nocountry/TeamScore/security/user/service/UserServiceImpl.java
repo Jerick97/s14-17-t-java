@@ -65,4 +65,16 @@ public class UserServiceImpl implements UserService{
     public long countByStatus(String status) {
         return userRepository.countByStatus(status);
     }
+
+    @Override
+    public User getOrCreateUser(String username, String name, String surname) {
+        return userRepository.findByEmail(username)
+                .orElseGet(() -> {
+                    User newUser = new User();
+                    newUser.setEmail(username);
+                    newUser.setName(name);
+                    newUser.setSurname(surname);
+                    return userRepository.save(newUser);
+                });
+    }
 }
