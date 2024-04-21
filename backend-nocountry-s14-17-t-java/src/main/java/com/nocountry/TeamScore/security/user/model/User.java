@@ -41,7 +41,6 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role; // esto es role para manejar seguridad no el rol del desarrollo en el proyecto
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name())); // genero los permisos por roles.

@@ -1,5 +1,6 @@
 package com.nocountry.TeamScore.groups.controller;
 
+import com.nocountry.TeamScore.groups.model.AsignacionUsuarioRequest;
 import com.nocountry.TeamScore.groups.model.Group;
 import com.nocountry.TeamScore.groups.model.dto.GroupDTO;
 import com.nocountry.TeamScore.groups.service.GroupService;
@@ -14,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -68,5 +70,18 @@ public class GroupController {
         return ResponseEntity.ok(groupService.asignarUsuarioAlGrupoConId(id, id_usuario, rol));
     }
 
-    // más adelante se puede proponer un endpoint para asignar de a varios
+
+    @SecurityRequirement(name = "bearerAuth")
+    @PostMapping("/assignUsers")
+    @Operation(summary = "Assign users to a group", description = "This endpoint assigns multiple users to a group")
+    public ResponseEntity<?> assignUsersToGroup(@RequestBody List<AsignacionUsuarioRequest> requests) {
+        //boolean success = groupService.assignUsersToGroup(idGroup, idUsuarios, rol);
+        boolean success = groupService.assignUsersToGroup(requests);
+        if (success) {
+            return ResponseEntity.ok("Usuarios asignados al grupo exitosamente");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se pudo asignar usuarios al grupo");
+
+        }
+    }
 }

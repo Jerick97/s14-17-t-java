@@ -1,11 +1,13 @@
 package com.nocountry.TeamScore.groups.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nocountry.TeamScore.groups.model.AsignacionUsuarioRequest;
 import com.nocountry.TeamScore.groups.model.Group;
 import com.nocountry.TeamScore.groups.model.GroupByUser;
 import com.nocountry.TeamScore.groups.model.dto.GroupDTO;
 import com.nocountry.TeamScore.groups.repository.GroupByUserRepository;
 import com.nocountry.TeamScore.groups.repository.GroupRepository;
+import com.nocountry.TeamScore.security.user.model.User;
 import com.nocountry.TeamScore.security.user.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,6 +99,62 @@ public class GroupServiceImpl implements GroupService{
         }
         return respuesta;
     }
+
+    @Override
+    public boolean assignUsersToGroup(List<AsignacionUsuarioRequest> requests) {
+        boolean respuesta = true;
+        for (AsignacionUsuarioRequest request : requests) {
+            Long idGrupo = request.getIdGrupo();
+            Long idUsuario = request.getIdUsuario();
+            String rol = request.getRol();
+
+            if (groupRepository.existsById(idGrupo) && userRepository.existsById(idUsuario)) {
+                GroupByUser etiqueta = GroupByUser.builder()
+                        .user(userRepository.findById(idUsuario).get())
+                        .group(groupRepository.findById(idGrupo).get())
+                        .rolElegido(rol)
+                        .build();
+
+                groupByUserRepository.save(etiqueta);
+            } else {
+                respuesta = false;
+            }
+        }
+        return respuesta;
+    }
+
+    /*@Override
+    public boolean assignUsersToGroup(Long idGrupo, List<Long> idsUsuarios, String rol) {
+        if (!groupRepository.existsById(idGrupo)) {
+            throw new IllegalArgumentException("El grupo con ID " + idGrupo + " no existe.");
+        }
+
+        if (idsUsuarios.isEmpty()) {
+            throw new IllegalArgumentException("La lista de IDs de usuarios está vacía.");
+        }
+
+        Group group = groupRepository.findById(idGrupo)
+                .orElseThrow(() -> new IllegalStateException("No se pudo encontrar el grupo con ID " + idGrupo));
+
+        for (Long idUsuario : idsUsuarios) {
+            if (!userRepository.existsById(idUsuario)) {
+                throw new IllegalArgumentException("El usuario con ID " + idUsuario + " no existe.");
+            }
+
+            User user = userRepository.findById(idUsuario)
+                    .orElseThrow(() -> new IllegalStateException("No se pudo encontrar el usuario con ID " + idUsuario));
+
+            GroupByUser groupByUser = GroupByUser.builder()
+                    .user(user)
+                    .group(group)
+                    .rolElegido(rol)
+                    .build();
+
+            groupByUserRepository.save(groupByUser);
+        }
+
+        return true;
+    }*/
 
     public List<Group> getGroupsByUserEmail(String email) { // TODO usar este metodo en un controlador para traer la lista de groups de un usuario en especifico
         List<GroupByUser> groupByUsers = groupByUserRepository.findByUser_Email(email);
