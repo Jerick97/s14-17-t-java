@@ -1,0 +1,109 @@
+[
+  {
+    "id": "1",
+    "name": "S14-17-t-Java",
+    "members": [
+      {
+        "id": 1,
+        "apellidos": "Smith",
+        "nombres": "John",
+        "email": "john.smith@example.com",
+        "emailValido": true,
+        "staff": true,
+        "state": true,
+        "rol": "backend"
+      },
+      {
+        "id": 2,
+        "apellidos": "Doe",
+        "nombres": "Jane",
+        "email": "jane.doe@example.com",
+        "emailValido": true,
+        "staff": true,
+        "state": true,
+        "rol": "backend"
+      },
+      {
+        "id": 3,
+        "apellidos": "Johnson",
+        "nombres": "Michael",
+        "email": "michael.johnson@example.com",
+        "staff": true,
+        "state": true,
+        "rol": "backend"
+      },
+      {
+        "id": 4,
+        "apellidos": "Gauthier",
+        "nombres": "David",
+        "email": "",
+        "emailValido": false,
+        "rol": "backend"
+      },
+      {
+        "id": 5,
+        "apellidos": "Dominguez",
+        "nombres": "Alejandro",
+        "email": "alejodi@gmail.com",
+        "staff": true,
+        "state": true,
+        "rol": "backend"
+      },
+      {
+        "id": 6,
+        "apellidos": "Merlo",
+        "nombres": "Ana",
+        "email": "anamerlo_me@hotmail.com",
+        "staff": true,
+        "state": true,
+        "rol": "backend"
+      },
+      {
+        "id": 7,
+        "apellidos": "Morales",
+        "nombres": "Efrén",
+        "email": "efren.morales.flores@gmail.com",
+        "staff": true,
+        "state": true,
+        "rol": "backend"
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "name": "S14-Java-tt",
+    "members": [
+      {
+        "id": 17,
+        "apellidos": "Williams",
+        "nombres": "Emily",
+        "email": "emily.williams@example.com",
+        "staff": true,
+        "state": true,
+        "rol": "backend"
+      },
+      {
+        "id": 18,
+        "apellidos": "Brown",
+        "nombres": "David",
+        "email": "david.brown@example.com",
+        "staff": true,
+        "state": true,
+        "rol": "backend"
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "name": "S14-Node-tt",
+    "members": [
+      {
+        "id": 19,
+        "apellidos": "Anderson",
+        "nombres": "Jessica",
+        "email": "jessica.anderson@example.com",
+        "emailValido": true
+      }
+    ]
+  }
+]
