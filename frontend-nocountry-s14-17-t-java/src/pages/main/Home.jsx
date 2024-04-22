@@ -12,6 +12,7 @@ export default function Home() {
 function HomeContent() {
   const { users } = useContext(AuthContext);
 
+
   const groups = [
     { id: "1", name: "S14-17-t-Java" },
     // { id: "2", name: "S14-Java-tt" },
@@ -40,7 +41,7 @@ function HomeContent() {
     <div className='w-full bg-[#06071B] min-h-screen text-white'>
       {/** Si existe más de 1 grupo */}
       {groups && groups.length > 1 ? (
-        <UserGroups name={user} groups={groups} />
+        <UserGroups name={auth.name} groups={groups} />
       ) : groups && groups.length === 1 ? (
         <div className='p-10'>
           <div className='flex md:flex-row flex-col items-center '>
