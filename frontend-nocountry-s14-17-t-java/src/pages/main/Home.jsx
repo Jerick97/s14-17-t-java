@@ -12,7 +12,7 @@ export default function Home() {
 function HomeContent() {
   const { users } = useContext(AuthContext);
 
-
+  const user = "Camilo";
   const groups = [
     { id: "1", name: "S14-17-t-Java" },
     // { id: "2", name: "S14-Java-tt" },
