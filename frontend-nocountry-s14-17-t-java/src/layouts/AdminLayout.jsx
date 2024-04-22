@@ -5,11 +5,11 @@ import Footer from "../components/Footer/Footer";
 
 function AdminLayout() {
   return (
-    <div className='bg-[#06071B]  min-h-screen'>
+    <div className='bg-[#06071B]  min-h-screen flex flex-col justify-between'>
       <div id='dashboard' className=''>
-        <div className='daisy-drawer h-full flex flex-col'>
+        <div className='daisy-drawer h-full flex flex-col mb-10 '>
           <HeaderHome />
-          <MenuDashboard />
+
           <div className='daisy-drawer-content w-full   h-full flex flex-row md:flex-col items-center '>
             <input
               id='my-drawer'
@@ -18,7 +18,9 @@ function AdminLayout() {
             />
 
             {/* Contenido de la pagina */}
-            <div className='px-10'>
+            <div className='px-10 mt-5'>
+              <MenuDashboard />
+
               <Outlet />
             </div>
 
@@ -45,7 +47,9 @@ function AdminLayout() {
           </div>
         </div>
       </div>
-      <Footer />
+      <div className=''>
+        <Footer />
+      </div>
     </div>
   );
 }
