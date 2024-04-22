@@ -41,7 +41,7 @@ const QuestionCard = forwardRef(function QuestionCard(
           {...rest}
           ref={ref}
         />
-        <div className="daisy-ui w-full flex justify-between text-xs px-2">
+        <div className="daisy-ui w-full flex justify-between text-xs px-2 text-white font-semibold">
           {Array.from({ length: max + 1 }).map((_, index) => (
             <span key={index}>
               {index === min || index === middle || index === max ? index : "|"}
