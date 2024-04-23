@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { AuthContext } from "./AuthContext";
 import axiosInstance from "../api/axiosInstance";
-import usersService from "../services/usersService";
+import groupsService from "../services/groupsService";
 
 export const AuthProvider = ({ children }) => {
   // Estado y efecto para el contexto de autenticación
@@ -77,6 +77,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("jwt-token");
     localStorage.removeItem("selectedGroup");
     localStorage.removeItem("groups");
+    localStorage.removeItem("users");
     setAuth({});
     setGroup(null);
     setGroups([]);
@@ -91,8 +92,8 @@ export const AuthProvider = ({ children }) => {
       setUsers(JSON.parse(storedUsers)); // Establecer usuarios desde el almacenamiento local al cargar la página
     } else {
       // Si no hay datos en el almacenamiento local, solicita los datos de la API
-      usersService
-        .users()
+      groupsService
+        .member(group.id)
         .then((data) => {
           // Agregar el atributo "staff:false" a cada usuario
           const usersWithStaff = data.map((user) => ({
@@ -117,12 +118,17 @@ export const AuthProvider = ({ children }) => {
 
   // Función para actualizar el estado del usuario en el contexto de usuarios
   const updateUserStaff = (id) => {
-    const userIdx = id - 1; // Ajustar el ID al índice del arreglo
+    const userIdx = id;
     const updatedUsers = [...users];
+    console.log(updatedUsers);
+
+    // Cambiar el estado de 'staff' para el usuario específico
     const currentStaffStatus = updatedUsers[userIdx].staff;
     updatedUsers[userIdx].staff = !currentStaffStatus;
+
+    // Actualizar el estado y guardar en el almacenamiento local
     setUsers(updatedUsers);
-    localStorage.setItem("users", JSON.stringify(updatedUsers)); // Guardar en el almacenamiento local
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
   };
 
   const contextValue = {
