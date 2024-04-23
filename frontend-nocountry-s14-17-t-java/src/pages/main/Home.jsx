@@ -21,11 +21,13 @@ function HomeContent() {
 
   const resetData = () => {
     localStorage.removeItem("users");
+    //localStorage.removeItem("selectedGroup");
     window.location.reload();
   };
   const resetDataGroups = () => {
     setGroup(null);
     localStorage.removeItem("selectedGroup");
+    localStorage.removeItem("users");
   };
   console.log(auth.email);
   const usersFiltered = members.filter(
@@ -68,7 +70,13 @@ function HomeContent() {
           const filteredMembers = miembrosData.filter(
             (member) => member.email !== auth.email
           );
-          setMembers(filteredMembers);
+          const storedUsers = JSON.parse(localStorage.getItem("users"));
+
+          if (storedUsers) {
+            setMembers(storedUsers);
+          } else {
+            setMembers(filteredMembers);
+          }
         }
       } catch (error) {
         console.error("Error al obtener los miembros del grupo:", error);
@@ -107,7 +115,7 @@ function HomeContent() {
             </div>
             <div className="ml-auto">
               <HomeCard
-                users={users}
+                users={members}
                 usersTotalVote={usersTotalVote}
                 usersVoted={usersVoted}
               />

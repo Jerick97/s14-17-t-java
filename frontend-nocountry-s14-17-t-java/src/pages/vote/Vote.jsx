@@ -59,13 +59,13 @@ const Vote = () => {
       </div>
       <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col h-auto pt-8 container items-center mx-auto w-3/4 justify-around ">
-          {question.map((question) => (
+          {question.map((habilidad) => (
             <QuestionCard
-              description={question.description}
-              key={question.field_id + 1}
-              name={question.name}
-              field_id={question.field_id}
-              {...register(`${question.field_id}`, {
+              description={habilidad.description}
+              key={habilidad.id + 1}
+              title={habilidad.name}
+              field_id={habilidad.id}
+              {...register(`${habilidad.id}`, {
                 required: {
                   value: true,
                   message: "Question is required",

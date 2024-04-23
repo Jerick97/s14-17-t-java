@@ -3,7 +3,7 @@ import axiosInstance from "../api/axiosInstance";
 const questionService = {
   users: async () => {
     try {
-      const response = await axiosInstance.get("/questions");
+      const response = await axiosInstance.get("/field");
 
       return response.data;
     } catch (error) {
