@@ -21,7 +21,7 @@ function Login() {
     formState: { errors },
   } = useForm();
 
-  const users = {
+  /* const users = {
     "mikhail@gmail.com": {
       password: "12345678",
       operador: "0",
@@ -37,31 +37,30 @@ function Login() {
       operador: "1",
       name: "Romina",
     },
-  };
+  }; */
 
   const handleLogin = async (data) => {
     const { email, password } = data;
-    const user = users[email];
+    /* const user = users[email]; */
 
     try {
       // Llama al método login del servicio de autenticación para iniciar sesión
       const response = await authService.login(email, password);
 
       // Extrae el token del objeto de respuesta
-      const { token, groups } = response;
+      const { token, groups, operador } = response;
       // Guarda el token en el localStorage
       localStorage.setItem("jwt-token", token);
       localStorage.setItem("groups", JSON.stringify(groups));
       //Almacenamos en el contexto los datos del usuario
       setAuth({
         email,
-        operador: user.operador, //admin es 1 user es 0
-        name: user.name,
+        operador: operador, //admin es 1 user es 0
         ...response,
       });
 
       login(token);
-      navigate(user.operador == "1" ? "/dashboard" : "/");
+      navigate(operador == "1" ? "/dashboard" : "/");
     } catch (error) {
       // Manejo de errores en caso de que falle el inicio de sesión
       MySwal.fire({

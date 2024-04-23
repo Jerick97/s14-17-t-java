@@ -17,7 +17,7 @@ function HomeContent() {
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-/*   const user = "Camilo"; */
+  /*   const user = "Camilo"; */
 
   const resetData = () => {
     localStorage.removeItem("users");
@@ -27,8 +27,10 @@ function HomeContent() {
     setGroup(null);
     localStorage.removeItem("selectedGroup");
   };
-  console.log(auth.email)
-  const usersFiltered = members.filter((usuario) => usuario.email !== auth.email);
+  console.log(auth.email);
+  const usersFiltered = members.filter(
+    (usuario) => usuario.email !== auth.email
+  );
   const userDisabled = usersFiltered.filter((user) => user.state !== "P");
   const usersTotalVote = usersFiltered.filter(
     (user) => userDisabled.includes(user) && user.staff !== true
@@ -51,8 +53,8 @@ function HomeContent() {
 
     if (groups.length === 1 && !group) {
       const newData = {
-        id: groups.group_id,
-        text: groups.group_name,
+        id: groups[0].group_id,
+        text: groups[0].group_name,
       };
       setGroup(newData);
     }
@@ -60,10 +62,12 @@ function HomeContent() {
     const fetchMembers = async () => {
       try {
         setLoading(true);
-        
+
         if (group) {
           const miembrosData = await groupsService.member(group.id);
-          const filteredMembers = miembrosData.filter(member => member.email !== auth.email);
+          const filteredMembers = miembrosData.filter(
+            (member) => member.email !== auth.email
+          );
           setMembers(filteredMembers);
         }
       } catch (error) {
