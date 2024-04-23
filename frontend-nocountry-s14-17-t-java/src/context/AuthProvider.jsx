@@ -86,31 +86,35 @@ export const AuthProvider = ({ children }) => {
   // Estado y efecto para el contexto de usuarios
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    const storedUsers = localStorage.getItem("users");
+    // Verificar si hay un grupo seleccionado
+    if (group) {
+      const storedUsers = localStorage.getItem("users");
+      if (storedUsers) {
+        setUsers(JSON.parse(storedUsers)); // Establecer usuarios desde el almacenamiento local al cargar la página
+      } else {
+        // No hay usuarios en el almacenamiento local, obtenerlos del servicio
+        setIsLoading(true); // Indicar que se están cargando los usuarios
 
-    if (storedUsers) {
-      setUsers(JSON.parse(storedUsers)); // Establecer usuarios desde el almacenamiento local al cargar la página
-    } else {
-      // Si no hay datos en el almacenamiento local, solicita los datos de la API
-      groupsService
-        .member(group.id)
-        .then((data) => {
-          // Agregar el atributo "staff:false" a cada usuario
-          const usersWithStaff = data.map((user) => ({
-            ...user,
-            staff: false, // Inicializar staff en false
-          }));
-          setUsers(usersWithStaff);
-          localStorage.setItem("users", JSON.stringify(usersWithStaff)); // Guardar en el almacenamiento local
-        })
-        .catch((error) => {
-          console.error("Error fetching users:", error);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+        groupsService
+          .member(group.id)
+          .then((data) => {
+            // Agregar el atributo "staff:false" a cada usuario
+            const usersWithStaff = data.map((user) => ({
+              ...user,
+              staff: false, // Inicializar staff en false
+            }));
+            localStorage.setItem("users", JSON.stringify(usersWithStaff)); // Guardar en el almacenamiento local
+            setUsers(usersWithStaff); // Establecer los usuarios en el estado
+          })
+          .catch((error) => {
+            console.error("Error fetching users:", error);
+          })
+          .finally(() => {
+            setIsLoading(false); // Finalizar el estado de carga, independientemente del resultado
+          });
+      }
     }
-  }, []);
+  }, [group]);
 
   useEffect(() => {
     //console.log(users); // Este console.log reflejará los datos actualizados después de establecer el estado
@@ -118,16 +122,16 @@ export const AuthProvider = ({ children }) => {
 
   // Función para actualizar el estado del usuario en el contexto de usuarios
   const updateUserStaff = (id) => {
-    const userIdx = id;
+    const userIdx = parseInt(id);
     const updatedUsers = [...users];
-    console.log(updatedUsers);
-
+    console.log("usuario seleccionado: ", userIdx);
+    console.log(updatedUsers[userIdx].name);
     // Cambiar el estado de 'staff' para el usuario específico
-    const currentStaffStatus = updatedUsers[userIdx].staff;
-    updatedUsers[userIdx].staff = !currentStaffStatus;
+    //const currentStaffStatus = updatedUsers[userIdx].staff;
+    updatedUsers[userIdx].staff = true;
 
     // Actualizar el estado y guardar en el almacenamiento local
-    setUsers(updatedUsers);
+    //setUsers(updatedUsers);
     localStorage.setItem("users", JSON.stringify(updatedUsers));
   };
 

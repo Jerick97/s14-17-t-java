@@ -19,11 +19,6 @@ function HomeContent() {
 
   /*   const user = "Camilo"; */
 
-  const resetData = () => {
-    localStorage.removeItem("users");
-    //localStorage.removeItem("selectedGroup");
-    window.location.reload();
-  };
   const resetDataGroups = () => {
     setGroup(null);
     localStorage.removeItem("selectedGroup");
@@ -109,7 +104,6 @@ function HomeContent() {
                 <h3>Tus compañeros de cohorte son:</h3>
               </div>
               <div className="flex flex-wrap items-center justify-center h-24">
-                <ButtonNeon text="Refrescar" onClick={resetData} />
                 <ButtonNeon text="Volver a grupos" onClick={resetDataGroups} />
               </div>
             </div>
