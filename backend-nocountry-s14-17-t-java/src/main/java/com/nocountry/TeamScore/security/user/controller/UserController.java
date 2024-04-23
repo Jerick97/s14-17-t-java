@@ -13,7 +13,9 @@ import com.nocountry.TeamScore.security.user.model.dto.UserUpdateRequest;
 import com.nocountry.TeamScore.security.user.model.dto.UsersInGroup;
 import com.nocountry.TeamScore.security.user.service.UserService;
 import com.nocountry.TeamScore.security.user.util.ProgressService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +33,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("api/v1/users")
 @Slf4j
+@Tag(name = "Users", description = "Endpoints para el manejo de usuarios")
 public class UserController {
 
     private final UserService userService;
@@ -40,9 +43,10 @@ public class UserController {
     private final ProgressService progressService;
 
     @SecurityRequirement(name = "bearerAuth")
-    @GetMapping("/sinVotar")
-    public ResponseEntity<?> getUsersSinVotar() {
-        return ResponseEntity.ok("Aca iría una lista de usuarios sin votar, por proyecto?o en total por simulacion?");
+    @GetMapping("/{id}/usuarios-sin-votar/{idGroup}")
+    @Operation(summary = "Obtiene los usuarios sin votar", description = "Obtiene los usuarios que aún no han sido evaluados")
+    public ResponseEntity<?> getUsersSinVotar(@PathVariable Long id, @PathVariable Long idGroup) {
+        return ResponseEntity.ok(userService.getUsersSinVotar(id, idGroup));
     }
 
     @SecurityRequirement(name = "bearerAuth")
