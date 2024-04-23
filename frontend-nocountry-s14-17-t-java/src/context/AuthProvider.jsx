@@ -77,6 +77,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("jwt-token");
     localStorage.removeItem("selectedGroup");
     localStorage.removeItem("groups");
+    localStorage.removeItem("users");
     setAuth({});
     setGroup(null);
     setGroups([]);
