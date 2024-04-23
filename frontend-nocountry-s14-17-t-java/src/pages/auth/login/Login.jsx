@@ -14,7 +14,7 @@ import Count from "../../../components/CountLogin/Countlogin";
 function Login() {
   const MySwal = withReactContent(Swal);
   const navigate = useNavigate();
-  const { setAuth, login, setGroups } = useContext(AuthContext);
+  const { setAuth, login } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -24,17 +24,17 @@ function Login() {
   const users = {
     "mikhail@gmail.com": {
       password: "12345678",
-      isAdmin: false,
+      operador: "0",
       name: "Mikhail",
     },
     "vero@gmail.com": {
       password: "12345678",
-      isAdmin: true,
+      operador: "1",
       name: "Vero",
     },
     "romina@gmail.com": {
       password: "12345678",
-      isAdmin: true,
+      operador: "1",
       name: "Romina",
     },
   };
@@ -46,27 +46,22 @@ function Login() {
     try {
       // Llama al método login del servicio de autenticación para iniciar sesión
       const response = await authService.login(email, password);
-      console.log(response)
 
-      // Verifica si el inicio de sesión fue exitoso
-       
-        // Extrae el token del objeto de respuesta
-        const { token } = response;
-        // Guarda el token en el localStorage
-        localStorage.setItem("jwt-token", token);
-        //Almacenamos en el contexto los datos del usuario
-        setAuth({
-          email,
-          operador: user.isAdmin ? "1" : "0", //admin es 1 user es 0
-          name: user.name,
-          ...response,
-        });
-       
-       
+      // Extrae el token del objeto de respuesta
+      const { token, groups } = response;
+      // Guarda el token en el localStorage
+      localStorage.setItem("jwt-token", token);
+      localStorage.setItem("groups", JSON.stringify(groups));
+      //Almacenamos en el contexto los datos del usuario
+      setAuth({
+        email,
+        operador: user.operador, //admin es 1 user es 0
+        name: user.name,
+        ...response,
+      });
 
-        login(token);
-        navigate(user.isAdmin ? "/dashboard" : "/");
-      
+      login(token);
+      navigate(user.operador == "1" ? "/dashboard" : "/");
     } catch (error) {
       // Manejo de errores en caso de que falle el inicio de sesión
       MySwal.fire({

@@ -10,11 +10,9 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [jwt, setJwt] = useState(null);
   const [isLoading, setIsLoading] = useState(true); // Set initial loading state
-  const [group, setGroup] = useState(); //Grupo Seleccionado Actual
+  const [group, setGroup] = useState(null); //Grupo Seleccionado Actual
+  const [groups, setGroups] = useState([]); //Almacenamos todos los grupos disponibles del usuario
 
-
-
-  
   useEffect(() => {
     const storedJwt = localStorage.getItem("jwt-token");
     if (storedJwt) {
@@ -26,8 +24,17 @@ export const AuthProvider = ({ children }) => {
           const response = await axiosInstance.get("/users/me");
 
           if (response.status === 200) {
-            // Handle successful response
-            setAuth(response.data);
+            // Convertir la propiedad operador de número a cadena
+            const operadorString = response.data.operador.toString();
+
+            // Crear un nuevo objeto con la propiedad operador convertida a cadena
+            const responseDataWithOperadorString = {
+              ...response.data,
+              operador: operadorString,
+            };
+
+            // Establecer el estado con el nuevo objeto modificado
+            setAuth(responseDataWithOperadorString);
             setIsLoading(false);
           } else {
             console.error(
@@ -46,8 +53,17 @@ export const AuthProvider = ({ children }) => {
       setIsLoggedIn(false);
       setIsLoading(false);
       setAuth({}); // Set auth to empty object if no token
+      setGroup(null);
+      setGroups([]);
     }
   }, []);
+
+  useEffect(() => {
+    const storedGroups = JSON.parse(localStorage.getItem("groups"));
+    if (storedGroups !== null && storedGroups.length > 0) {
+      setGroups(storedGroups);
+    }
+  }, [localStorage.getItem("groups")]);
 
   function login(token) {
     setIsLoggedIn(true);
@@ -59,7 +75,11 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn(false);
     setJwt(null);
     localStorage.removeItem("jwt-token");
+    localStorage.removeItem("selectedGroup");
+    localStorage.removeItem("groups");
     setAuth({});
+    setGroup(null);
+    setGroups([]);
   }
 
   // Estado y efecto para el contexto de usuarios
@@ -117,7 +137,8 @@ export const AuthProvider = ({ children }) => {
     jwt,
     group,
     setGroup,
-
+    groups,
+    setGroups,
   };
 
   return (
