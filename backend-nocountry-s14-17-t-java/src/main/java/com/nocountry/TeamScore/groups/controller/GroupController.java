@@ -1,9 +1,12 @@
 package com.nocountry.TeamScore.groups.controller;
 
+import com.nocountry.TeamScore.groups.model.AsignacionUsuarioRequest;
 import com.nocountry.TeamScore.groups.model.Group;
 import com.nocountry.TeamScore.groups.model.dto.GroupDTO;
 import com.nocountry.TeamScore.groups.service.GroupService;
 import com.nocountry.TeamScore.security.user.model.dto.UsersInGroup;
+import com.nocountry.TeamScore.security.user.util.ProgressService;
+import com.nocountry.TeamScore.util.Importation;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
@@ -20,6 +24,9 @@ import java.util.stream.Collectors;
 public class GroupController {
     @Autowired
     GroupService groupService;
+
+    @Autowired
+    ProgressService progressService;
 
     @SecurityRequirement(name = "bearerAuth")
     @PostMapping
@@ -33,8 +40,7 @@ public class GroupController {
     // seria lo q se va a tratar en la tarea de importacion
     // tener en cuenta que el country por ahora es siempre argentina
 
-    @Operation(summary = "trae un grupo y sus usuarios", description = "Importante, el grupo debe estar en un proyecto." +
-            "Los usuarios por ahora siempre son de argentina, hay q cambiar eso en un futuro")
+    @Operation(summary = "trae un grupo y sus usuarios", description = "Importante, el grupo debe estar en un proyecto.")
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping("/{id}")
     public ResponseEntity<GroupDTO> getGroupAndUsersById(@PathVariable Long id) {
@@ -47,7 +53,11 @@ public class GroupController {
             groupDTO.setDescription(group.getDescription());
             groupDTO.setStatus(group.getStatus());
             groupDTO.setProjectId(group.getProjectId().getId());
-            groupDTO.setUsuariosEnElGrupo(group.getGroupByUserSet().stream().map(UsersInGroup::fromGroupByUser).collect(Collectors.toSet()));
+            groupDTO.setUsuariosEnElGrupo(
+                    group.getGroupByUserSet().stream()
+                            .map(groupByUser -> UsersInGroup.fromGroupByUser(groupByUser, progressService))
+                            .collect(Collectors.toSet())
+            );
             return ResponseEntity.ok(groupDTO);
         } else {
             return ResponseEntity.notFound().build();
@@ -61,5 +71,24 @@ public class GroupController {
         return ResponseEntity.ok(groupService.asignarUsuarioAlGrupoConId(id, id_usuario, rol));
     }
 
-    // más adelante se puede proponer un endpoint para asignar de a varios
+
+    @SecurityRequirement(name = "bearerAuth")
+    @PostMapping("/assignUsers")
+    @Operation(summary = "Assign users to a group", description = "This endpoint assigns multiple users to a group")
+    public ResponseEntity<?> assignUsersToGroup(@RequestBody List<AsignacionUsuarioRequest> requests) {
+        //boolean success = groupService.assignUsersToGroup(idGroup, idUsuarios, rol);
+        boolean success = groupService.assignUsersToGroup(requests);
+        if (success) {
+            return ResponseEntity.ok("Usuarios asignados al grupo exitosamente");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se pudo asignar usuarios al grupo");
+
+        }
+    }
+
+    @PostMapping("/import")
+    public ResponseEntity<Importation> importData(@RequestBody Importation importation) {
+        Importation result = groupService.importData(importation);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }

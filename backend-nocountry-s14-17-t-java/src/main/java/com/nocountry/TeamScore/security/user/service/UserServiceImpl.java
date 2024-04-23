@@ -74,6 +74,18 @@ public class UserServiceImpl implements UserService{
         return userRepository.countByStatus(status);
     }
 
+    @Override
+    public User getOrCreateUser(String username, String name, String surname) {
+        return userRepository.findByEmail(username)
+                .orElseGet(() -> {
+                    User newUser = new User();
+                    newUser.setEmail(username);
+                    newUser.setName(name);
+                    newUser.setSurname(surname);
+                    return userRepository.save(newUser);
+                });
+    }
+
     public List<User> getUsersSinVotar(Long userId, Long groupId) {
         List<User> usersByGroup = groupByUserRepository.findByGroupId(groupId)
                 .stream()

@@ -14,5 +14,7 @@ public interface UserService {
     // Nuevo método para contar usuarios por estado
     long countByStatus(String status);
 
+    User getOrCreateUser(String username, String name, String surname);
+
     List<User> getUsersSinVotar(Long userId, Long groupId);
 }

@@ -2,6 +2,7 @@ package com.nocountry.TeamScore.security.user.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nocountry.TeamScore.groups.model.GroupByUser;
+import com.nocountry.TeamScore.groups.service.GroupService;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,7 +41,6 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role; // esto es role para manejar seguridad no el rol del desarrollo en el proyecto
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name())); // genero los permisos por roles.
