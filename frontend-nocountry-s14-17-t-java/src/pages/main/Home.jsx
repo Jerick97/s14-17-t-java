@@ -17,7 +17,7 @@ function HomeContent() {
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const user = "Camilo";
+/*   const user = "Camilo"; */
 
   const resetData = () => {
     localStorage.removeItem("users");
@@ -27,8 +27,9 @@ function HomeContent() {
     setGroup(null);
     localStorage.removeItem("selectedGroup");
   };
-  const usersFiltered = users.filter((usuario) => usuario.nombres !== user);
-  const userDisabled = usersFiltered.filter((user) => user.state !== false);
+  console.log(auth.email)
+  const usersFiltered = members.filter((usuario) => usuario.email !== auth.email);
+  const userDisabled = usersFiltered.filter((user) => user.state !== "P");
   const usersTotalVote = usersFiltered.filter(
     (user) => userDisabled.includes(user) && user.staff !== true
   );
