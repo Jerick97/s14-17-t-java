@@ -60,10 +60,11 @@ function HomeContent() {
     const fetchMembers = async () => {
       try {
         setLoading(true);
-
+        
         if (group) {
           const miembrosData = await groupsService.member(group.id);
-          setMembers(miembrosData);
+          const filteredMembers = miembrosData.filter(member => member.email !== auth.email);
+          setMembers(filteredMembers);
         }
       } catch (error) {
         console.error("Error al obtener los miembros del grupo:", error);
