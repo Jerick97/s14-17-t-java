@@ -3,6 +3,8 @@ package com.nocountry.TeamScore.security.user.service;
 import com.nocountry.TeamScore.security.user.model.User;
 import com.nocountry.TeamScore.security.user.model.dto.UserUpdateRequest;
 
+import java.util.List;
+
 public interface UserService {
     void update(UserUpdateRequest userRequest, Long id) ;
     User findByUsername(String username);
@@ -11,4 +13,6 @@ public interface UserService {
 
     // Nuevo método para contar usuarios por estado
     long countByStatus(String status);
+
+    List<User> getUsersSinVotar(Long userId, Long groupId);
 }

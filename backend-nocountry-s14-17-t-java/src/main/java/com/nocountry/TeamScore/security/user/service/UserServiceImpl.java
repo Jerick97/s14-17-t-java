@@ -1,5 +1,7 @@
 package com.nocountry.TeamScore.security.user.service;
 
+import com.nocountry.TeamScore.feedback.repository.FeedbackRepository;
+import com.nocountry.TeamScore.groups.repository.GroupByUserRepository;
 import com.nocountry.TeamScore.security.user.model.User;
 import com.nocountry.TeamScore.security.user.model.dto.UserUpdateRequest;
 import com.nocountry.TeamScore.security.user.repository.UserRepository;
@@ -9,14 +11,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class UserServiceImpl implements UserService{
+    private final GroupByUserRepository groupByUserRepository;
+    private final FeedbackRepository feedbackRepository;
 
     private final UserRepository userRepository;
 
     private final PasswordEncoder passwordEncoder;
+
     @Override
     public void update(UserUpdateRequest userRequest, Long id) {
 
@@ -64,5 +72,20 @@ public class UserServiceImpl implements UserService{
     @Override
     public long countByStatus(String status) {
         return userRepository.countByStatus(status);
+    }
+
+    public List<User> getUsersSinVotar(Long userId, Long groupId) {
+        List<User> usersByGroup = groupByUserRepository.findByGroupId(groupId)
+                .stream()
+                .filter(u -> !u.getUser().getId().equals(userId))
+                .map(u -> u.getUser())
+                .toList();
+
+
+        User evaluador = userRepository.findById(userId).orElseThrow( () -> new EntityNotFoundException("User" + userId + "not found"));
+
+        return usersByGroup.stream()
+                .filter(user -> !feedbackRepository.existsByUsuarioQueEvaluaAndUsuarioEvaluado(evaluador, user))
+                .collect(Collectors.toList());
     }
 }
