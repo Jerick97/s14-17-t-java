@@ -1,4 +1,4 @@
 const API_BASE_URL =
-  "https://no-country-auth.netlify.app/.netlify/functions/server";
+  "https://s14-17-t-java.onrender.com/api/v1";
 
 export default API_BASE_URL;

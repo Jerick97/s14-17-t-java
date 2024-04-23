@@ -20,7 +20,7 @@ export const PrivateRoute = ({ allowed, redirectPath, children }) => {
     return <Navigate to='/login' replace />; // Redirecciona al login si no inicia sesión
   }
 
-  if (auth.role !== allowed) {
+  if (auth.operador !== allowed) {
     return <Navigate to={redirectPath} replace />; // Redirecciona sino si no tiene el rol permitido
   }
 

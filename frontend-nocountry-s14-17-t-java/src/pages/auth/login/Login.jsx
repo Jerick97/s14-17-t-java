@@ -14,7 +14,7 @@ import Count from "../../../components/CountLogin/Countlogin";
 function Login() {
   const MySwal = withReactContent(Swal);
   const navigate = useNavigate();
-  const { setAuth, login } = useContext(AuthContext);
+  const { setAuth, login, setGroups } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
@@ -22,15 +22,20 @@ function Login() {
   } = useForm();
 
   const users = {
-    "admin@gmail.com": {
-      password: "Administrador",
-      isAdmin: true,
-      name: "Gloria",
-    },
-    "kaosinc@gmail.com": {
-      password: "Usuario123",
+    "mikhail@gmail.com": {
+      password: "12345678",
       isAdmin: false,
-      name: "Marcelo",
+      name: "Mikhail",
+    },
+    "vero@gmail.com": {
+      password: "12345678",
+      isAdmin: true,
+      name: "Vero",
+    },
+    "romina@gmail.com": {
+      password: "12345678",
+      isAdmin: true,
+      name: "Romina",
     },
   };
 
@@ -41,9 +46,10 @@ function Login() {
     try {
       // Llama al método login del servicio de autenticación para iniciar sesión
       const response = await authService.login(email, password);
+      console.log(response)
 
       // Verifica si el inicio de sesión fue exitoso
-      if (response.message === "success") {
+       
         // Extrae el token del objeto de respuesta
         const { token } = response;
         // Guarda el token en el localStorage
@@ -51,13 +57,16 @@ function Login() {
         //Almacenamos en el contexto los datos del usuario
         setAuth({
           email,
-          role: user.isAdmin ? "admin" : "user",
+          operador: user.isAdmin ? "1" : "0", //admin es 1 user es 0
           name: user.name,
+          ...response,
         });
+       
+       
 
         login(token);
         navigate(user.isAdmin ? "/dashboard" : "/");
-      }
+      
     } catch (error) {
       // Manejo de errores en caso de que falle el inicio de sesión
       MySwal.fire({

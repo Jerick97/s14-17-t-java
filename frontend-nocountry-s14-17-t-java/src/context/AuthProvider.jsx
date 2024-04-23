@@ -12,6 +12,9 @@ export const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true); // Set initial loading state
   const [group, setGroup] = useState(); //Grupo Seleccionado Actual
 
+
+
+  
   useEffect(() => {
     const storedJwt = localStorage.getItem("jwt-token");
     if (storedJwt) {
@@ -20,7 +23,7 @@ export const AuthProvider = ({ children }) => {
 
       (async () => {
         try {
-          const response = await axiosInstance.get("/user");
+          const response = await axiosInstance.get("/users/me");
 
           if (response.status === 200) {
             // Handle successful response
@@ -114,6 +117,7 @@ export const AuthProvider = ({ children }) => {
     jwt,
     group,
     setGroup,
+
   };
 
   return (
