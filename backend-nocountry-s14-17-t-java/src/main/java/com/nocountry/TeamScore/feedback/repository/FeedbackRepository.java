@@ -12,4 +12,6 @@ import java.util.List;
 public interface FeedbackRepository extends JpaRepository<Feedback, Long> {
     @Query("SELECT COUNT(DISTINCT f.usuarioEvaluado) FROM Feedback f WHERE f.usuarioQueEvalua = :user")
     Long countDistinctUsuarioEvaluadoByUsuarioQueEvalua(User user);
+
+    boolean existsByUsuarioQueEvaluaAndUsuarioEvaluado(User evaluador, User user);
 }
