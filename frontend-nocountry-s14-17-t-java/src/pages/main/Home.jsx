@@ -104,7 +104,9 @@ function HomeContent() {
                 <h3>Tus compañeros de cohorte son:</h3>
               </div>
               <div className="flex flex-wrap items-center justify-center h-24">
-                <ButtonNeon text="Volver a grupos" onClick={resetDataGroups} />
+              {!group && groups.length > 1 ? (
+                <ButtonNeon text="Volver a grupos" onClick={resetDataGroups} /> 
+              ) : <></> }
               </div>
             </div>
             <div className="ml-auto">
