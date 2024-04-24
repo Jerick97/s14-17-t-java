@@ -45,7 +45,9 @@ const Vote = () => {
       .users()
       .then((data) => {
         // Hacer algo con los datos recibidos
-        setQuestion(data);
+        const filteredData = data.filter(item => item.status !== 'false');
+        setQuestion(filteredData);
+        console.log(filteredData)
       })
       .catch((error) => {
         // Manejar cualquier error que ocurra durante la solicitud
@@ -60,12 +62,13 @@ const Vote = () => {
       </div>
       <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col h-auto pt-8 container items-center mx-auto w-3/4 justify-around ">
-          {question.map((habilidad) => (
+          {question.map((habilidad, index) => (
             <QuestionCard
               description={habilidad.description}
               key={habilidad.id + 1}
               title={habilidad.name}
               field_id={habilidad.id}
+              number = {index + 1}
               {...register(`${habilidad.id}`, {
                 required: {
                   value: true,
