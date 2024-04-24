@@ -6,6 +6,7 @@ import { AuthContext } from "../../context/AuthContext";
 import questionService from "../../services/questionService";
 import QuestionCard from "../../components/QuestionCard/QuestionCard";
 import ButtonNeon from "../../components/ButtonNeon/ButtonNeon";
+import feedbackService from "../../services/feedbackService";
 
 const Vote = () => {
   // Obtener la ubicación actual
@@ -18,21 +19,29 @@ const Vote = () => {
   const { auth, updateUserStaff, groups } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     // Construye el JSON final
-    const jsonToSend = {
-      projectId: groups[0].projectId,
-      idUsuarioQueEvalua: auth.id,
-      idUsuarioEvaluado: idUser,
-      valorDelFeedback: Object.entries(data).map(([questionId, score]) => ({
-        questionId,
-        score,
-      })),
-    };
-console.log(id)
+    const jsonToSend = [
+      {
+        projectId: groups[0].projectId,
+        idUsuarioQueEvalua: auth.id,
+        idUsuarioEvaluado: idUser,
+        valorDelFeedback: Object.entries(data).map(([field_id, score]) => ({
+          field_id: parseInt(field_id),
+          score: parseInt(score),
+          comments: "",
+        })),
+      },
+    ];
+
     // Muestra el JSON en la consola
     console.log(jsonToSend);
-
+    try {
+      await feedbackService.feedback(jsonToSend);
+      console.log("Feedback enviado correctamente"); // Acceso al estado de la respuesta
+    } catch (error) {
+      console.error("Feedback no enviado", error);
+    }
     // Lógica para actualizar el staff del socio correspondiente (usando el índice)
     updateUserStaff(id);
 
@@ -46,9 +55,9 @@ console.log(id)
       .users()
       .then((data) => {
         // Hacer algo con los datos recibidos
-        const filteredData = data.filter(item => item.status !== 'false');
+        const filteredData = data.filter((item) => item.status !== "false");
         setQuestion(filteredData);
-        console.log(filteredData)
+        console.log(filteredData);
       })
       .catch((error) => {
         // Manejar cualquier error que ocurra durante la solicitud
@@ -69,7 +78,7 @@ console.log(id)
               key={habilidad.id + 1}
               title={habilidad.name}
               field_id={habilidad.id}
-              number = {index + 1}
+              number={index + 1}
               {...register(`${habilidad.id}`, {
                 required: {
                   value: true,
