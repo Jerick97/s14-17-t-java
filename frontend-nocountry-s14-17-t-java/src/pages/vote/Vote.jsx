@@ -14,6 +14,7 @@ const Vote = () => {
   // Obtener el parámetro 'user' de la URL
   const userVoting = new URLSearchParams(location.search).get("user");
   const id = new URLSearchParams(location.search).get("index");
+  const idUser = new URLSearchParams(location.search).get("idUser");
   const { auth, updateUserStaff, groups } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
 
@@ -22,13 +23,13 @@ const Vote = () => {
     const jsonToSend = {
       projectId: groups[0].projectId,
       idUsuarioQueEvalua: auth.id,
-      idUsuarioEvaluado: id,
+      idUsuarioEvaluado: idUser,
       valorDelFeedback: Object.entries(data).map(([questionId, score]) => ({
         questionId,
         score,
       })),
     };
-
+console.log(id)
     // Muestra el JSON en la consola
     console.log(jsonToSend);
 
