@@ -1,7 +1,7 @@
 import { forwardRef, useState } from "react";
 import PropTypes from "prop-types";
 const QuestionCard = forwardRef(function QuestionCard(
-  { description, name, field_id, ...rest },
+  { description, name, title, field_id, ...rest },
   ref
 ) {
   const min = 0;
@@ -19,7 +19,7 @@ const QuestionCard = forwardRef(function QuestionCard(
           Pregunta {field_id}
         </h3>
         <h3 className="md:text-2xl text-1xl text-center font-bold bg-gradient-to-r from-[#1d90fc] to-[#0cfca7] inline-block text-transparent bg-clip-text">
-          {name}
+          {title}
         </h3>
       </div>
 
@@ -55,7 +55,7 @@ const QuestionCard = forwardRef(function QuestionCard(
 
 QuestionCard.propTypes = {
   field_id: PropTypes.number.isRequired,
-  name: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
 };
 

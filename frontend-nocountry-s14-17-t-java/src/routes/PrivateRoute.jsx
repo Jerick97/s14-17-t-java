@@ -10,17 +10,17 @@ export const PrivateRoute = ({ allowed, redirectPath, children }) => {
   // Mientras se trae la data del usuario con el token
   if (isLoading) {
     return (
-      <div className='w-full h-screen flex items-center justify-center'>
+      <div className="w-full h-screen flex items-center justify-center">
         <Loading />
       </div>
     );
   }
 
   if (!isLoggedIn) {
-    return <Navigate to='/login' replace />; // Redirecciona al login si no inicia sesión
+    return <Navigate to="/login" replace />; // Redirecciona al login si no inicia sesión
   }
 
-  if (auth.role !== allowed) {
+  if (auth.operador !== allowed) {
     return <Navigate to={redirectPath} replace />; // Redirecciona sino si no tiene el rol permitido
   }
 

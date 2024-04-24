@@ -14,13 +14,14 @@ const Vote = () => {
   // Obtener el parámetro 'user' de la URL
   const userVoting = new URLSearchParams(location.search).get("user");
   const id = new URLSearchParams(location.search).get("index");
-  const { auth, updateUserStaff } = useContext(AuthContext);
+  const { auth, updateUserStaff, groups } = useContext(AuthContext);
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => {
     // Construye el JSON final
     const jsonToSend = {
-      idUsuarioQueEvalua: auth.name,
+      projectId: groups[0].projectId,
+      idUsuarioQueEvalua: auth.id,
       idUsuarioEvaluado: id,
       valorDelFeedback: Object.entries(data).map(([questionId, score]) => ({
         questionId,
@@ -59,13 +60,13 @@ const Vote = () => {
       </div>
       <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col h-auto pt-8 container items-center mx-auto w-3/4 justify-around ">
-          {question.map((question) => (
+          {question.map((habilidad) => (
             <QuestionCard
-              description={question.description}
-              key={question.field_id + 1}
-              name={question.name}
-              field_id={question.field_id}
-              {...register(`${question.field_id}`, {
+              description={habilidad.description}
+              key={habilidad.id + 1}
+              title={habilidad.name}
+              field_id={habilidad.id}
+              {...register(`${habilidad.id}`, {
                 required: {
                   value: true,
                   message: "Question is required",

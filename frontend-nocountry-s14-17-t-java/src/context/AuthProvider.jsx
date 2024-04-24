@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import { AuthContext } from "./AuthContext";
 import axiosInstance from "../api/axiosInstance";
-import usersService from "../services/usersService";
+import groupsService from "../services/groupsService";
 
 export const AuthProvider = ({ children }) => {
   // Estado y efecto para el contexto de autenticación
@@ -10,7 +10,8 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [jwt, setJwt] = useState(null);
   const [isLoading, setIsLoading] = useState(true); // Set initial loading state
-  const [group, setGroup] = useState(); //Grupo Seleccionado Actual
+  const [group, setGroup] = useState(null); //Grupo Seleccionado Actual
+  const [groups, setGroups] = useState([]); //Almacenamos todos los grupos disponibles del usuario
 
   useEffect(() => {
     const storedJwt = localStorage.getItem("jwt-token");
@@ -20,11 +21,20 @@ export const AuthProvider = ({ children }) => {
 
       (async () => {
         try {
-          const response = await axiosInstance.get("/user");
+          const response = await axiosInstance.get("/users/me");
 
           if (response.status === 200) {
-            // Handle successful response
-            setAuth(response.data);
+            // Convertir la propiedad operador de número a cadena
+            const operadorString = response.data.operador.toString();
+
+            // Crear un nuevo objeto con la propiedad operador convertida a cadena
+            const responseDataWithOperadorString = {
+              ...response.data,
+              operador: operadorString,
+            };
+
+            // Establecer el estado con el nuevo objeto modificado
+            setAuth(responseDataWithOperadorString);
             setIsLoading(false);
           } else {
             console.error(
@@ -43,8 +53,17 @@ export const AuthProvider = ({ children }) => {
       setIsLoggedIn(false);
       setIsLoading(false);
       setAuth({}); // Set auth to empty object if no token
+      setGroup(null);
+      setGroups([]);
     }
   }, []);
+
+  useEffect(() => {
+    const storedGroups = JSON.parse(localStorage.getItem("groups"));
+    if (storedGroups !== null && storedGroups.length > 0) {
+      setGroups(storedGroups);
+    }
+  }, [localStorage.getItem("groups")]);
 
   function login(token) {
     setIsLoggedIn(true);
@@ -56,37 +75,46 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn(false);
     setJwt(null);
     localStorage.removeItem("jwt-token");
+    localStorage.removeItem("selectedGroup");
+    localStorage.removeItem("groups");
+    localStorage.removeItem("users");
     setAuth({});
+    setGroup(null);
+    setGroups([]);
   }
 
   // Estado y efecto para el contexto de usuarios
   const [users, setUsers] = useState([]);
   useEffect(() => {
-    const storedUsers = localStorage.getItem("users");
+    // Verificar si hay un grupo seleccionado
+    if (group) {
+      const storedUsers = localStorage.getItem("users");
+      if (storedUsers) {
+        setUsers(JSON.parse(storedUsers)); // Establecer usuarios desde el almacenamiento local al cargar la página
+      } else {
+        // No hay usuarios en el almacenamiento local, obtenerlos del servicio
+        setIsLoading(true); // Indicar que se están cargando los usuarios
 
-    if (storedUsers) {
-      setUsers(JSON.parse(storedUsers)); // Establecer usuarios desde el almacenamiento local al cargar la página
-    } else {
-      // Si no hay datos en el almacenamiento local, solicita los datos de la API
-      usersService
-        .users()
-        .then((data) => {
-          // Agregar el atributo "staff:false" a cada usuario
-          const usersWithStaff = data.map((user) => ({
-            ...user,
-            staff: false, // Inicializar staff en false
-          }));
-          setUsers(usersWithStaff);
-          localStorage.setItem("users", JSON.stringify(usersWithStaff)); // Guardar en el almacenamiento local
-        })
-        .catch((error) => {
-          console.error("Error fetching users:", error);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
+        groupsService
+          .member(group.id)
+          .then((data) => {
+            // Agregar el atributo "staff:false" a cada usuario
+            const usersWithStaff = data.map((user) => ({
+              ...user,
+              staff: false, // Inicializar staff en false
+            }));
+            localStorage.setItem("users", JSON.stringify(usersWithStaff)); // Guardar en el almacenamiento local
+            setUsers(usersWithStaff); // Establecer los usuarios en el estado
+          })
+          .catch((error) => {
+            console.error("Error fetching users:", error);
+          })
+          .finally(() => {
+            setIsLoading(false); // Finalizar el estado de carga, independientemente del resultado
+          });
+      }
     }
-  }, []);
+  }, [group]);
 
   useEffect(() => {
     //console.log(users); // Este console.log reflejará los datos actualizados después de establecer el estado
@@ -94,12 +122,17 @@ export const AuthProvider = ({ children }) => {
 
   // Función para actualizar el estado del usuario en el contexto de usuarios
   const updateUserStaff = (id) => {
-    const userIdx = id - 1; // Ajustar el ID al índice del arreglo
+    const userIdx = parseInt(id);
     const updatedUsers = [...users];
-    const currentStaffStatus = updatedUsers[userIdx].staff;
-    updatedUsers[userIdx].staff = !currentStaffStatus;
-    setUsers(updatedUsers);
-    localStorage.setItem("users", JSON.stringify(updatedUsers)); // Guardar en el almacenamiento local
+    console.log("usuario seleccionado: ", userIdx);
+    console.log(updatedUsers[userIdx].name);
+    // Cambiar el estado de 'staff' para el usuario específico
+    //const currentStaffStatus = updatedUsers[userIdx].staff;
+    updatedUsers[userIdx].staff = true;
+
+    // Actualizar el estado y guardar en el almacenamiento local
+    //setUsers(updatedUsers);
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
   };
 
   const contextValue = {
@@ -114,6 +147,8 @@ export const AuthProvider = ({ children }) => {
     jwt,
     group,
     setGroup,
+    groups,
+    setGroups,
   };
 
   return (

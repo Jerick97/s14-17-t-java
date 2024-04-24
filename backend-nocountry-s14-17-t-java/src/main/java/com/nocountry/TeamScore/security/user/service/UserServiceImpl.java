@@ -1,13 +1,17 @@
 package com.nocountry.TeamScore.security.user.service;
 
+import com.nocountry.TeamScore.fieldByProject.repository.FieldByProjectRepository;
+import com.nocountry.TeamScore.fields.service.FieldService;
 import com.nocountry.TeamScore.feedback.repository.FeedbackRepository;
 import com.nocountry.TeamScore.groups.repository.GroupByUserRepository;
 import com.nocountry.TeamScore.security.user.model.User;
 import com.nocountry.TeamScore.security.user.model.dto.UserUpdateRequest;
+
 import com.nocountry.TeamScore.security.user.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +29,9 @@ public class UserServiceImpl implements UserService{
 
     private final PasswordEncoder passwordEncoder;
 
+    private final FieldService fieldService;
+    private final FieldByProjectRepository fieldByProjectRepository;
+  
     @Override
     public void update(UserUpdateRequest userRequest, Long id) {
 

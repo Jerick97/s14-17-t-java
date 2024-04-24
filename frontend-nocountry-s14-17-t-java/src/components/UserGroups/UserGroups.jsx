@@ -1,17 +1,16 @@
+// UserGroups component
 import PropTypes from "prop-types";
 import NeonFrameButton from "../NeonFrameButton/NeonFrameButton";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 function UserGroups({ groups, name }) {
-  const { group, setGroup } = useContext(AuthContext);
+  const { setGroup } = useContext(AuthContext);
   const handlerSelectGroup = (name) => {
     setGroup(name); //guardamos el nombre del grupo en el Contexto, debe usarse en el Header
+    // Crear un array que contenga el objeto
+    localStorage.setItem("selectedGroup", JSON.stringify(name));
   };
-
-  useEffect(() => {
-    console.log(group); //mostramos el name del grupo seleccionado
-  }, [group]);
 
   return (
     <div className="container max-w-screen-lg mx-auto w-full sm:p-10 p-4">
@@ -27,9 +26,9 @@ function UserGroups({ groups, name }) {
       <div className="grid grid-cols-12 md:gap-8 gap-4 mb-4">
         {groups.map((group) => (
           <NeonFrameButton
-            key={group.id}
-            id={group.id}
-            text={group.name}
+            key={group.group_id}
+            id={group.group_id}
+            text={group.group_name}
             onClick={handlerSelectGroup}
             disabled={false} //si es true, se mostrara en gris
           />

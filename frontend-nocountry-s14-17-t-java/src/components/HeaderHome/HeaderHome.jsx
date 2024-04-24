@@ -5,9 +5,10 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 
 const HeaderHome = () => {
-  const { logout } = useContext(AuthContext);
+  const { logout, group } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  console.log(group);
   const handlerlogout = () => {
     logout();
     navigate("/login");
@@ -16,10 +17,10 @@ const HeaderHome = () => {
     <div className="">
       <div className=" w-full h-[90px] flex justify-between pl-10 pr-10  items-center bg-black ">
         <Link to="/">
-          <Logo/>
+          <Logo />
         </Link>
         <div className="flex gap-4">
-          <ButtonNeon text="S14-17-t-Java" />
+          {group ? <ButtonNeon text={group.text}/> : <></>}
           <ButtonNeon text="Log Out" onClick={handlerlogout} />
         </div>
       </div>

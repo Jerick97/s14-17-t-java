@@ -1,4 +1,5 @@
-const HomeCard = ({ users, usersVoted, usersTotalVote  }) => {
+const HomeCard = ({ users, usersVoted, usersTotalVote }) => {
+  console.log(users);
   return (
     <div className="w-full  h-full flex justify-center items-center  border-[1px] border-[#09FCA7] rounded-[10px]">
       <div className="w-full h-full  daisy-stats shadow  text-center bg-black">
