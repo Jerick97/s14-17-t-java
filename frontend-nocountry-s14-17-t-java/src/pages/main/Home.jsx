@@ -24,16 +24,16 @@ function HomeContent() {
     localStorage.removeItem("selectedGroup");
     localStorage.removeItem("users");
   };
+  console.log(members)
   console.log(auth.email);
   const usersFiltered = members.filter(
-    (usuario) => usuario.email !== auth.email
-  );
+    (user) => user.email !== auth.email);
   const userDisabled = usersFiltered.filter((user) => user.state !== "P");
   const usersTotalVote = usersFiltered.filter(
     (user) => userDisabled.includes(user) && user.staff !== true
   );
   const usersVoted = usersFiltered.filter((user) => user.staff === true);
-
+console.log(usersFiltered)
   useEffect(() => {
     const storedSelectedGroup = localStorage.getItem("selectedGroup");
 
@@ -125,7 +125,7 @@ function HomeContent() {
               group && (
                 <div className="flex flex-wrap gap-10 mt-8">
                   {/* Filter users based on the selected group */}
-                  {members.map((member, index) => (
+                  {usersFiltered.map((member, index) => (
                     <Partners
                       key={index}
                       id={index}
