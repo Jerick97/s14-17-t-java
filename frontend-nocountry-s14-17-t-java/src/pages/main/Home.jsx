@@ -24,16 +24,15 @@ function HomeContent() {
     localStorage.removeItem("selectedGroup");
     localStorage.removeItem("users");
   };
-  console.log(members)
+  console.log(members);
   console.log(auth.email);
-  const usersFiltered = members.filter(
-    (user) => user.email !== auth.email);
+  const usersFiltered = members.filter((user) => user.email !== auth.email);
   const userDisabled = usersFiltered.filter((user) => user.state !== "P");
   const usersTotalVote = usersFiltered.filter(
     (user) => userDisabled.includes(user) && user.staff !== true
   );
   const usersVoted = usersFiltered.filter((user) => user.staff === true);
-console.log(usersFiltered)
+  console.log(usersFiltered);
   useEffect(() => {
     const storedSelectedGroup = localStorage.getItem("selectedGroup");
 
@@ -104,9 +103,14 @@ console.log(usersFiltered)
                 <h3>Tus compañeros de cohorte son:</h3>
               </div>
               <div className="flex flex-wrap items-center justify-center h-24">
-              {!group && groups.length > 1 ? (
-                <ButtonNeon text="Volver a grupos" onClick={resetDataGroups} /> 
-              ) : <></> }
+                {!group && groups.length > 1 ? (
+                  <ButtonNeon
+                    text="Volver a grupos"
+                    onClick={resetDataGroups}
+                  />
+                ) : (
+                  <></>
+                )}
               </div>
             </div>
             <div className="ml-auto">
@@ -131,6 +135,7 @@ console.log(usersFiltered)
                     <Partners
                       key={index}
                       id={index}
+                      idUser={member.id}
                       name={member.name}
                       surname={member.surname}
                       role={member.rol}

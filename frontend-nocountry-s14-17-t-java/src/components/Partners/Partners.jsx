@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import check from "@assets/check.svg";
-export default function Partners({ id, name, surname, role, staff, activo }) {
+export default function Partners({ id, name, surname, role, staff, activo, idUser }) {
   const fullName = `${name} ${surname}`;
   // Determinar la clase de borde basada en las condiciones
   const state = "A" == activo;
@@ -17,7 +17,11 @@ export default function Partners({ id, name, surname, role, staff, activo }) {
   // Obtener la clase de borde
   const borderClass = getBorderClass();
   return (
-    <Link to={`/vote?user=${encodeURIComponent(fullName)}&index=${id}`}>
+    <Link
+      to={`/vote?user=${encodeURIComponent(
+        fullName
+      )}&index=${id}&idUser=${idUser}`}
+    >
       <button
         className={`${
           state ? "cursor-pointer" : "cursor-not-allowed opacity-50"
