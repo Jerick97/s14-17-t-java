@@ -99,18 +99,24 @@ function FileUploader() {
         groupedData.push(newGroup);
       }
     });
-
-    console.log(groupedData);
   }
-
+  const rolColors = {
+    PM: "text-[#DB540D]",
+    QA: "text-[#DB2D4B]",
+    "UX": "text-[#3DDB0D]",
+    Backend: "text-[#400DDB]",
+    Frontend: "text-[#830DDB]",
+    "Team Leader": "text-[#09FCA7]",
+    Participante: "text-[#09F7]",
+  };
   return (
     <div>
       <div
         {...getRootProps()}
-        className='border-[#0CFCA7] border rounded-lg mb-3 p-5 cursor-pointer'
+        className="border-[#0CFCA7] border rounded-lg mb-3 p-5 cursor-pointer"
       >
         <input {...getInputProps()} />
-        <p className='md:text-lg text-[8px] text-center'>
+        <p className="md:text-lg text-[8px] text-center">
           Arrastra y suelta un archivo Excel aquí, o haz clic para seleccionar
           uno
         </p>
@@ -118,32 +124,32 @@ function FileUploader() {
 
       {/* Mostrar el mensaje de error si existe */}
       {errorMessage && (
-        <div className='text-red-500'>
+        <div className="text-red-500">
           <h2>Error:</h2>
           <p>{errorMessage}</p>
         </div>
       )}
 
-      <table className='daisy-table table-auto bg-black'>
+      <table className="daisy-table table-auto bg-black">
         {excelData.length > 0 && (
           <thead>
             <tr>
-              <th className='text-white font-bold md:text-lg text-[8px] border-[1px] border-[#09FCA7] '>
+              <th className="text-white font-bold md:text-lg text-[8px] border-[1px] border-[#09FCA7] ">
                 Group
               </th>
-              <th className='text-white font-bold md:text-lg text-[8px] border-[1px] border-[#09FCA7] '>
+              <th className="text-white font-bold md:text-lg text-[8px] border-[1px] border-[#09FCA7] ">
                 Name
               </th>
-              <th className='text-white font-bold md:text-lg text-[8px] border-[1px] border-[#09FCA7] '>
+              <th className="text-white font-bold md:text-lg text-[8px] border-[1px] border-[#09FCA7] ">
                 Surname
               </th>
-              <th className='text-white font-bold md:text-lg text-[8px] border-[1px] border-[#09FCA7] '>
+              <th className="text-white font-bold md:text-lg text-[8px] border-[1px] border-[#09FCA7] ">
                 Email
               </th>
-              <th className='text-white font-bold md:text-lg text-[8px] border-[1px] border-[#09FCA7] '>
+              <th className="text-white font-bold md:text-lg text-[8px] border-[1px] border-[#09FCA7] ">
                 Role
               </th>
-              <th className='text-white font-bold md:text-lg text-[8px] border-[1px] border-[#09FCA7] '>
+              <th className="text-white font-bold md:text-lg text-[8px] border-[1px] border-[#09FCA7] ">
                 Staff
               </th>
             </tr>
@@ -152,29 +158,43 @@ function FileUploader() {
 
         <tbody>
           {excelData.map((row, index) => (
-            <tr key={index} className='border-[1px] border-[#09FCA7]'>
-              <td className='font-bold md:text-lg text-[10px] '>{row.group}</td>
-              <td className='font-bold md:text-lg text-[10px] '>{row.name}</td>
-              <td className='font-bold md:text-lg text-[10px] '>
+            <tr key={index} className="border-[1px] border-[#09FCA7]">
+              <td className="font-bold md:text-lg text-[10px] text-white ">
+                {row.group}
+              </td>
+              <td className="font-bold md:text-lg text-[10px] text-white ">
+                {row.name}
+              </td>
+              <td className="font-bold md:text-lg text-[10px] text-white ">
                 {row.surname}
               </td>
-              <td className='font-bold md:text-lg text-[10px] '>
+              <td className="font-bold md:text-lg text-[10px] ">
                 <input
-                  type='text'
-                  className='w-full bg-transparent text-white'
+                  type="text"
+                  className={`{w-full  text-white ${
+                    validateEmail(row.email) ? "bg-transparent" : "bg-red-500"
+                  }`}
                   value={row.email}
                   onChange={(e) => handleEmailChange(index, e.target.value)}
                 />
               </td>
-              <td className='text-white px-4 py-2'>{row.role}</td>
-              <td className='text-white px-4 py-2'>{row.staff}</td>
+              <td>
+                <div
+                  className={`font-bold md:text-lg text-[10px] ${
+                    rolColors[row.role]
+                  }`}
+                >
+                  {row.role}
+                </div>
+              </td>
+              <td className="text-white px-4 py-2">{row.staff}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
       <button
-        className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         onClick={handleSendDataToBackend}
       >
         Guardar
