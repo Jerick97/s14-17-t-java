@@ -99,10 +99,13 @@ export const AuthProvider = ({ children }) => {
           .member(group.id)
           .then((data) => {
             // Agregar el atributo "staff:false" a cada usuario
-            const usersWithStaff = data.map((user) => ({
-              ...user,
-              staff: false, // Inicializar staff en false
-            }));
+            const usersWithStaff = data
+              .map((user) => ({
+                ...user,
+                staff: false, // Inicializar staff en false
+              }))
+              .filter((user) => user.email !== auth.email)
+              .sort((a, b) => a.id - b.id);
             localStorage.setItem("users", JSON.stringify(usersWithStaff)); // Guardar en el almacenamiento local
             setUsers(usersWithStaff); // Establecer los usuarios en el estado
           })

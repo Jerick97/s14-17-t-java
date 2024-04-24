@@ -35,7 +35,7 @@ const Vote = () => {
     ];
 
     // Muestra el JSON en la consola
-    console.log(jsonToSend);
+    console.log("json para back feedback: ", jsonToSend);
     try {
       await feedbackService.feedback(jsonToSend);
       console.log("Feedback enviado correctamente"); // Acceso al estado de la respuesta
