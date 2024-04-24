@@ -236,14 +236,14 @@ http://localhost:8080/swagger-ui/index.html
 ##### 9.Para probar junto al frontend, tenga en cuenta que la direccion de su servidor backend corre en el puerto 8080
 
 ## 🔎🐞 Evidencia Tester QA
-#### <li>Especificacion de Requerimientos:</li>
+#### <li>Especificación de Requerimientos:</li>
   https://drive.google.com/file/d/1F6O3ZLXP0OG30zl9-6g6s_033KsdLy48/view?usp=sharing
 
 #### <li>Historias de Usuario y Criterios de Aceptación:</li>
   https://drive.google.com/file/d/1G0K8AsTESmeFZJOcNL5HZ9ItxgU35wBM/view?usp=sharing
 
 #### <li>Testing (Graficos y Resultados):</li>
-  URL
+  https://drive.google.com/drive/folders/1brvVIy1njIpzNQCwX1A-6DnGa_hcu1Rs?usp=sharing
 
 #### <li>Herramientas de Gestión de Proyecto:</li>
   URL
