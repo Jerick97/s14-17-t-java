@@ -100,7 +100,7 @@ function HomeContent() {
                 <span className="bg-gradient-to-r font-extrabold text-3xl from-[#1d90fc] to-[#0cfca7] inline-block text-transparent bg-clip-text">
                   Team Score
                 </span>
-                <h3>Tus compañeros de cohorte son:</h3>
+                <h3>Tus compañeros de equipo son:</h3>
               </div>
               <div className="flex flex-wrap items-center justify-center h-24">
                 {!group && groups.length > 1 ? (

@@ -13,7 +13,7 @@ const HomeCard = ({ users, usersVoted, usersTotalVote }) => {
         </div>
         <div className="daisy-stat border-[1px] border-[#09FCA7] flex-col items-center p-2">
           <div className="daisy-stat-title text-white lg:text-lg text-sm">
-            Por votar
+            Por Calificar
           </div>
           <div className="daisy-stat-value text-secondary lg:text-1xl text-2xl w-[100px]">
             {usersTotalVote.length}
@@ -22,7 +22,7 @@ const HomeCard = ({ users, usersVoted, usersTotalVote }) => {
 
         <div className="daisy-stat  border-[1px] border-[#09FCA7] flex-col items-center p-2">
           <div className="daisy-stat-title  text-white lg:text-lg text-sm">
-            Votados
+            Calificados
           </div>
           <div className="daisy-stat-value text-warning lg:text-2xl text-xl w-[100px]">
             {usersVoted.length}

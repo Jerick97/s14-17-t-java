@@ -90,7 +90,7 @@ const Vote = () => {
         </div>
 
         <div className="flex items-center justify-center my-10">
-          <ButtonNeon text="Enviar Votacion" />
+          <ButtonNeon text="Enviar" />
         </div>
       </form>
     </div>
