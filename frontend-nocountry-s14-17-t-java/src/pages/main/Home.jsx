@@ -26,7 +26,9 @@ function HomeContent() {
   };
   console.log(members);
   console.log(auth.email);
-  const usersFiltered = members.filter((user) => user.email !== auth.email);
+  const usersFiltered = members
+    .filter((user) => user.email !== auth.email)
+    .sort((a, b) => a.id - b.id);
   const userDisabled = usersFiltered.filter((user) => user.state !== "P");
   const usersTotalVote = usersFiltered.filter(
     (user) => userDisabled.includes(user) && user.staff !== true
@@ -61,9 +63,9 @@ function HomeContent() {
 
         if (group) {
           const miembrosData = await groupsService.member(group.id);
-          const filteredMembers = miembrosData.filter(
-            (member) => member.email !== auth.email
-          );
+          const filteredMembers = miembrosData
+            .filter((member) => member.email !== auth.email)
+            .sort((a, b) => a.id - b.id);
           const storedUsers = JSON.parse(localStorage.getItem("users"));
 
           if (storedUsers) {
