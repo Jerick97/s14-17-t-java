@@ -21,43 +21,46 @@ function Login() {
     formState: { errors },
   } = useForm();
 
-  const users = {
-    "admin@gmail.com": {
-      password: "Administrador",
-      isAdmin: true,
-      name: "Gloria",
+  /* const users = {
+    "mikhail@gmail.com": {
+      password: "12345678",
+      operador: "0",
+      name: "Mikhail",
     },
-    "kaosinc@gmail.com": {
-      password: "Usuario123",
-      isAdmin: false,
-      name: "Marcelo",
+    "vero@gmail.com": {
+      password: "12345678",
+      operador: "1",
+      name: "Vero",
     },
-  };
+    "romina@gmail.com": {
+      password: "12345678",
+      operador: "1",
+      name: "Romina",
+    },
+  }; */
 
   const handleLogin = async (data) => {
     const { email, password } = data;
-    const user = users[email];
+    /* const user = users[email]; */
 
     try {
       // Llama al método login del servicio de autenticación para iniciar sesión
       const response = await authService.login(email, password);
 
-      // Verifica si el inicio de sesión fue exitoso
-      if (response.message === "success") {
-        // Extrae el token del objeto de respuesta
-        const { token } = response;
-        // Guarda el token en el localStorage
-        localStorage.setItem("jwt-token", token);
-        //Almacenamos en el contexto los datos del usuario
-        setAuth({
-          email,
-          role: user.isAdmin ? "admin" : "user",
-          name: user.name,
-        });
+      // Extrae el token del objeto de respuesta
+      const { token, groups, operador } = response;
+      // Guarda el token en el localStorage
+      localStorage.setItem("jwt-token", token);
+      localStorage.setItem("groups", JSON.stringify(groups));
+      //Almacenamos en el contexto los datos del usuario
+      setAuth({
+        email,
+        operador: operador, //admin es 1 user es 0
+        ...response,
+      });
 
-        login(token);
-        navigate(user.isAdmin ? "/dashboard" : "/");
-      }
+      login(token);
+      navigate(operador == "1" ? "/dashboard" : "/");
     } catch (error) {
       // Manejo de errores en caso de que falle el inicio de sesión
       MySwal.fire({

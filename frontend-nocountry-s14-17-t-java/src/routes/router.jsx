@@ -17,7 +17,7 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <PrivateRoute allowed="user" redirectPath="/dashboard">
+          <PrivateRoute allowed="0" redirectPath="/dashboard">
             {/* Necesita Iniciar Sesión como user para acceder*/}
             <Home />
           </PrivateRoute>
@@ -37,7 +37,7 @@ export const router = createBrowserRouter([
   {
     path: "/vote",
     element: (
-      <PrivateRoute allowed="user" redirectPath="/dashboard">
+      <PrivateRoute allowed="0" redirectPath="/dashboard">
         {/* Necesita Iniciar Sesión como user para acceder*/}
         <Vote />
       </PrivateRoute>
@@ -51,7 +51,7 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: (
-          <PrivateRoute allowed="admin" redirectPath="/">
+          <PrivateRoute allowed="1" redirectPath="/">
             {/* Necesita Iniciar Sesión como admin para acceder*/}
             <Dashboard />
           </PrivateRoute>

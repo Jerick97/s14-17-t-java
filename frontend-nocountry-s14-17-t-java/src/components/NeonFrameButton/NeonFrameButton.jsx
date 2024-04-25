@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
 
 const NeonFrameButton = ({ id, text, onClick, disabled }) => {
+
+
   const disabledClass = "border-[#A8A8A8] text-[#A8A8A8] cursor-not-allowed";
   return (
     <div className="md:col-span-4 sm:col-span-6 col-span-12">

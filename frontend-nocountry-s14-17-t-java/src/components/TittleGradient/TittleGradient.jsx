@@ -7,7 +7,7 @@ const TittleGradient = ({ user, voting }) => {
       >
         {user}
       </span>{" "}
-       estas votando a {" "}
+       estas calificando a {" "}
       <br></br>
       <span
         className="text-gray-400"

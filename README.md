@@ -20,6 +20,27 @@ Se suministrará dentro del tablero de control, algunos indicadores de ejemplo, 
 
 Como frutillita del postre, los datos recabados, pueden ser exportados para su posterior consumo o análisis en otras herramientas de trabajo.
 
+## 🚀 Usuarios para los roles :
+
+**_Usuario con un unico grupo a calificar_**:
+
+- Email: g44ravarotto@gmail.com
+- Password: 12345678
+
+**_Usuario con mas grupos a calificar(TL)_**:
+
+- Email: mikhail@gmail.com
+- Password: 12345678
+
+**_Usuario Staff de No Country_**:
+
+- Email: vero@gmail.com
+- Password: 12345678
+
+- Email: romina@gmail.com
+- Password: 12345678
+
+
 ## 🚀 Características y Funcionalidades:
 
 **_Gestión de proyectos_**:
@@ -234,3 +255,20 @@ http://localhost:8080/swagger-ui/index.html
 **PASS_DATABASE** = "el password de su usuario, no es necesario modificar si usa el por defecto admin"
 
 ##### 9.Para probar junto al frontend, tenga en cuenta que la direccion de su servidor backend corre en el puerto 8080
+
+## 🔎🐞 Evidencia Tester QA
+#### Especificación de Requerimientos:
+  https://drive.google.com/file/d/1F6O3ZLXP0OG30zl9-6g6s_033KsdLy48/view?usp=sharing
+
+#### Historias de Usuario y Criterios de Aceptación:
+  https://drive.google.com/file/d/1G0K8AsTESmeFZJOcNL5HZ9ItxgU35wBM/view?usp=sharing
+
+#### Testing (Graficos y Resultados):
+  https://drive.google.com/drive/folders/1brvVIy1njIpzNQCwX1A-6DnGa_hcu1Rs?usp=sharing
+
+#### Herramientas de Gestión de Proyecto (Trello):
+  <li>Back: https://drive.google.com/file/d/13d6_diVyCQUBWAAB3TR_9bjpJoFK0EfN/view?usp=sharing</li>
+  <li>Front: https://drive.google.com/file/d/1kF6vyVyriG8oELLKNskqN9e0zOVJ1Ebd/view?usp=sharing</li>
+
+#### Encuesta colaborativa:
+  https://drive.google.com/file/d/1Dn5uWmtl-MG0h1NUfgW1K1709s4zBORT/view?usp=sharing

@@ -1,14 +1,15 @@
 import flags from "../../data/flags.json";
 // import users from "../../data/users.json";
 
-
-const DashboarTable = ( { users }) => {
+const DashboarTable = ({ users }) => {
   const rolColors = {
     PM: "text-[#DB540D]",
     QA: "text-[#DB2D4B]",
     "UX/UI": "text-[#3DDB0D]",
     Backend: "text-[#400DDB]",
     Frontend: "text-[#830DDB]",
+    "Team Leader": "text-[#09FCA7]",
+    Participante: "text-[#09F7]",
   };
   return (
     <div className="min-w-full bg-black text-white">
@@ -42,7 +43,7 @@ const DashboarTable = ( { users }) => {
                   <div className="flex items-center md:gap-3">
                     <div>
                       <div className="font-bold md:text-lg text-[10px] flex md:gap-12">
-                        {user.nombres} {user.apellidos}
+                        {user.name} {user.surname}
                       </div>
                       <div className="text-sm opacity-50 md:text-lg text-[8px]">
                         {user.email}
@@ -65,7 +66,7 @@ const DashboarTable = ( { users }) => {
                   </div>
                 </td>
                 <td>
-                  {user.state ? (
+                  {user.state == "A" ? (
                     <div className="daisy-badge daisy-badge-success badge-outline w-auto  whitespace-nowrap md:text-lg text-[7px]">
                       Activo
                     </div>
