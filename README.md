@@ -20,6 +20,27 @@ Se suministrará dentro del tablero de control, algunos indicadores de ejemplo, 
 
 Como frutillita del postre, los datos recabados, pueden ser exportados para su posterior consumo o análisis en otras herramientas de trabajo.
 
+## 🚀 Usuarios para los roles :
+
+**_Usuario con un unico grupo a calificar_**:
+
+- Email: g44ravarotto@gmail.com
+- Password: 12345678
+
+**_Usuario con mas grupos a calificar(TL)_**:
+
+- Email: mikhail@gmail.com
+- Password: 12345678
+
+**_Usuario Staff de No Country_**:
+
+- Email: vero@gmail.com
+- Password: 12345678
+
+- Email: romina@gmail.com
+- Password: 12345678
+
+
 ## 🚀 Características y Funcionalidades:
 
 **_Gestión de proyectos_**:
