@@ -17,15 +17,12 @@ function HomeContent() {
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  /*   const user = "Camilo"; */
-
   const resetDataGroups = () => {
     setGroup(null);
     localStorage.removeItem("selectedGroup");
     localStorage.removeItem("users");
   };
-  console.log(members);
-  console.log(auth.email);
+
   const usersFiltered = members
     .filter((user) => user.email !== auth.email)
     .sort((a, b) => a.id - b.id);
@@ -105,14 +102,12 @@ function HomeContent() {
                 <h3>Tus compañeros de equipo son:</h3>
               </div>
               <div className="flex flex-wrap items-center justify-center h-24">
-                {!group && groups.length > 1 ? (
+                {groups.length > 1 ? (
                   <ButtonNeon
                     text="Volver a grupos"
                     onClick={resetDataGroups}
                   />
-                ) : (
-                  <></>
-                )}
+                ) : null}
               </div>
             </div>
             <div className="ml-auto">
