@@ -7,13 +7,11 @@ import groupsService from "../../../services/groupsService";
 
 function Dashboard() {
   const [users, setUsers] = useState([]);
-  console.log(users);
 
   useEffect(() => {
     const fetchGroups = async () => {
       try {
-        const groupsData =
-          await groupsService.member(1);
+        const groupsData = await groupsService.member(1);
         setUsers(groupsData);
       } catch (error) {
         console.error("Error fetching groups:", error);

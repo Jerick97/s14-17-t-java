@@ -8,7 +8,6 @@ const HeaderHome = () => {
   const { logout, group } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  console.log(group);
   const handlerlogout = () => {
     logout();
     navigate("/login");
@@ -20,7 +19,7 @@ const HeaderHome = () => {
           <Logo />
         </Link>
         <div className="flex gap-4">
-          {group ? <ButtonNeon text={group.text}/> : <></>}
+          {group ? <ButtonNeon text={group.text} /> : <></>}
           <ButtonNeon text="Log Out" onClick={handlerlogout} />
         </div>
       </div>
